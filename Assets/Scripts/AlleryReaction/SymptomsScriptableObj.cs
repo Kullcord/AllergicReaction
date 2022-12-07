@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Symptoms", menuName = "Symptoms/SymptomType")]
-public class Symptoms : ScriptableObject
+public class SymptomsScriptableObj : ScriptableObject
 {
     public enum Reaction
     {
