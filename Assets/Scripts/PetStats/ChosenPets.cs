@@ -7,17 +7,10 @@ public class ChosenPets : MonoBehaviour
 {
     public int maxPets = 5;
     public PetStatsRandomizer randomizer;
-    public List<ChosenPetStats> petsChosen = new List<ChosenPetStats>();
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
 
     public void ChoosePet()
     {
-        if(petsChosen.Count >= maxPets )
+        if(MyPets.petsChosen.Count >= maxPets )
             return;
         ChosenPetStats petStats = new ChosenPetStats();
         petStats.petID = randomizer.petID;
@@ -29,7 +22,7 @@ public class ChosenPets : MonoBehaviour
         petStats.hunger = randomizer.hunger;
         petStats.love = randomizer.love;
         
-        petsChosen.Add(petStats);
+        MyPets.petsChosen.Add(petStats);
     }
 }
 [Serializable]
@@ -44,4 +37,9 @@ public class ChosenPetStats
     public float thirst;
     public float hunger;
     public float love;
+}
+
+public static class MyPets
+{
+    public static List<ChosenPetStats> petsChosen = new List<ChosenPetStats>();
 }

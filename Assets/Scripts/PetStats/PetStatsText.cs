@@ -27,27 +27,27 @@ public class PetStatsText : MonoBehaviour
 
     public void UpdateChosenPets()
     {
-        for (int i = 0; i < chosenPetsScript.petsChosen.Count; i++)
+        for (int i = 0; i < MyPets.petsChosen.Count; i++)
         {
             chosenPetsImg[i].GetComponent<Button>().enabled = true;
-            petsChosenText[i].text = chosenPetsScript.petsChosen[i].petID + " chosen";
+            petsChosenText[i].text = MyPets.petsChosen[i].petID + " chosen";
         }
     }
     
     public void DeletePet()
     {
-        if (chosenPetsScript.petsChosen.Count == 0 || chosenPetsScript.petsChosen[currentSelectedPet] == null)
+        if (MyPets.petsChosen.Count == 0 || MyPets.petsChosen[currentSelectedPet] == null)
         {
             print("there is no pet to remove");
             return;
         }
-        if (chosenPetsScript.petsChosen[currentSelectedPet] != null)
+        if (MyPets.petsChosen[currentSelectedPet] != null)
         {
-            chosenPetsScript.petsChosen.Remove(chosenPetsScript.petsChosen[currentSelectedPet]);
+            MyPets.petsChosen.Remove(MyPets.petsChosen[currentSelectedPet]);
             petsChosenText[currentSelectedPet].text = "No pet chosen";
-            petsChosenText[chosenPetsScript.petsChosen.Count].text = "No pet chosen";
+            petsChosenText[MyPets.petsChosen.Count].text = "No pet chosen";
             chosenPetsImg[currentSelectedPet].GetComponent<Button>().enabled = false;
-            chosenPetsImg[chosenPetsScript.petsChosen.Count].GetComponent<Button>().enabled = false;
+            chosenPetsImg[MyPets.petsChosen.Count].GetComponent<Button>().enabled = false;
 
             UpdateChosenPets();
             
@@ -88,7 +88,7 @@ public class PetStatsText : MonoBehaviour
         }
         else
         {
-            if (chosenPetsScript.petsChosen[whichPet] == null)
+            if (MyPets.petsChosen[whichPet] == null)
             {
                 print("there is no pet to choose");
                 return;
@@ -96,29 +96,29 @@ public class PetStatsText : MonoBehaviour
 
             currentSelectedPet = whichPet;
 
-            petInfoText[0].text = "Pet Id: " + chosenPetsScript.petsChosen[whichPet].petID;
+            petInfoText[0].text = "Pet Id: " + MyPets.petsChosen[whichPet].petID;
             string allergensText = "";
             string symptomsText = "";
-            for (int index = 0; index < chosenPetsScript.petsChosen[whichPet].allergies.Length; index++)
+            for (int index = 0; index < MyPets.petsChosen[whichPet].allergies.Length; index++)
             {
-                allergensText += " - " + chosenPetsScript.petsChosen[whichPet].allergies[index].allergenItem.itemType;
-                symptomsText += " - " + chosenPetsScript.petsChosen[whichPet].allergies[index].symptom.symptomType;
+                allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItem.itemType;
+                symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom.symptomType;
             }
 
             petInfoText[1].text = "Allergens: " + allergensText;
             petInfoText[2].text = "Symptoms: " + symptomsText;
             petInfoText[3].text = "Personality: ";
-            statSliders[0].value = chosenPetsScript.petsChosen[whichPet].personality;
+            statSliders[0].value = MyPets.petsChosen[whichPet].personality;
             petInfoText[4].text = "Curiosity: ";
-            statSliders[1].value = chosenPetsScript.petsChosen[whichPet].curiosity;
+            statSliders[1].value = MyPets.petsChosen[whichPet].curiosity;
             petInfoText[5].text = "Attention Span: ";
-            statSliders[2].value = chosenPetsScript.petsChosen[whichPet].attentionSpan;
+            statSliders[2].value = MyPets.petsChosen[whichPet].attentionSpan;
             petInfoText[6].text = "Thirst: ";
-            statSliders[3].value = chosenPetsScript.petsChosen[whichPet].thirst;
+            statSliders[3].value = MyPets.petsChosen[whichPet].thirst;
             petInfoText[7].text = "Hunger: ";
-            statSliders[4].value = chosenPetsScript.petsChosen[whichPet].hunger;
+            statSliders[4].value = MyPets.petsChosen[whichPet].hunger;
             petInfoText[8].text = "Love: ";
-            statSliders[5].value = chosenPetsScript.petsChosen[whichPet].love;
+            statSliders[5].value = MyPets.petsChosen[whichPet].love;
             
             //Setting up UI
             uiObj[0].SetActive(true);
