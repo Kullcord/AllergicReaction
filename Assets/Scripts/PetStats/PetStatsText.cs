@@ -1,40 +1,55 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PetStatsText : MonoBehaviour
 {
-    [SerializeField]private PetStatsRandomizer statsRandomizer;
+    [SerializeField]private PetsAndStats stats;
+    public int currentSelectedPet; //Current selected out of the pets added
+
+    //For showing traits information
     public TextMeshProUGUI[] petInfoText;
     public Slider[] statSliders;
-    //For Showing Chosen Pets
-    public ChosenPets chosenPetsScript;
-    public TextMeshProUGUI[] petsChosenText;
-    public GameObject[] uiObj;//until 2 it's panel info about pets
-    public Image[] chosenPetsImg;
-    public int currentSelectedPet;
+    
+    public TextMeshProUGUI[] petsChosenText; //For Showing Chosen Pets on the boxes
+    public GameObject[] uiObj;//until 2 it's panel info about pets/ 3-go to map button
+    public Image[] chosenPetsImg; //For visualizing how many pets you can add
+  
     private void Start()
     {
-        for (int i = 0; i < chosenPetsScript.maxPets; i++)
+        for (int i = 0; i < stats.maxPets; i++)
         {
             petsChosenText[i].text = "No pet chosen";
-            chosenPetsImg[i].color = Color.white;//show how many available slots your have
+            chosenPetsImg[i].color = Color.white; //show how many available slots your have
         }
     }
-
-    public void UpdateChosenPets()
+    
+    /// <summary>
+    /// Update the box with chosen pets whenever it is changed
+    /// </summary>
+    public void VisuallyUpdateChosenPets()
     {
         for (int i = 0; i < MyPets.petsChosen.Count; i++)
         {
             chosenPetsImg[i].GetComponent<Button>().enabled = true;
             petsChosenText[i].text = MyPets.petsChosen[i].petID + " chosen";
         }
+
+        //Show Choose Map Button if you have chosen at least 1 pet 
+        if (MyPets.petsChosen.Count != 0)
+        {
+            uiObj[3].SetActive(true);
+        }
+        else
+        {
+            uiObj[3].SetActive(false);
+        }
     }
     
-    public void DeletePet()
+    /// <summary>
+    /// Remove a chosen pet
+    /// </summary>
+    public void RemovePet()
     {
         if (MyPets.petsChosen.Count == 0 || MyPets.petsChosen[currentSelectedPet] == null)
         {
@@ -49,50 +64,62 @@ public class PetStatsText : MonoBehaviour
             chosenPetsImg[currentSelectedPet].GetComponent<Button>().enabled = false;
             chosenPetsImg[MyPets.petsChosen.Count].GetComponent<Button>().enabled = false;
 
-            UpdateChosenPets();
+            VisuallyUpdateChosenPets();
             
+            //Setting up UI
             uiObj[0].SetActive(false);//the whole panel
             uiObj[1].SetActive(true);//Add button
             uiObj[2].SetActive(false);//Remove button
         }
     }
-
+    /// <summary>
+    /// Sets up the text to show traits information about the pet
+    /// </summary>
+    /// <param name="whichPet">Which pet was chosen out of the ones added/ write 10 if it's randomly generated pet</param>
     public void SetUpTextInfo(int whichPet = 10)
     {
         if (whichPet == 10) //show info about a randomized pet
         {
-            petInfoText[0].text = "Pet Id: " + statsRandomizer.petID;
+            
+            petInfoText[0].text = "Pet Id: " + stats.randomPet.petID;
             string allergensText = "";
             string symptomsText = "";
-            for (int index = 0; index < statsRandomizer.allergies.Length; index++)
+            //in the text show all types of allergens and symptoms
+            for (int index = 0; index < stats.randomPet.allergies.Length; index++)
             {
-                allergensText += " - " + statsRandomizer.allergies[index].allergenItem.itemType;
-                symptomsText += " - " + statsRandomizer.allergies[index].symptom.symptomType;
+                allergensText += " - " + stats.randomPet.allergies[index].allergenItem.itemType;
+                symptomsText += " - " + stats.randomPet.allergies[index].symptom;
             }
 
             petInfoText[1].text = "Allergens: " + allergensText;
             petInfoText[2].text = "Symptoms: " + symptomsText;
+            
             petInfoText[3].text = "Personality: ";
-            statSliders[0].value = statsRandomizer.personality;
+            statSliders[0].value = stats.randomPet.personality;
+            
             petInfoText[4].text = "Curiosity: ";
-            statSliders[1].value = statsRandomizer.curiosity;
+            statSliders[1].value = stats.randomPet.curiosity;
+            
             petInfoText[5].text = "Attention Span: ";
-            statSliders[2].value = statsRandomizer.attentionSpan;
+            statSliders[2].value = stats.randomPet.attentionSpan;
+            
             petInfoText[6].text = "Thirst: ";
-            statSliders[3].value = statsRandomizer.thirst;
+            statSliders[3].value = stats.randomPet.thirst;
+            
             petInfoText[7].text = "Hunger: ";
-            statSliders[4].value = statsRandomizer.hunger;
+            statSliders[4].value = stats.randomPet.hunger;
+            
             petInfoText[8].text = "Love: ";
-            statSliders[5].value = statsRandomizer.love;
+            statSliders[5].value = stats.randomPet.love;
 
         }
-        else
+        else //Show info about an added pet you chose to read about
         {
             if (MyPets.petsChosen[whichPet] == null)
             {
                 print("there is no pet to choose");
                 return;
-            } //show information about a chosen pet
+            }
 
             currentSelectedPet = whichPet;
 
@@ -102,22 +129,17 @@ public class PetStatsText : MonoBehaviour
             for (int index = 0; index < MyPets.petsChosen[whichPet].allergies.Length; index++)
             {
                 allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItem.itemType;
-                symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom.symptomType;
+                symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom;
             }
 
             petInfoText[1].text = "Allergens: " + allergensText;
             petInfoText[2].text = "Symptoms: " + symptomsText;
-            petInfoText[3].text = "Personality: ";
+            
             statSliders[0].value = MyPets.petsChosen[whichPet].personality;
-            petInfoText[4].text = "Curiosity: ";
             statSliders[1].value = MyPets.petsChosen[whichPet].curiosity;
-            petInfoText[5].text = "Attention Span: ";
             statSliders[2].value = MyPets.petsChosen[whichPet].attentionSpan;
-            petInfoText[6].text = "Thirst: ";
             statSliders[3].value = MyPets.petsChosen[whichPet].thirst;
-            petInfoText[7].text = "Hunger: ";
             statSliders[4].value = MyPets.petsChosen[whichPet].hunger;
-            petInfoText[8].text = "Love: ";
             statSliders[5].value = MyPets.petsChosen[whichPet].love;
             
             //Setting up UI

@@ -23,3 +23,15 @@ public class Allergy : MonoBehaviour
     }
 }
 
+public static class Symptoms{
+    public enum Reactions
+    {
+        Itching,
+        Wheezing,
+        Vomiting,
+        Swelling,
+        Anaphylaxis
+    }
+    
+}
+

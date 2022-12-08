@@ -41,7 +41,7 @@ public class Item : ScriptableObject
     
     //if it's a remedy
     [HideInInspector] public bool isRemedy;//if ticked yes then show next
-    [HideInInspector] public SymptomsScriptableObj.Reaction[] reactionType = new SymptomsScriptableObj.Reaction[5];//how much is it gonna help with each symptom
+    [HideInInspector] public Symptoms.Reactions[] reactionType = new Symptoms.Reactions[5];//how much is it gonna help with each symptom
     [HideInInspector] public float[] successRate = new float[5];//how much is it gonna help with each symptom
     
     //if it's an allergen
@@ -74,8 +74,8 @@ public class Item : ScriptableObject
                 for (int i = 0; i < script.reactionType.Length; i++)
                 {
                     EditorGUILayout.BeginHorizontal();
-                    script.reactionType[i] = (SymptomsScriptableObj.Reaction)EditorGUILayout.EnumPopup(script.reactionType[i], GUILayout.MaxWidth(100));
-                    script.reactionType[i] = (SymptomsScriptableObj.Reaction) i;
+                    script.reactionType[i] = (Symptoms.Reactions)EditorGUILayout.EnumPopup(script.reactionType[i], GUILayout.MaxWidth(100));
+                    script.reactionType[i] = (Symptoms.Reactions) i;
                     script.successRate[i] = EditorGUILayout.Slider("Success rate",script.successRate[i], 0, 100);
                     EditorGUILayout.EndHorizontal();
                 }
