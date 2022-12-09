@@ -87,7 +87,7 @@ public class PetStatsText : MonoBehaviour
             //in the text show all types of allergens and symptoms
             for (int index = 0; index < stats.randomPet.allergies.Length; index++)
             {
-                allergensText += " - " + stats.randomPet.allergies[index].allergenItem.itemType;
+                allergensText += " - " + stats.randomPet.allergies[index].allergenItemScriptObj.itemType;
                 symptomsText += " - " + stats.randomPet.allergies[index].symptom;
             }
 
@@ -128,7 +128,7 @@ public class PetStatsText : MonoBehaviour
             string symptomsText = "";
             for (int index = 0; index < MyPets.petsChosen[whichPet].allergies.Length; index++)
             {
-                allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItem.itemType;
+                allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItemScriptObj.itemType;
                 symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom;
             }
 

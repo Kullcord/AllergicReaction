@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Allergy : MonoBehaviour
 {
     public SymptomReaction[] reaction = new SymptomReaction[1];
     public bool hasAllergicReaction;
+
+    public Slider allergyMeter;
     void Start()
     {
+        allergyMeter.value = 0;
     }
 
     // Update is called once per frame
@@ -16,9 +20,11 @@ public class Allergy : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Starts a reaction after an allergen has been eaten
+    /// </summary>
     public void AllergenIngested()
     {
-        //if the item eaten is an allergen start reaction 
         //the allergen meter is full, 
     }
 }

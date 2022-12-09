@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class PetsAndStats : MonoBehaviour
@@ -10,9 +11,9 @@ public class PetsAndStats : MonoBehaviour
     public ChosenPetStats randomPet = new ChosenPetStats();
     
     [Tooltip("Add all item obj here")]
-    [SerializeField]private Item[] allItems;
-    private List<Item> allAllergenItems = new List<Item>();
-    private List<Item> allAllergensUsed;
+    [SerializeField]private ItemScriptObj[] allItems;
+    private List<ItemScriptObj> allAllergenItems = new List<ItemScriptObj>();
+    private List<ItemScriptObj> allAllergensUsed;
     [Tooltip("Add all item obj here")]
     [SerializeField]private Symptoms.Reactions[] allSymptoms;
     private List<Symptoms.Reactions> symptomsUsed;
@@ -46,8 +47,8 @@ public class PetsAndStats : MonoBehaviour
         {
             randomPet.allergies[i] = new SymptomReaction();
             //choose random allergen
-            randomPet.allergies[i].allergenItem = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
-            allAllergensUsed.Remove(randomPet.allergies[i].allergenItem);
+            randomPet.allergies[i].allergenItemScriptObj = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
+            allAllergensUsed.Remove(randomPet.allergies[i].allergenItemScriptObj);
             //choose random reaction
             randomPet.allergies[i].symptom = symptomsUsed[Random.Range(0, symptomsUsed.Count)];
             symptomsUsed.Remove(randomPet.allergies[i].symptom);
@@ -90,8 +91,8 @@ public class PetsAndStats : MonoBehaviour
 [Serializable]
 public class SymptomReaction
 {
-    [Tooltip("The allergen causing the reaction")]
-    public Item allergenItem;
+    [FormerlySerializedAs("allergenItem")] [Tooltip("The allergen causing the reaction")]
+    public ItemScriptObj allergenItemScriptObj;
     [Tooltip("What allergic reaction he can have")]
     public Symptoms.Reactions symptom;
 }
