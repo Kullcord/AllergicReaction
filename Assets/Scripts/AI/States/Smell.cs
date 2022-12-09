@@ -4,81 +4,74 @@ using UnityEngine;
 
 public class Smell : State
 {
-    [Range (0.0f, 1000.0f)]
-    [SerializeField] private float maxTime;
-    [SerializeField] private float currentTime;
     private bool done = false;
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
         Vector3 distance = transform.position - manager.objectToInvestigate.transform.position;
 
-        if (currentTime < manager.stats.atention * maxTime)
-        {
-
-            if (distance.magnitude < 2.5f)
+        //if(manager.objectToInvestigate != null)
+        //{
+            if (manager.currentTime < manager.stats.atention * manager.maxTime)
             {
-                /*Stop agent
-                * Play animation
-                * Need to implement eating mechanic
-                * Need to create chance for eating
-                * Idk yet how the chance for eating will be
-                */
-                currentTime += Time.time / 10;
-
-                if (!done)
+                if (distance.magnitude < 2.5f)
                 {
-                    Debug.Log("Smelling");
+                    /* Play animation
+                    * Need to create chance for eating
+                    * Idk yet how the chance for eating will be
+                    * NEED TO SOMEHOW CHECK IF THE OBJECT TO INVESTIGATE IS ALREADY IN USE
+                    */
+                    manager.currentTime += Time.deltaTime;
 
+                    if (!done)
+                    {
+                        Debug.Log("Smelling");
 
-                    manager.agent.isStopped = true;
+                        manager.agent.isStopped = true;
 
-                    //manager.agent.SetDestination(manager.agent.transform.position);
+                        done = true;
+                    }
 
-                    //if allergic reaction
-                    //then start reaction state
-
-                    done = true;
                 }
+                else
+                    MoveTowards(manager);
 
+                return this;
             }
             else
-                MoveTowards(manager);
+            {
+                manager.currentTime = 0.0f;
 
+                manager.agent.isStopped = false;
 
-            return this;
-        }
-        else
-        {
-            //If(!allergicReaction)
-            //{
-            currentTime = 0.0f;
+                if (!manager.previeousObject.Contains(manager.objectToInvestigate))
+                    manager.previeousObject.Add(manager.objectToInvestigate);
 
-            manager.agent.isStopped = false;
+                manager.Eat(manager.objectToInvestigate);
+                /*manager.goList.Remove(manager.objectToInvestigate);*/
+                manager.objectToInvestigate = null;
+                manager.allergenOBJ = null;
 
-            if (!manager.previeousObject.Contains(manager.objectToInvestigate))
-                manager.previeousObject.Add(manager.objectToInvestigate);
+                done = false;
 
-            manager.Eat(manager.objectToInvestigate);
-            manager.goList.Remove(manager.objectToInvestigate);
-            manager.objectToInvestigate = null;
-
-            done = false;
-
-            return manager.exploreState;
-            //}
-            //else
-            //{
-            // return allergy reaction state
-            //}
-        }
+                //If(!allergicReaction)
+                //{
+                return manager.exploreState;
+                //}
+                //else
+                //{
+                // return allergy reaction state
+                //}
+            }
+        //} else
+            //return manager.exploreState;
     }
 
     private void MoveTowards(StateManager manager)
     {
         manager.agent.SetDestination(manager.objectToInvestigate.transform.position);
 
-        currentTime = 0.0f;
+        manager.currentTime = 0.0f;
     }
 
 }

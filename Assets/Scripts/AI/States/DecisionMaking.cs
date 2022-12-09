@@ -6,59 +6,92 @@ public class DecisionMaking : State
 {
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] private GameObject objWithSmallestDist;
+    private float previousNr;
+    private float randomAction;
+
     private bool doneOnce = false;
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
         Detection(manager);
 
-
         if (!manager.stats.isHungry || !manager.stats.isThirsty)
         {
-            /*Here I will need to create a chance calculator basically
-            * It will calculate based on the curiosity stat,
-            * My idea at the moment is:
-            * Create a random number from -1 to 1, 
-            * then add the curiosity level
-            * and then if the number is positive( > 0) then smell
-            * if the number is negative(<0) then explore
-            * I need to also think of a way of choosing between digging or smelling
-            */
-            if (manager.goList.Count != 0)
+            if (!doneOnce)
             {
-                /*For the choice between dig or smell, 
-                 * One is true one is false, for example:
-                 * Dig is true
-                 * Smell is false
-                 * Create a bool that would randomly generate one of this two
-                 * Then if true execute dig
-                 * if false execute smell
-                 */
-                if (manager.stats.curiosity > 0.5f && !doneOnce)
+                float rnd = Random.Range(-1.0f, 1.0f);
+                randomAction = rnd + manager.stats.curiosity;
+
+                Debug.Log("random action is: " + randomAction);
+
+                if(previousNr != randomAction)
                 {
-                    doneOnce = true;
+                    if(randomAction > 0)
+                    {
+                        if (manager.goList.Count != 0)
+                        {
+                            manager.objectToInvestigate = FindObjWithSmallestDist(manager);
+                            //Need to somehow check if there is not another pet near
+                            //NEED TO SOMEHOW CHECK IF THE OBJECT TO INVESTIGATE IS ALREADY IN USE
 
-                    int randomOBJ = Random.Range(0, manager.goList.Count);
+                            if (!manager.previeousObject.Contains(manager.objectToInvestigate) && manager.goList.Contains(manager.objectToInvestigate))
+                            {
+                                doneOnce = false;
 
-                    manager.objectToInvestigate = manager.goList[randomOBJ];
-                    //manager.goList.Remove(manager.objectToInvestigate);
+                                for (int i = 0; i < manager.goList.Count; i++)
+                                {
+                                    manager.goList.RemoveAt(i);
+                                }
 
-                    if (!manager.previeousObject.Contains(manager.objectToInvestigate) &&
-                        manager.goList.Contains(manager.objectToInvestigate))
+                                return manager.smellState;
+                            }
+                        }
+                        else
+                        {
+                            doneOnce = false;
+
+                            return manager.exploreState;
+                       
+                        }
+                    }
+                    else if(randomAction <= 0)
                     {
                         doneOnce = false;
 
-                        return manager.smellState;
+                        for (int i = 0; i < manager.goList.Count; i++)
+                        {
+                            manager.goList.RemoveAt(i);
+                        }
+
+                        return manager.digState;
                     }
+
+                    doneOnce = true;
+                    previousNr = randomAction;
                 }
-                else
-                    return manager.exploreState;
-            }
-            else
-                return manager.exploreState;
+            } 
         }
 
         return this;
+    }
+
+    private GameObject FindObjWithSmallestDist(StateManager manager)
+    {
+        GameObject nearestObj = null;
+
+        foreach (GameObject obj in manager.goList)
+        {
+            var nearestDist = float.MaxValue;
+
+            if (Vector3.Distance(obj.transform.position, transform.position) < nearestDist)
+            {
+                nearestDist = Vector3.Distance(obj.transform.position, transform.position);
+                nearestObj = obj;
+            }
+        }
+
+        return nearestObj;
     }
 
     private void Detection(StateManager manager)

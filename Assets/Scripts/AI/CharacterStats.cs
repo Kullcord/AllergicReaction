@@ -7,7 +7,7 @@ public class CharacterStats : MonoBehaviour
     #region Fields
 
     [Header("Allergens")]
-    public List<Item> allergends;
+    public List<ItemScriptObj> allergends;
     public List<Symptoms.Reactions> allergyLevel;
 
     [Header("Pet Stats")]

@@ -7,31 +7,35 @@ public class StateManager : MonoBehaviour
 {
     #region Fields
 
+    [SerializeField] private int id;
+
     [Header("Refferences")]
     public CharacterStats stats;
-    public State currentState;
     public NavMeshAgent agent;
 
     [Header("Item Detection")]
     public GameObject objectToInvestigate;
     public List<GameObject> goList = new List<GameObject>();
     public List<GameObject> previeousObject = new List<GameObject>();
-
-    [SerializeField] private bool collidedWithItem = false;
-    private bool alreadyDone = false;
+    public ItemScriptObj allergenOBJ;
 
     [Header ("States")]
+    public State currentState;
     public Explore exploreState;
     public Smell smellState;
     public Dig digState;
     public DecisionMaking decisionState;
 
-    //[SerializeField] private List<State> stateList;
+    [Header("Attention Span")]
+    [Range(0.0f, 1000.0f)]
+    public float maxTime;
+    public float currentTime;
 
     #endregion
 
     private void Awake()
     {
+
         stats = GetComponent<CharacterStats>();
 
         exploreState = GetComponent<Explore>();
@@ -42,6 +46,12 @@ public class StateManager : MonoBehaviour
 
     private void Update()
     {
+        if (id != stats.petID)
+        {
+            Debug.LogError("PetID: " + stats.petID + " does not match AI id: " + id);
+            return;
+        }
+
         HandleStateMachine();
     }
 
@@ -65,32 +75,22 @@ public class StateManager : MonoBehaviour
     {
         obj.SetActive(false);
 
+        allergenOBJ = objectToInvestigate.GetComponent<ItemPhysicalOBJ>().itemObj;
+
+        //If allergy
+        if (allergenOBJ.isAllergen)
+        {
+
+            if (stats.allergends.Contains(allergenOBJ))
+                Debug.Log("Do Allergic reaction");
+
+        }
+
         //also decrease the hunger stat
         Debug.Log("Decrease hunger");
 
-        //If allergy
-        Debug.Log("Do allergy reaction");
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Might need to make a better collision check
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
-            collidedWithItem = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
-            collidedWithItem = false;
-
-        //alreadyDone = false;
-    }
-
-    /*public void Drink(GameObject obj)
-    {
-
-    }*/
 }
 
 
