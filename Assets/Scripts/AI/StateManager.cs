@@ -7,12 +7,18 @@ public class StateManager : MonoBehaviour
 {
     #region Fields
 
+    [Header("Refferences")]
     public CharacterStats stats;
     public State currentState;
     public NavMeshAgent agent;
-    public List<GameObject> goList = new List<GameObject>();
+
+    [Header("Item Detection")]
     public GameObject objectToInvestigate;
+    public List<GameObject> goList = new List<GameObject>();
     public List<GameObject> previeousObject = new List<GameObject>();
+
+    [SerializeField] private bool collidedWithItem = false;
+    private bool alreadyDone = false;
 
     [Header ("States")]
     public Explore exploreState;
@@ -54,6 +60,37 @@ public class StateManager : MonoBehaviour
     {
         currentState = state;
     }
+
+    public void Eat(GameObject obj)
+    {
+        obj.SetActive(false);
+
+        //also decrease the hunger stat
+        Debug.Log("Decrease hunger");
+
+        //If allergy
+        Debug.Log("Do allergy reaction");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Might need to make a better collision check
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
+            collidedWithItem = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
+            collidedWithItem = false;
+
+        //alreadyDone = false;
+    }
+
+    /*public void Drink(GameObject obj)
+    {
+
+    }*/
 }
 
 

@@ -6,12 +6,14 @@ public class DecisionMaking : State
 {
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private LayerMask detectionLayer;
+    private bool doneOnce = false;
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
         Detection(manager);
 
-        if(!manager.stats.isHungry || !manager.stats.isThirsty)
+
+        if (!manager.stats.isHungry || !manager.stats.isThirsty)
         {
             /*Here I will need to create a chance calculator basically
             * It will calculate based on the curiosity stat,
@@ -32,15 +34,25 @@ public class DecisionMaking : State
                  * Then if true execute dig
                  * if false execute smell
                  */
-                if (manager.stats.curiosity > 0.5f)
+                if (manager.stats.curiosity > 0.5f && !doneOnce)
                 {
+                    doneOnce = true;
+
                     int randomOBJ = Random.Range(0, manager.goList.Count);
 
                     manager.objectToInvestigate = manager.goList[randomOBJ];
+                    //manager.goList.Remove(manager.objectToInvestigate);
 
-                    if(!manager.previeousObject.Contains(manager.objectToInvestigate))
+                    if (!manager.previeousObject.Contains(manager.objectToInvestigate) &&
+                        manager.goList.Contains(manager.objectToInvestigate))
+                    {
+                        doneOnce = false;
+
                         return manager.smellState;
+                    }
                 }
+                else
+                    return manager.exploreState;
             }
             else
                 return manager.exploreState;
@@ -54,7 +66,7 @@ public class DecisionMaking : State
         Collider[] collider = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
         foreach(Collider col in collider)
         {
-            if(!manager.goList.Contains(col.gameObject))
+            if (!manager.goList.Contains(col.gameObject) && !manager.previeousObject.Contains(col.gameObject))
                 manager.goList.Add(col.gameObject);
         }
         

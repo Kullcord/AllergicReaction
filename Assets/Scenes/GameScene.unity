@@ -1134,6 +1134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkPoint: {x: 0, y: 0, z: 0}
+  previousWalkpoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 10
   groundLayer:
@@ -1154,8 +1155,10 @@ MonoBehaviour:
   stats: {fileID: 0}
   currentState: {fileID: 940833537}
   agent: {fileID: 940833533}
-  goList: []
   objectToInvestigate: {fileID: 0}
+  goList: []
+  previeousObject: []
+  collidedWithItem: 0
   exploreState: {fileID: 0}
   smellState: {fileID: 0}
   digState: {fileID: 0}

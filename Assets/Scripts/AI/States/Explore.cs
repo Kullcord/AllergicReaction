@@ -5,6 +5,7 @@ using UnityEngine;
 public class Explore : State
 {
     public Vector3 walkPoint;
+    public Vector3 previousWalkpoint;
     [SerializeField] private bool walkPointSet;
     public float walkPointRange;
     public LayerMask groundLayer;
@@ -16,6 +17,8 @@ public class Explore : State
         //Walkpoint reached
         if (distanceToWalk.magnitude < 1f)
         {
+            previousWalkpoint = walkPoint;
+
             walkPointSet = false;
             walkPoint = Vector3.zero;
 
@@ -54,6 +57,14 @@ public class Explore : State
             walkPointSet = true;
         else
             walkPointSet = false;
+    }
+
+    //distance between previews walk point and this one needs to be at least bigger than 5f;
+    private bool DistanceBetweenWalkPoints()
+    {
+
+
+        return true;
     }
 }
 
