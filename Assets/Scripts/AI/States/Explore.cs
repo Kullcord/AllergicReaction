@@ -37,7 +37,12 @@ public class Explore : State
         if (!walkPointSet)
             SearchWalkPoint();
         else
-            manager.agent.SetDestination(walkPoint);
+        {
+            if (DistanceBetweenWalkPoints())
+                manager.agent.SetDestination(walkPoint);
+            else
+                SearchWalkPoint();
+        }
     }
 
     private void Delayed()
@@ -62,9 +67,17 @@ public class Explore : State
     //distance between previews walk point and this one needs to be at least bigger than 5f;
     private bool DistanceBetweenWalkPoints()
     {
+        if (previousWalkpoint != walkPoint)
+        {
+            var distance = Vector3.Distance(previousWalkpoint, walkPoint);
 
-
-        return true;
+            if (distance > 8.0f)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
     }
 }
 
