@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   itemType: 0
-  ingredients: 00000000
-  isRemedy: 1
+  ingredients: 0
+  isRemedy: 0
   reactionType: 0000000001000000020000000300000004000000
   successRate:
   - 0
@@ -23,3 +23,4 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  isAllergen: 1
