@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af9ad51682635f848a83b5b757b6c2e1, type: 3}
-  m_Name: Example
+  m_Name: Milk
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
-  itemType: 0
-  ingredients: 0
+  itemType: 2
+  ingredients: 12
   isRemedy: 0
-  reactionType: 0000000001000000020000000300000004000000
+  reactionType: 0000000000000000000000000000000000000000
   successRate:
   - 0
   - 0
