@@ -8,7 +8,7 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Allergens")]
     public List<Item> allergends;
-    public List<Symptoms> allergyLevel;
+    public List<Symptoms.Reactions> allergyLevel;
 
     [Header("Pet Stats")]
     public int petID;
