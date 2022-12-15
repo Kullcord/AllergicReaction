@@ -34,6 +34,7 @@ public class ItemScriptObj : ScriptableObject
     }
 
     public Sprite itemSprite;
+    public GameObject itemGameObject;
     public ItemType itemType;
 
     [HideInInspector] public bool canBuy;

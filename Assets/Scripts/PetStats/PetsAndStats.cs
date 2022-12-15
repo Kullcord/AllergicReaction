@@ -16,7 +16,6 @@ public class PetsAndStats : MonoBehaviour
     private List<ItemScriptObj> allAllergensUsed;
     [Tooltip("Add all item obj here")]
     [SerializeField]private Symptoms.Reactions[] allSymptoms;
-    private List<Symptoms.Reactions> symptomsUsed;
     
     [Space][Tooltip("How many pets can you take care of")]
     public int maxPets = 3;
@@ -37,7 +36,6 @@ public class PetsAndStats : MonoBehaviour
         randomPet.petID = petId;
 
         allAllergensUsed = new(allAllergenItems);
-        symptomsUsed = allSymptoms.ToList();
         
         int randomnr;
         randomnr = Random.Range(1, 5);//random amount of allergens
@@ -50,12 +48,10 @@ public class PetsAndStats : MonoBehaviour
             randomPet.allergies[i].allergenItemScriptObj = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
             allAllergensUsed.Remove(randomPet.allergies[i].allergenItemScriptObj);
             //choose random reaction
-            randomPet.allergies[i].symptom = symptomsUsed[Random.Range(0, symptomsUsed.Count)];
-            symptomsUsed.Remove(randomPet.allergies[i].symptom);
+            randomPet.allergies[i].symptom = allSymptoms[Random.Range(0, allSymptoms.Length)];
         }
 
-        randomPet.personality = Random.Range(0f, 1f);
-        randomPet.curiosity = Random.Range(0f, 1f);
+        randomPet.activeLvl = Random.Range(0f, 1f);
         randomPet.attentionSpan = Random.Range(0f, 1f);
         randomPet.thirst = Random.Range(0f, 1f);
         randomPet.hunger = Random.Range(0f, 1f);
@@ -72,8 +68,7 @@ public class PetsAndStats : MonoBehaviour
         ChosenPetStats petStats = new ChosenPetStats();
         petStats.petID = randomPet.petID;
         petStats.allergies = randomPet.allergies;
-        petStats.personality = randomPet.personality;
-        petStats.curiosity = randomPet.curiosity;
+        petStats.activeLvl = randomPet.activeLvl;
         petStats.attentionSpan = randomPet.attentionSpan;
         petStats.thirst = randomPet.thirst;
         petStats.hunger = randomPet.hunger;
@@ -106,8 +101,7 @@ public class ChosenPetStats
     public int petID;//to know what pet image to insert
     [Space]
     public SymptomReaction[] allergies;
-    public float personality;
-    public float curiosity;
+    public float activeLvl;
     public float attentionSpan;
     public float thirst;
     public float hunger;

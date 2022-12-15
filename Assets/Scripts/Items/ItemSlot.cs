@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
+    public bool isOccupied;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +22,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         print("on drop");
 
-        if (eventData.pointerDrag != null)
+        if (eventData.pointerDrag != null && !isOccupied)
         {
+            isOccupied = true;
+            eventData.pointerDrag.transform.SetParent(gameObject.transform); //set the item's parent to this gameobject
+            
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
                 GetComponent<RectTransform>().anchoredPosition;
         }

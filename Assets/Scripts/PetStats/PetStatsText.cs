@@ -94,23 +94,20 @@ public class PetStatsText : MonoBehaviour
             petInfoText[1].text = "Allergens: " + allergensText;
             petInfoText[2].text = "Symptoms: " + symptomsText;
             
-            petInfoText[3].text = "Personality: ";
-            statSliders[0].value = stats.randomPet.personality;
+            petInfoText[3].text = "Active Level: ";
+            statSliders[0].value = stats.randomPet.activeLvl;
             
-            petInfoText[4].text = "Curiosity: ";
-            statSliders[1].value = stats.randomPet.curiosity;
+            petInfoText[4].text = "Attention Span: ";
+            statSliders[1].value = stats.randomPet.attentionSpan;
             
-            petInfoText[5].text = "Attention Span: ";
-            statSliders[2].value = stats.randomPet.attentionSpan;
+            petInfoText[5].text = "Thirst: ";
+            statSliders[2].value = stats.randomPet.thirst;
             
-            petInfoText[6].text = "Thirst: ";
-            statSliders[3].value = stats.randomPet.thirst;
+            petInfoText[6].text = "Hunger: ";
+            statSliders[3].value = stats.randomPet.hunger;
             
-            petInfoText[7].text = "Hunger: ";
-            statSliders[4].value = stats.randomPet.hunger;
-            
-            petInfoText[8].text = "Love: ";
-            statSliders[5].value = stats.randomPet.love;
+            petInfoText[7].text = "Love: ";
+            statSliders[4].value = stats.randomPet.love;
 
         }
         else //Show info about an added pet you chose to read about
@@ -135,8 +132,7 @@ public class PetStatsText : MonoBehaviour
             petInfoText[1].text = "Allergens: " + allergensText;
             petInfoText[2].text = "Symptoms: " + symptomsText;
             
-            statSliders[0].value = MyPets.petsChosen[whichPet].personality;
-            statSliders[1].value = MyPets.petsChosen[whichPet].curiosity;
+            statSliders[0].value = MyPets.petsChosen[whichPet].activeLvl;
             statSliders[2].value = MyPets.petsChosen[whichPet].attentionSpan;
             statSliders[3].value = MyPets.petsChosen[whichPet].thirst;
             statSliders[4].value = MyPets.petsChosen[whichPet].hunger;
