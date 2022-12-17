@@ -6,6 +6,8 @@ public class CharacterStats : MonoBehaviour
 {
     #region Fields
 
+    public bool overide = false;
+
     [Header("Allergens")]
     public List<ItemScriptObj> allergends;
     public List<Symptoms.Reactions> allergyLevel;
@@ -19,19 +21,29 @@ public class CharacterStats : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float atention;
 
-    [Range(0.0f, 1.0f)]
+    [Range(0.5f, 2f)]
+    public float energy;
+    //might need an energy meter 
+
+    [Range(0.0f, 50.0f)]
     public float curiosity;
 
-    [Range(0.0f, 1.0f)]
-    public float thirst;
-    private float thirstLevel;
-    public bool isThirsty;
-
-    [Range(0.0f, 1.0f)]
+    [Header("Hunger")]
+    [Range(0.0f, 100.0f)]
     public float hunger;
-    private float hungerLevel;
     public bool isHungry;
 
+    [Header("Thirst")]
+    [Range(0.0f, 100.0f)]
+    public float thirst;
+    public bool isThirsty;
+
+    [Header("Boredome")]
+    [Range(0.0f, 100.0f)]
+    public float boredome;
+    public bool isBored;
+
+    [Header("Love")]
     [Range(0.0f, 1.0f)]
     public float love;
 

@@ -10,17 +10,20 @@ public class Smell : State
     {
         Vector3 distance = transform.position - manager.objectToInvestigate.transform.position;
 
-        //if(manager.objectToInvestigate != null)
-        //{
-            if (manager.currentTime < manager.stats.atention * manager.maxTime)
+        //TImer based on the atention span
+        if (manager.currentTime < manager.stats.atention * manager.maxTime)
+        {
+            //If the object the AI wants to investigate is still in the scene then the system can continue with the smell state
+            if (manager.objectToInvestigate.activeSelf)
             {
+                //If the AI is close enough to investigate, start the smelling process
                 if (distance.magnitude < 2.5f)
                 {
-                    /* Play animation
-                    * Need to create chance for eating
-                    * Idk yet how the chance for eating will be
-                    * NEED TO SOMEHOW CHECK IF THE OBJECT TO INVESTIGATE IS ALREADY IN USE
-                    */
+                    /* Play animation 
+                     * Add Icon
+                     * Play sound
+                     */
+
                     manager.currentTime += Time.deltaTime;
 
                     if (!done)
@@ -33,38 +36,77 @@ public class Smell : State
                     }
 
                 }
+
+                //If the ai is not close enought to perfomr the smell, then move towards the object
                 else
+                {
+                    manager.agent.isStopped = false;
+
+                    done = false;
+
                     MoveTowards(manager);
+                }
 
                 return this;
             }
             else
             {
-                manager.currentTime = 0.0f;
+                ResetValues(manager);
 
-                manager.agent.isStopped = false;
-
-                if (!manager.previeousObject.Contains(manager.objectToInvestigate))
-                    manager.previeousObject.Add(manager.objectToInvestigate);
-
-                manager.Eat(manager.objectToInvestigate);
-                /*manager.goList.Remove(manager.objectToInvestigate);*/
-                manager.objectToInvestigate = null;
-                manager.allergenOBJ = null;
-
-                done = false;
-
-                //If(!allergicReaction)
-                //{
                 return manager.exploreState;
-                //}
-                //else
-                //{
-                // return allergy reaction state
-                //}
             }
-        //} else
+        }
+
+        //If the timer runs out, or the object to investigate is no longer in the scene
+        else
+        {
+            if (EatingProbability(manager.stats.hunger) && distance.magnitude < 2.5f)
+            {
+                manager.Eat(manager.objectToInvestigate);
+
+                Debug.Log("Eating");
+            }
+
+            ResetValues(manager);
+
+            return manager.exploreState;//Needs allergy check
+
+            //If(!allergicReaction)
+            //{
             //return manager.exploreState;
+            //}
+            //else
+            //{
+            // return allergy reaction state
+            //}
+        }
+    }
+
+    private bool EatingProbability(float percentage)
+    {
+        float rnd = Random.Range(1, 5) * 10;
+
+        //Debug.Log("Rnd is " + rnd);
+
+        if (percentage <= rnd)
+            return true;
+        else
+            return false;
+    }
+
+    private void ResetValues(StateManager manager)
+    {
+        manager.currentTime = 0.0f;
+
+        manager.agent.isStopped = false;
+
+        if (!manager.previeousObject.Contains(manager.objectToInvestigate))
+            manager.previeousObject.Add(manager.objectToInvestigate);
+
+        manager.objectToInvestigate = null;
+        manager.containedAllergen = null;
+
+        done = false;
     }
 
     private void MoveTowards(StateManager manager)
@@ -73,6 +115,5 @@ public class Smell : State
 
         manager.currentTime = 0.0f;
     }
-
 }
 

@@ -2,45 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Dig : State
+public class Playing : State
 {
-    private bool doneOnce;
+    private bool doneOnce = false;
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
-        //Timer based on the atention span
         if (manager.currentTime < manager.stats.atention * manager.maxTime)
         {
-            manager.currentTime += Time.deltaTime;
+            manager.currentTime += Time.deltaTime;//maybe can also base it on the remaining energy level
 
             if (!doneOnce)
             {
-                //Need to play anim
-                //Need to add icon 
-                //Need to play sound
+                /*Start animation(maybe if there are more animations can play a random one)
+                 * Add icon
+                 * Play sound
+                 */
 
                 manager.agent.isStopped = true;
 
-                Debug.Log("Digging");
+                Debug.Log("playing");
 
                 doneOnce = true;
 
             }
 
             return this;
-        }
-
-        //If time ran out, than return explore state
+        } 
         else
         {
-            manager.currentTime = 0.0f;
+            doneOnce = false;
+
             manager.agent.isStopped = false;
 
-            doneOnce = false;
+            manager.currentTime = 0.0f;
 
             return manager.exploreState;
         }
+
     }
 }
-

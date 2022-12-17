@@ -15,16 +15,18 @@ public class StateManager : MonoBehaviour
 
     [Header("Item Detection")]
     public GameObject objectToInvestigate;
+    public ItemScriptObj containedAllergen;
     public List<GameObject> goList = new List<GameObject>();
     public List<GameObject> previeousObject = new List<GameObject>();
-    public ItemScriptObj allergenOBJ;
 
     [Header ("States")]
     public State currentState;
-    public Explore exploreState;
-    public Smell smellState;
-    public Dig digState;
-    public DecisionMaking decisionState;
+    [HideInInspector] public Explore exploreState;
+    [HideInInspector] public Smell smellState;
+    [HideInInspector] public Dig digState;
+    [HideInInspector] public DecisionMaking decisionState;
+    [HideInInspector] public Playing playState;
+    [HideInInspector] public Need needState; 
 
     [Header("Attention Span")]
     [Range(0.0f, 1000.0f)]
@@ -35,53 +37,71 @@ public class StateManager : MonoBehaviour
 
     private void Awake()
     {
-
+        //Initialization stuff
         stats = GetComponent<CharacterStats>();
+
+        id = stats.petID;
 
         exploreState = GetComponent<Explore>();
         smellState = GetComponent<Smell>();
         digState = GetComponent<Dig>();
         decisionState = GetComponent<DecisionMaking>();
+        playState = GetComponent<Playing>();
+        needState = GetComponent<Need>();
+
+        currentState = exploreState;
     }
 
     private void Update()
     {
+        //Check if the stats of the pet has same ID with the AI, if not give error;
         if (id != stats.petID)
         {
             Debug.LogError("PetID: " + stats.petID + " does not match AI id: " + id);
             return;
         }
 
+        if(previeousObject.Count >= 3)
+        {
+            previeousObject.RemoveRange(0, previeousObject.Count - 1);
+        }
+
+        //Start state machine handle
         HandleStateMachine();
     }
 
+    //Handles states
     private void HandleStateMachine()
     {
+        //if state is not null, then perform current state
         if(currentState != null)
         {
             State nextState = currentState.Act(this, stats);
 
+            //If there is a next state to go to, go to it
             if (nextState != null)
                 SwitchToNext(nextState);
         }
     }
 
+    //State change
     private void SwitchToNext(State state)
     {
         currentState = state;
     }
 
+    //Eating
     public void Eat(GameObject obj)
     {
         obj.SetActive(false);
 
-        allergenOBJ = objectToInvestigate.GetComponent<ItemPhysicalOBJ>().itemObj;
+        containedAllergen = objectToInvestigate.GetComponent<ItemPhysicalOBJ>().itemObj;
 
         //If allergy
-        if (allergenOBJ.isAllergen)
+        if (containedAllergen.isAllergen)
         {
 
-            if (stats.allergends.Contains(allergenOBJ))
+            if (stats.allergends.Contains(containedAllergen))
                 Debug.Log("Do Allergic reaction");
 
         }
