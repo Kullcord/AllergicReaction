@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [SerializeField] private PlayerInteractions player;
     [SerializeField] private Camera cam;
 
     [SerializeField] private float zoomStep;
@@ -28,9 +29,15 @@ public class CameraMovement : MonoBehaviour
         mapMaxZ = mapRend.transform.position.z + mapRend.bounds.size.z / 2f;
     }
 
+    private void Start()
+    {
+        player.GetComponent<PlayerInteractions>();
+    }
+
     private void Update()
     {
-        MoveCamera();
+        if(!player.isDragging)
+            MoveCamera();
     }
 
     private void MoveCamera()

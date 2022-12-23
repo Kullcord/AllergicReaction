@@ -6,10 +6,15 @@ public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private List<GameObject> petList = new List<GameObject>();
 
+    [Header("Double Click")]
     private float firstLeftClickTime;
     private float timeBetweenLeftClick = 0.5f;
-    private bool isTimeCheckAllowed = true;
-    private int leftClickNum = 0;
+    [SerializeField] private bool isTimeCheckAllowed = true;
+    [SerializeField] private int leftClickNum = 0;
+
+    [Header("Drag")]
+    public bool isDragging = false;
+    [SerializeField] private GameObject selectedObj;
 
     private void Awake()
     {
@@ -19,6 +24,8 @@ public class PlayerInteractions : MonoBehaviour
     private void Update()
     {
         DoubleClick();
+
+        DragPet();
     }
 
     #region DoubleClick
@@ -42,6 +49,7 @@ public class PlayerInteractions : MonoBehaviour
             if(leftClickNum == 2)
             {
                 Detection("Pet");
+
                 break;
             }
             yield return new WaitForEndOfFrame();
@@ -54,23 +62,57 @@ public class PlayerInteractions : MonoBehaviour
 
     #region Drag
 
+    private void DragPet()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (selectedObj == null)
+            {
+                RaycastHit hit;
+
+                if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        if (!hit.collider.CompareTag("Pet"))
+                                return;
+
+                        selectedObj = hit.collider.gameObject;
+                        Cursor.visible = false;
+                    }
+
+                }
+
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if(selectedObj != null)
+            {
+                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+
+                selectedObj.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
+
+                selectedObj = null;
+                Cursor.visible = true;
+                isDragging = false;
+            }
+        }
+
+        if (selectedObj != null)
+        {
+            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+
+            selectedObj.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
+            isDragging = true;
+        }
+    }
 
 
     #endregion
-
-    private RaycastHit CastRay()
-    {
-        Vector3 screenMousePosFar = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.farClipPlane);
-        Vector3 screenMousePosNear = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane);
-
-        Vector3 worldMousePosFar = Camera.main.ScreenToViewportPoint(screenMousePosFar);
-        Vector3 worldMousePosNear = Camera.main.ScreenToViewportPoint(screenMousePosNear);
-
-        RaycastHit hit;
-        Physics.Raycast(worldMousePosFar, worldMousePosFar - worldMousePosFar, out hit);
-
-        return hit;
-    }
 
     private void Detection(string tag)
     {
@@ -81,6 +123,8 @@ public class PlayerInteractions : MonoBehaviour
             if (hit.collider.tag == tag)
             {
                 Debug.Log("Detected: " + tag);
+
+                Debug.Log("Go to 1-on-1 screen");
             }
         }
     }

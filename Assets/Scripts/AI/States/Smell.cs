@@ -10,14 +10,14 @@ public class Smell : State
     {
         Vector3 distance = transform.position - manager.objectToInvestigate.transform.position;
 
-        //TImer based on the atention span
+        //Timer based on the atention span
         if (manager.currentTime < manager.stats.atention * manager.maxTime)
         {
             //If the object the AI wants to investigate is still in the scene then the system can continue with the smell state
             if (manager.objectToInvestigate.activeSelf)
             {
                 //If the AI is close enough to investigate, start the smelling process
-                if (distance.magnitude < 2.5f)
+                if (distance.magnitude < 4f)
                 {
                     /* Play animation 
                      * Add Icon
