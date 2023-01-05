@@ -8,10 +8,12 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public ItemScriptObj itemObj;
 
     public bool inStore;
+    public bool inQuickBar;
 
     private RectTransform rectTransform;
     private CanvasGroup cv;
-    private ItemSlot _itemSlot;
+    public ItemSlot _itemSlot;
+    private Canvas canv;
     
     void Start()
     {
@@ -20,8 +22,10 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         cv = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
         _itemSlot = transform.parent.gameObject.GetComponent<ItemSlot>();
+        _itemSlot.currentItem = gameObject;
         float itemW = _itemSlot.gameObject.GetComponent<RectTransform>().rect.width * 0.9f;
         rectTransform.sizeDelta = new Vector2(itemW, itemW);//set item size according to the slot width
+        canv = Inventory.instance.transform.parent.GetComponent<Canvas>();
     }
     void Update()
     {
@@ -44,7 +48,10 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         print("begin drag");
-        gameObject.transform.parent.transform.parent.SetAsLastSibling();
+        transform.SetParent(canv.transform);
+        transform.SetAsLastSibling();
+        
+        //transform.parent.transform.parent.SetAsLastSibling();
         _itemSlot.isOccupied = false;
         cv.alpha = .6f;
         cv.blocksRaycasts = false;
@@ -53,8 +60,8 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         print("end drag");
-        _itemSlot = transform.parent.gameObject.GetComponent<ItemSlot>();
-        _itemSlot.isOccupied = true;
+        
+        transform.SetParent(_itemSlot.transform);
         transform.localPosition = Vector3.zero;
         
         cv.alpha = 1f;
@@ -64,7 +71,8 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta;
+       // rectTransform.anchoredPosition += eventData.delta/canv.scaleFactor;
+        transform.position = Input.mousePosition;
     }
 
     public void OnInitializePotentialDrag(PointerEventData eventData)

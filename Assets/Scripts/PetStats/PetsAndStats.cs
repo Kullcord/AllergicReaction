@@ -66,7 +66,8 @@ public class PetsAndStats : MonoBehaviour
         if(MyPets.petsChosen.Count >= maxPets )
             return;
         ChosenPetStats petStats = new ChosenPetStats();
-        petStats.petID = randomPet.petID;
+        petStats.petID = randomPet.petID;//choose id based 
+        petStats.petType = randomPet.petType;//what type of pet
         petStats.allergies = randomPet.allergies;
         petStats.activeLvl = randomPet.activeLvl;
         petStats.attentionSpan = randomPet.attentionSpan;
@@ -98,6 +99,7 @@ public class SymptomReaction
 [Serializable]
 public class ChosenPetStats
 {
+    public int petType;
     public int petID;//to know what pet image to insert
     [Space]
     public SymptomReaction[] allergies;
