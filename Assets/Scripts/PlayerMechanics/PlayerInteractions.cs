@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
+    [SerializeField] private CameraHandler cam;
     [SerializeField] private List<GameObject> petList = new List<GameObject>();
 
     [Header("Double Click")]
@@ -12,9 +13,23 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private bool isTimeCheckAllowed = true;
     [SerializeField] private int leftClickNum = 0;
 
+    private bool doubleClicked;
+
     [Header("Drag")]
     public bool isDragging = false;
     [SerializeField] private GameObject selectedObj;
+
+    private float maxTime = 0.1f;
+    private float currentTime = 0.0f;
+    
+    private float maxDragTime = 1.0f;
+    private float currentDragTime = 0.0f;
+
+    private bool isDown;
+    private bool isHeld;
+    private bool drop;
+
+    private Vector3 positionBeforeDrag;
 
     private void Awake()
     {
@@ -23,24 +38,46 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        DoubleClick();
-
-        DragPet();
+        HandleInput();
     }
 
-    #region DoubleClick
+    #region Input Handler
 
-    private void DoubleClick()
+    private void HandleInput()
     {
+        CheckMouseButtonUp();
+
         if (Input.GetMouseButtonDown(0))
-            leftClickNum+=1;
-        if(leftClickNum == 1 && isTimeCheckAllowed)
+        {
+            currentTime = 0.0f;
+
+            leftClickNum +=1;
+            isDown = true;
+        }
+
+        if (isDown && Input.GetMouseButton(0))
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= maxTime)
+            {
+                isHeld = true;
+
+                if(!doubleClicked && !cam.isMoving)
+                    DragPet();
+            }
+        }
+
+        if (leftClickNum == 1 && isTimeCheckAllowed)
         {
             firstLeftClickTime = Time.time;
             StartCoroutine(DetectDoubleLeftClick());
         }
     }
 
+    #endregion
+
+    #region DoubleClick
     IEnumerator DetectDoubleLeftClick()
     {
         isTimeCheckAllowed = false;
@@ -48,6 +85,8 @@ public class PlayerInteractions : MonoBehaviour
         {
             if(leftClickNum == 2)
             {
+                doubleClicked = true;
+
                 Detection("Pet");
 
                 break;
@@ -56,6 +95,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         leftClickNum = 0;
         isTimeCheckAllowed = true;
+        doubleClicked = false;
     }
 
     #endregion
@@ -64,55 +104,88 @@ public class PlayerInteractions : MonoBehaviour
 
     private void DragPet()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        if (selectedObj == null)
         {
-            if (selectedObj == null)
+
+            RaycastHit hit;
+
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                RaycastHit hit;
-
-                if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                if (hit.collider != null)
                 {
-                    if (hit.collider != null)
-                    {
-                        if (!hit.collider.CompareTag("Pet"))
-                                return;
+                    if (!hit.collider.CompareTag("Pet"))
+                            return;
 
-                        selectedObj = hit.collider.gameObject;
-                        Cursor.visible = false;
-                    }
-
+                    Cursor.visible = false;
+                    selectedObj = hit.collider.gameObject;
                 }
 
             }
         }
+        //}
 
-        if (Input.GetMouseButtonUp(0))
+        if (selectedObj != null && isHeld)
         {
-            if(selectedObj != null)
-            {
-                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+            currentDragTime += Time.deltaTime;
+            var selectedAgent = selectedObj.GetComponent<StateManager>().agent;
 
-                selectedObj.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
-
-                selectedObj = null;
-                Cursor.visible = true;
-                isDragging = false;
-            }
-        }
-
-        if (selectedObj != null)
-        {
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
 
-            selectedObj.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
+            selectedAgent.isStopped = true;
+            
+            selectedObj.transform.position = new Vector3(worldPosition.x, selectedObj.transform.position.y, worldPosition.z);
             isDragging = true;
+
+            if (currentDragTime >= maxDragTime)
+                drop = true;
         }
     }
 
+    #endregion
+
+    #region Mouse Up Behaviour
+
+    private void CheckMouseButtonUp()
+    {
+        if (Input.GetMouseButtonUp(0) || drop)
+        {
+            if (selectedObj != null)
+            {
+                currentDragTime = 0.0f;
+                currentTime = 0.0f;
+
+                isDown = false;
+                isHeld = false;
+                drop = false;
+
+                var selectedAgent = selectedObj.GetComponent<StateManager>().agent;
+
+                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
+
+                selectedObj.transform.position = new Vector3(worldPosition.x, selectedObj.transform.position.y, worldPosition.z);
+                selectedAgent.isStopped = false;
+
+                selectedObj = null;
+                Cursor.visible = true;
+
+                Invoke("SetDefault", 0.5f);
+                
+            }
+        }
+    }
+
+    private void SetDefault()
+    {
+        isDragging = false;
+    }
 
     #endregion
+
+    #region Detection
 
     private void Detection(string tag)
     {
@@ -128,4 +201,6 @@ public class PlayerInteractions : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }
