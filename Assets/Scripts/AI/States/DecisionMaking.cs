@@ -53,6 +53,10 @@ public class DecisionMaking : State
 
                             ResetValues();
 
+                            manager.petMenu.actionIcon.texture = manager.petMenu.smellIcon;
+
+                            Debug.Log("Start smelling");
+
                             return manager.smellState;
 
                         } 
@@ -60,12 +64,20 @@ public class DecisionMaking : State
                         {
                             ResetValues();
 
+                            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                            Debug.Log("Start exploring");
+
                             return manager.exploreState;
                         }
                     }
                     else
                     {
                         ResetValues();
+
+                        manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                        Debug.Log("Start exploring");
 
                         return manager.exploreState;
                     }
@@ -80,6 +92,10 @@ public class DecisionMaking : State
 
                     ResetValues();
 
+                    manager.petMenu.actionIcon.texture = manager.petMenu.digIcon;
+
+                    Debug.Log("Start digging");
+
                     return manager.digState;
                 }
 
@@ -92,6 +108,10 @@ public class DecisionMaking : State
 
                     ResetValues();
 
+                    manager.petMenu.actionIcon.texture = manager.petMenu.playIcon;
+
+                    Debug.Log("Start playing");
+
                     return manager.playState;
                 }
 
@@ -103,6 +123,10 @@ public class DecisionMaking : State
                     }
 
                     ResetValues();
+
+                    manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                    Debug.Log("Start exploring");
 
                     return manager.exploreState;
                 }
@@ -120,6 +144,10 @@ public class DecisionMaking : State
             }
 
             ResetValues();
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.needsIcon;
+
+            Debug.Log("Start needing");
 
             return manager.needState;
         }

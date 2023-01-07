@@ -20,6 +20,7 @@ public class Playing : State
                  */
 
                 manager.agent.isStopped = true;
+                manager.agent.velocity = Vector3.zero;
 
                 Debug.Log("playing");
 
@@ -36,6 +37,10 @@ public class Playing : State
             manager.agent.isStopped = false;
 
             manager.currentTime = 0.0f;
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+            Debug.Log("Exit playing");
 
             return manager.exploreState;
         }

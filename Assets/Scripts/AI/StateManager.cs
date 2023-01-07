@@ -7,11 +7,12 @@ public class StateManager : MonoBehaviour
 {
     #region Fields
 
-    [SerializeField] private int id;
+    /*[SerializeField] private*/ public int id;
 
     [Header("Refferences")]
     public CharacterStats stats;
     public NavMeshAgent agent;
+    public StatsUIManager petMenu;
 
     [Header("Item Detection")]
     public GameObject objectToInvestigate;
@@ -50,6 +51,7 @@ public class StateManager : MonoBehaviour
         needState = GetComponent<Need>();
 
         currentState = exploreState;
+        petMenu.actionIcon.texture = petMenu.exploreIcon;
     }
 
     private void Update()

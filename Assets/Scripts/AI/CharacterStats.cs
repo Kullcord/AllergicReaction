@@ -8,6 +8,9 @@ public class CharacterStats : MonoBehaviour
 
     public bool overide = false;
 
+    [Header("Icons")]
+
+
     [Header("Allergens")]
     public List<ItemScriptObj> allergends;
     public List<Symptoms.Reactions> allergyLevel;

@@ -21,6 +21,7 @@ public class Dig : State
                 //Need to play sound
 
                 manager.agent.isStopped = true;
+                manager.agent.velocity = Vector3.zero;
 
                 Debug.Log("Digging");
 
@@ -38,6 +39,10 @@ public class Dig : State
             manager.agent.isStopped = false;
 
             doneOnce = false;
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+            Debug.Log("Exit digging");
 
             return manager.exploreState;
         }

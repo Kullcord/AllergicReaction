@@ -17,7 +17,7 @@ public class Smell : State
             if (manager.objectToInvestigate.activeSelf)
             {
                 //If the AI is close enough to investigate, start the smelling process
-                if (distance.magnitude < 4f)
+                if (distance.magnitude < 2.5f)
                 {
                     /* Play animation 
                      * Add Icon
@@ -31,13 +31,14 @@ public class Smell : State
                         Debug.Log("Smelling");
 
                         manager.agent.isStopped = true;
-
+                        manager.agent.velocity = Vector3.zero;
+                        
                         done = true;
                     }
 
                 }
 
-                //If the ai is not close enought to perfomr the smell, then move towards the object
+                //If the ai is not close enough to perform the smelling action, then move towards the object
                 else
                 {
                     manager.agent.isStopped = false;
@@ -52,6 +53,10 @@ public class Smell : State
             else
             {
                 ResetValues(manager);
+
+                manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                Debug.Log("Cant continue smelling");
 
                 return manager.exploreState;
             }
@@ -68,6 +73,10 @@ public class Smell : State
             }
 
             ResetValues(manager);
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+            Debug.Log("Exit smelling");
 
             return manager.exploreState;//Needs allergy check
 
