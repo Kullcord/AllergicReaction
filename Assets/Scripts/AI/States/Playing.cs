@@ -42,7 +42,8 @@ public class Playing : State
 
             Debug.Log("Exit playing");
 
-            return manager.exploreState;
+            return manager.idleState;
+            //return manager.exploreState;
         }
 
     }

@@ -44,7 +44,8 @@ public class Dig : State
 
             Debug.Log("Exit digging");
 
-            return manager.exploreState;
+            return manager.idleState;
+            //return manager.exploreState;
         }
     }
 }

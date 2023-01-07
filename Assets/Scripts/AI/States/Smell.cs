@@ -58,7 +58,8 @@ public class Smell : State
 
                 Debug.Log("Cant continue smelling");
 
-                return manager.exploreState;
+                return manager.idleState;
+                //return manager.exploreState;
             }
         }
 
@@ -78,7 +79,8 @@ public class Smell : State
 
             Debug.Log("Exit smelling");
 
-            return manager.exploreState;//Needs allergy check
+            return manager.idleState;
+            //return manager.exploreState;//Needs allergy check
 
             //If(!allergicReaction)
             //{
@@ -93,7 +95,7 @@ public class Smell : State
 
     private bool EatingProbability(float percentage)
     {
-        float rnd = Random.Range(1, 5) * 10;
+        float rnd = Random.Range(0, 61);
 
         //Debug.Log("Rnd is " + rnd);
 

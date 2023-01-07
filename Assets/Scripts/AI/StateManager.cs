@@ -27,7 +27,9 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public Dig digState;
     [HideInInspector] public DecisionMaking decisionState;
     [HideInInspector] public Playing playState;
-    [HideInInspector] public Need needState; 
+    [HideInInspector] public Need needState;
+    [HideInInspector] public Idle idleState;
+    [HideInInspector] public Rest restState;
 
     [Header("Attention Span")]
     [Range(0.0f, 1000.0f)]
@@ -49,6 +51,8 @@ public class StateManager : MonoBehaviour
         decisionState = GetComponent<DecisionMaking>();
         playState = GetComponent<Playing>();
         needState = GetComponent<Need>();
+        idleState = GetComponent<Idle>();
+        restState = GetComponent<Rest>();
 
         currentState = exploreState;
         petMenu.actionIcon.texture = petMenu.exploreIcon;

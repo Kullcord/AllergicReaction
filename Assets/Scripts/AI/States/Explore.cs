@@ -35,6 +35,7 @@ public class Explore : State
 
             inAction = false;
 
+            //return manager.idleState;
             return manager.decisionState;
         }
 
