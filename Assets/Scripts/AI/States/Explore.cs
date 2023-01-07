@@ -58,6 +58,8 @@ public class Explore : State
             }
     }
 
+    #region Movement Position Calculations & Checks
+
     private void SearchWalkPoint(StateManager manager)
     {
         while (!walkPointSet)
@@ -113,6 +115,8 @@ public class Explore : State
         else
             return false;
     }
+
+    #endregion
 }
 
 

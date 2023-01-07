@@ -54,7 +54,7 @@ public class StateManager : MonoBehaviour
         idleState = GetComponent<Idle>();
         restState = GetComponent<Rest>();
 
-        currentState = exploreState;
+        currentState = smellState;
         petMenu.actionIcon.texture = petMenu.exploreIcon;
     }
 

@@ -46,8 +46,8 @@ public class Idle : State
 
             float percentage = stats.energy * 10f;
 
-            Debug.Log("rnd is: " + rnd);
-            Debug.Log("percentage: " + percentage);
+            //Debug.Log("rnd is: " + rnd);
+            //Debug.Log("percentage: " + percentage);
 
             if (rnd <= percentage)
                 return true;

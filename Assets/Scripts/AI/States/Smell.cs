@@ -66,7 +66,7 @@ public class Smell : State
         //If the timer runs out, or the object to investigate is no longer in the scene
         else
         {
-            if (EatingProbability(manager.stats.hunger) && distance.magnitude < 2.5f)
+            if ((manager.stats.hunger < 50 || EatingProbability(manager.stats.curiosity)) && distance.magnitude < 2.5f)
             {
                 manager.Eat(manager.objectToInvestigate);
 
@@ -95,11 +95,9 @@ public class Smell : State
 
     private bool EatingProbability(float percentage)
     {
-        float rnd = Random.Range(0, 61);
+        float rnd = Random.Range(0, 91);
 
-        //Debug.Log("Rnd is " + rnd);
-
-        if (percentage <= rnd)
+        if (rnd <= percentage)
             return true;
         else
             return false;
