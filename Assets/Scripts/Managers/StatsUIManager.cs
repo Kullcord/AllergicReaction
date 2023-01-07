@@ -47,6 +47,9 @@ public class StatsUIManager : MonoBehaviour
     [SerializeField] private Sprite inactiveSprite;
     [SerializeField] private bool petTabActive = false;
     [SerializeField] private bool statsTabActive = false;
+
+    [SerializeField] private AnimationCurve curve;
+    private float progression = 0.0f;
     #endregion
 
     //need to somehow get the character stats and the state machine with the same id as this obj
@@ -137,7 +140,23 @@ public class StatsUIManager : MonoBehaviour
         var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ;
         var newPos = new Vector3(newX, camHolder.transform.position.y, newZ);
 
-        camHolder.cam.transform.position = newPos;
+        StopAllCoroutines();
+        StartCoroutine(CameraLerp(newPos));
+    }
+
+    IEnumerator CameraLerp(Vector3 posToGo)
+    {
+        progression = 0.0f;
+
+        while (progression < 0.99)
+        {
+            progression += 10 * Time.deltaTime;
+
+
+            camHolder.cam.transform.position = Vector3.Lerp(camHolder.cam.transform.position, posToGo, curve.Evaluate(progression));
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     #region Tab functionality

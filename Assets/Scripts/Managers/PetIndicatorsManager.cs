@@ -27,6 +27,9 @@ public class PetIndicatorsManager : MonoBehaviour
     [SerializeField] private float maxScale;
     [SerializeField] private float maxDistance;
 
+    [SerializeField] private AnimationCurve curve;
+    private float progression = 0.0f;
+
     private void Start()
     {
         camHolder = FindObjectOfType<CameraHandler>();
@@ -144,6 +147,22 @@ public class PetIndicatorsManager : MonoBehaviour
         var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ;
         var newPos = new Vector3(newX, camHolder.transform.position.y, newZ);
 
-        camHolder.cam.transform.position = newPos;
+        //camHolder.cam.transform.position = newPos;
+        StopAllCoroutines();
+        StartCoroutine(CameraLerp(newPos));
+    }
+
+    IEnumerator CameraLerp(Vector3 posToGo)
+    {
+        progression = 0.0f;
+
+        while(progression < 0.99)
+        {
+            progression += 10 * Time.deltaTime;
+
+            camHolder.cam.transform.position = Vector3.Lerp(camHolder.cam.transform.position, posToGo, curve.Evaluate(progression));
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
