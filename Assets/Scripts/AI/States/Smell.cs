@@ -23,6 +23,15 @@ public class Smell : State
                      * Add Icon
                      * Play sound
                      */
+                    manager.animControl.SetBool("Smell", true);
+                    manager.animControl.SetBool("Play", false);
+                    manager.animControl.SetBool("Walk", false);
+                    manager.animControl.SetBool("Dig", false);
+                    manager.animControl.SetBool("Idle", false);
+                    manager.animControl.SetBool("Sit", false);
+                    manager.animControl.SetBool("Sleep", false);
+                    manager.animControl.SetBool("Eat", false);
+                    manager.animControl.SetBool("Need", false);
 
                     manager.currentTime += Time.deltaTime;
 
@@ -53,6 +62,8 @@ public class Smell : State
             else
             {
                 ResetValues(manager);
+                manager.objectToInvestigate = null;
+
 
                 manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
 
@@ -68,18 +79,27 @@ public class Smell : State
         {
             if ((manager.stats.hunger < 50 || EatingProbability(manager.stats.curiosity)) && distance.magnitude < 2.5f)
             {
-                manager.Eat(manager.objectToInvestigate);
+                ResetValues(manager);
+
+                //manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
 
                 Debug.Log("Eating");
+
+                return manager.eatState;
+            }
+            else
+            {
+                ResetValues(manager);
+
+                manager.objectToInvestigate = null;
+
+                manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                Debug.Log("Exit smelling");
+
+                return manager.idleState;
             }
 
-            ResetValues(manager);
-
-            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
-
-            Debug.Log("Exit smelling");
-
-            return manager.idleState;
             //return manager.exploreState;//Needs allergy check
 
             //If(!allergicReaction)
@@ -107,12 +127,12 @@ public class Smell : State
     {
         manager.currentTime = 0.0f;
 
-        manager.agent.isStopped = false;
+        //manager.agent.isStopped = false;
 
         if (!manager.previeousObject.Contains(manager.objectToInvestigate))
             manager.previeousObject.Add(manager.objectToInvestigate);
 
-        manager.objectToInvestigate = null;
+        //manager.objectToInvestigate = null;
         manager.containedAllergen = null;
 
         done = false;
@@ -121,6 +141,16 @@ public class Smell : State
     private void MoveTowards(StateManager manager)
     {
         manager.agent.SetDestination(manager.objectToInvestigate.transform.position);
+
+        manager.animControl.SetBool("Walk", true);
+        manager.animControl.SetBool("Play", false);
+        manager.animControl.SetBool("Smell", false);
+        manager.animControl.SetBool("Dig", false);
+        manager.animControl.SetBool("Idle", false);
+        manager.animControl.SetBool("Sit", false);
+        manager.animControl.SetBool("Sleep", false);
+        manager.animControl.SetBool("Eat", false);
+        manager.animControl.SetBool("Need", false);
 
         manager.currentTime = 0.0f;
     }

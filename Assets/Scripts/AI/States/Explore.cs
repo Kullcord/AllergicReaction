@@ -16,6 +16,8 @@ public class Explore : State
     private bool walkPointSet;
     private bool inAction = false;
 
+    private bool doOnce = false;
+
     #endregion
 
     public override State Act(StateManager manager, CharacterStats stats)
@@ -34,9 +36,25 @@ public class Explore : State
             walkPoint = Vector3.zero;
 
             inAction = false;
+            doOnce = false;
 
             //return manager.idleState;
             return manager.decisionState;
+        }
+
+        if (!doOnce)
+        {
+            manager.animControl.SetBool("Walk", true);
+            manager.animControl.SetBool("Play", false);
+            manager.animControl.SetBool("Smell", false);
+            manager.animControl.SetBool("Dig", false);
+            manager.animControl.SetBool("Idle", false);
+            manager.animControl.SetBool("Sit", false);
+            manager.animControl.SetBool("Sleep", false);
+            manager.animControl.SetBool("Eat", false);
+            manager.animControl.SetBool("Need", false);
+
+            doOnce = true;
         }
 
         return this;
@@ -50,12 +68,15 @@ public class Explore : State
 
         //If I have a walk point take me there
         else
+        {
             if (!inAction)
             {
                 manager.agent.SetDestination(walkPoint);
 
                 inAction = true;
             }
+
+        }
     }
 
     #region Movement Position Calculations & Checks
@@ -65,8 +86,8 @@ public class Explore : State
         while (!walkPointSet)
         {
             //Calculate random point in range
-            float randomZ = Random.Range(-walkPointRange, walkPointRange);
-            float randomX = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(manager.bndFloor.min.x, manager.bndFloor.max.x);//(-walkPointRange, walkPointRange);
+            float randomZ = Random.Range(manager.bndFloor.min.z, manager.bndFloor.max.z);//(-walkPointRange, walkPointRange);
 
             walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -110,7 +131,7 @@ public class Explore : State
         float distAbleToGo = manager.stats.energy * 10f;
         float distanceToGo = Vector3.Distance(manager.transform.position, walkPoint);
 
-        if (distanceToGo <= distAbleToGo)
+        if (distanceToGo <= distAbleToGo || distanceToGo <= walkPointRange)
             return true;
         else
             return false;

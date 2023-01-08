@@ -13,6 +13,7 @@ public class StateManager : MonoBehaviour
     public CharacterStats stats;
     public NavMeshAgent agent;
     public StatsUIManager petMenu;
+    public Animator animControl;
 
     [Header("Item Detection")]
     public GameObject objectToInvestigate;
@@ -30,11 +31,14 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public Need needState;
     [HideInInspector] public Idle idleState;
     [HideInInspector] public Rest restState;
+    [HideInInspector] public Eat eatState;
 
     [Header("Attention Span")]
     [Range(0.0f, 1000.0f)]
     public float maxTime;
     public float currentTime;
+
+    public Bounds bndFloor;
 
     #endregion
 
@@ -45,6 +49,8 @@ public class StateManager : MonoBehaviour
 
         id = stats.petID;
 
+        bndFloor = GameObject.Find("MainZone").GetComponent<MeshRenderer>().bounds;
+
         exploreState = GetComponent<Explore>();
         smellState = GetComponent<Smell>();
         digState = GetComponent<Dig>();
@@ -53,9 +59,11 @@ public class StateManager : MonoBehaviour
         needState = GetComponent<Need>();
         idleState = GetComponent<Idle>();
         restState = GetComponent<Rest>();
+        eatState = GetComponent<Eat>();
 
-        currentState = smellState;
+        currentState = exploreState;
         petMenu.actionIcon.texture = petMenu.exploreIcon;
+        //animControl.SetBool("Walk", true);
     }
 
     private void Update()

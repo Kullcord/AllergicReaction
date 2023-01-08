@@ -16,9 +16,17 @@ public class Dig : State
 
             if (!doneOnce)
             {
-                //Need to play anim
-                //Need to add icon 
-                //Need to play sound
+                //Set icon
+                //Start Animation
+                manager.animControl.SetBool("Dig", true);
+                manager.animControl.SetBool("Play", false);
+                manager.animControl.SetBool("Walk", false);
+                manager.animControl.SetBool("Smell", false);
+                manager.animControl.SetBool("Idle", false);
+                manager.animControl.SetBool("Sit", false);
+                manager.animControl.SetBool("Sleep", false);
+                manager.animControl.SetBool("Eat", false);
+                manager.animControl.SetBool("Need", false);
 
                 manager.agent.isStopped = true;
                 manager.agent.velocity = Vector3.zero;

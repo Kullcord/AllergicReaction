@@ -18,6 +18,17 @@ public class Playing : State
                  * Add icon
                  * Play sound
                  */
+                //Start animation
+                manager.animControl.SetBool("Play", true);
+                manager.animControl.SetBool("Walk", false);
+                manager.animControl.SetBool("Smell", false);
+                manager.animControl.SetBool("Dig", false);
+                manager.animControl.SetBool("Idle", false);
+                manager.animControl.SetBool("Sit", false);
+                manager.animControl.SetBool("Sleep", false);
+                manager.animControl.SetBool("Eat", false);
+                manager.animControl.SetBool("Need", false);
+
 
                 manager.agent.isStopped = true;
                 manager.agent.velocity = Vector3.zero;

@@ -10,7 +10,7 @@ public class Idle : State
     {
         //If the probability check is passed, then return rest state,
         //else continue idle state
-        if (ProbabilityCheck(stats))
+        /*if (ProbabilityCheck(stats))
         {
             //return rest state
             manager.currentTime = 0.0f;
@@ -18,11 +18,20 @@ public class Idle : State
             doneOnce = false;
 
             return manager.restState;
-        } 
+        } */
 
-        if(manager.currentTime < (manager.stats.atention * manager.maxTime) / 2)
+        if (manager.currentTime < (manager.stats.atention * manager.maxTime) / 2)
         {
             //Play idle animation
+            manager.animControl.SetBool("Idle", true);
+            manager.animControl.SetBool("Walk", false);
+            manager.animControl.SetBool("Smell", false);
+            manager.animControl.SetBool("Dig", false);
+            manager.animControl.SetBool("Play", false);
+            manager.animControl.SetBool("Sit", false);
+            manager.animControl.SetBool("Sleep", false);
+            manager.animControl.SetBool("Eat", false);
+            manager.animControl.SetBool("Need", false);
 
             manager.currentTime += Time.deltaTime;
 
@@ -33,6 +42,8 @@ public class Idle : State
             manager.currentTime = 0.0f;
 
             doneOnce = false;
+
+            manager.agent.isStopped = false;
 
             return manager.exploreState;
         }
