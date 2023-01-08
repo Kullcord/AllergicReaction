@@ -31,9 +31,9 @@ public class PetsAndStats : MonoBehaviour
     }
 
     #region Set Random Stats
-    public void SetStats(int petId)
+    public void SetStats(int petType)
     { 
-        randomPet.petID = petId;
+        randomPet.petType = petType;
 
         allAllergensUsed = new(allAllergenItems);
         
@@ -51,10 +51,13 @@ public class PetsAndStats : MonoBehaviour
             randomPet.allergies[i].symptom = allSymptoms[Random.Range(0, allSymptoms.Length)];
         }
 
-        randomPet.activeLvl = Random.Range(0f, 1f);
+        randomPet.petID = MyPets.petsChosen.Count;
+        randomPet.energy = Random.Range(0f, 1f);
         randomPet.attentionSpan = Random.Range(0f, 1f);
+        randomPet.curiosity = Random.Range(0f, 1f);
         randomPet.thirst = Random.Range(0f, 1f);
         randomPet.hunger = Random.Range(0f, 1f);
+        randomPet.boredom = Random.Range(0f, 1f);
         randomPet.love = Random.Range(0f, 1f);
     }
     #endregion
@@ -66,13 +69,15 @@ public class PetsAndStats : MonoBehaviour
         if(MyPets.petsChosen.Count >= maxPets )
             return;
         ChosenPetStats petStats = new ChosenPetStats();
-        petStats.petID = randomPet.petID;//choose id based 
-        petStats.petType = randomPet.petType;//what type of pet
+        petStats.petID = randomPet.petID;
+        petStats.petType = randomPet.petType;
         petStats.allergies = randomPet.allergies;
-        petStats.activeLvl = randomPet.activeLvl;
+        petStats.curiosity = randomPet.curiosity;
+        petStats.energy = randomPet.energy;
         petStats.attentionSpan = randomPet.attentionSpan;
         petStats.thirst = randomPet.thirst;
         petStats.hunger = randomPet.hunger;
+        petStats.boredom = randomPet.boredom;
         petStats.love = randomPet.love;
         
         MyPets.petsChosen.Add(petStats);
@@ -99,14 +104,16 @@ public class SymptomReaction
 [Serializable]
 public class ChosenPetStats
 {
-    public int petType;
-    public int petID;//to know what pet image to insert
+    public int petType;//to know what pet image to insert
+    public int petID;
     [Space]
     public SymptomReaction[] allergies;
-    public float activeLvl;
+    public float energy;
     public float attentionSpan;
+    public float curiosity;
     public float thirst;
     public float hunger;
+    public float boredom;
     public float love;
 }
 
