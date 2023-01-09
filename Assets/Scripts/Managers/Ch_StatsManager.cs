@@ -41,7 +41,7 @@ public class Ch_StatsManager : MonoBehaviour
             return;
         }
 
-        StatsManager();
+        //StatsManager();
     }
 
     private void StatsManager()

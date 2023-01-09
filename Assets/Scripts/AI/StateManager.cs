@@ -60,6 +60,9 @@ public class StateManager : MonoBehaviour
         idleState = GetComponent<Idle>();
         restState = GetComponent<Rest>();
         eatState = GetComponent<Eat>();
+/*
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;*/
 
         currentState = exploreState;
         petMenu.actionIcon.texture = petMenu.exploreIcon;
