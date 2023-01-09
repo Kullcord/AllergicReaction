@@ -3,32 +3,36 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IInitializePotentialDragHandler
+public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IInitializePotentialDragHandler
 {
     public ItemScriptObj itemObj;
 
     public bool inStore;
     public bool inQuickBar;
 
-    private RectTransform rectTransform;
+    [HideInInspector]public RectTransform rectTransform;
+    [HideInInspector]public Image itemImg;
     private CanvasGroup cv;
     public ItemSlot _itemSlot;
     private Canvas canv;
     
     void Start()
     {
-        Image itemImg = GetComponent<Image>();
-        itemImg.sprite = itemObj.itemSprite;
         cv = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
+        canv = Inventory.instance.transform.parent.GetComponent<Canvas>();
+        
+        //set in the itemSlot what item it contains
         _itemSlot = transform.parent.gameObject.GetComponent<ItemSlot>();
         _itemSlot.currentItem = gameObject;
-        float itemW = _itemSlot.gameObject.GetComponent<RectTransform>().rect.width * 0.9f;
-        rectTransform.sizeDelta = new Vector2(itemW, itemW);//set item size according to the slot width
-        canv = Inventory.instance.transform.parent.GetComponent<Canvas>();
-    }
-    void Update()
-    {
+        
+        //set item sprite
+        itemImg = GetComponent<Image>();
+        itemImg.sprite = itemObj.itemSprite;
+        itemImg.SetNativeSize();
+
+        //set size of the item in the itemSlot
+        rectTransform.sizeDelta *= 0.6f;
         
     }
 
@@ -38,11 +42,6 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void AddThisItemToInv()
     {
         Inventory.instance.AddItem(itemObj);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        print("pointer down");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -71,7 +70,6 @@ public class GridItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-       // rectTransform.anchoredPosition += eventData.delta/canv.scaleFactor;
         transform.position = Input.mousePosition;
     }
 

@@ -21,7 +21,8 @@ public class ItemScriptObj : ScriptableObject
         Water,
         Ice,
         Cream,
-        Pill,
+        Pill1,
+        Pill2,
         Inhaler,
         EpiPen,
         Ball,
@@ -30,7 +31,9 @@ public class ItemScriptObj : ScriptableObject
         Peanut,
         Cashew,
         Wheat,
-        Milk
+        Milk,
+        Bone,
+        Bacon
     }
 
     public Sprite itemSprite;
@@ -48,7 +51,14 @@ public class ItemScriptObj : ScriptableObject
     //if it's an allergen
     [Space]
     public bool isAllergen;
+
+    [Space] 
+    [HideInInspector] public bool isFood;
+    [HideInInspector] public float relievesHunger;
     
+    [Space] 
+    [HideInInspector] public bool isDrink;
+    [HideInInspector] public float relievesThirst;
     #region Editor
 #if UNITY_EDITOR
     
@@ -84,6 +94,26 @@ public class ItemScriptObj : ScriptableObject
                     script.successRate[i] = EditorGUILayout.Slider("Success rate",script.successRate[i], 0, 100);
                     EditorGUILayout.EndHorizontal();
                 }
+            }
+            
+            script.isFood = EditorGUILayout.Toggle("Is Food", script.isFood);
+            
+            if (script.isFood) // if bool is true, show other fields
+            {
+                    EditorGUILayout.BeginHorizontal();
+                    script.relievesHunger = EditorGUILayout.Slider("Relieves Hunger",script.relievesHunger, 0, 100);
+                    EditorGUILayout.EndHorizontal();
+                
+            }
+            
+            script.isDrink = EditorGUILayout.Toggle("Is Drink", script.isDrink);
+            
+            if (script.isDrink) // if bool is true, show other fields
+            {
+                EditorGUILayout.BeginHorizontal();
+                script.relievesThirst = EditorGUILayout.Slider("Relieves Thirst",script.relievesThirst, 0, 100);
+                EditorGUILayout.EndHorizontal();
+                
             }
         }
     }

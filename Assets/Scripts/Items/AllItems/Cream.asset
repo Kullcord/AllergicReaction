@@ -10,19 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af9ad51682635f848a83b5b757b6c2e1, type: 3}
-  m_Name: IceCubes
+  m_Name: Cream
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: 94eef5b58704eb64bae922952d500967, type: 3}
+  itemSprite: {fileID: 21300000, guid: ef1c19cf33bb3a648992e1a70d822128, type: 3}
   itemGameObject: {fileID: 0}
-  itemType: 1
-  canBuy: 1
-  ingredients: 1
-  isRemedy: 1
-  reactionType: 0000000001000000020000000300000004000000
+  itemType: 0
+  canBuy: 0
+  ingredients: 0
+  isRemedy: 0
+  reactionType: 0000000000000000000000000000000000000000
   successRate:
-  - 60
+  - 0
   - 0
   - 0
   - 0
   - 0
   isAllergen: 0
+  isFood: 0
+  relievesHunger: 0
+  isDrink: 0
+  relievesThirst: 0
