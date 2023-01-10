@@ -9,6 +9,7 @@ public class Explore : State
 
     private bool walkPointSet;
     private bool inAction = false;
+    public bool doOnce;
 
     [SerializeField] private GameObject waypoint;
 
@@ -30,22 +31,28 @@ public class Explore : State
         manager.agent.isStopped = false;
 
         //Start moving
-        Move(manager);
-
-        Vector3 distanceToWalk = transform.position - manager.walkPoint;
+        if (!doOnce)
+        {
+            Move(manager);
+            doOnce = true;
+        }
+        
+        Vector3 distanceToWalk = manager.transform.position - manager.walkPoint;
 
         //If walkpoint was reached then decide on what to do next
-        if (distanceToWalk.magnitude < 1.0f)
+        if (distanceToWalk.magnitude <= 1.0f)
         {
+            Debug.Log("niewngi");
             manager.previousWalkpoint = manager.walkPoint;
 
             walkPointSet = false;
             manager.walkPoint = Vector3.zero;
 
             inAction = false;
-
+            doOnce = false;
             //return manager.idleState;
             return manager.decisionState;
+            
         }
 
 
@@ -76,21 +83,20 @@ public class Explore : State
 
     private void SearchWalkPoint(StateManager manager)
     {
-        while (!walkPointSet)
+        if (!walkPointSet)
         {
-
             //Calculate random point in range
-            float randomX = Random.Range(-(manager.stats.energy * 10), (manager.stats.energy * 10));//(manager.bndFloor.min.x, manager.bndFloor.max.x);
-            float randomZ = Random.Range(-(manager.stats.energy * 10), (manager.stats.energy * 10));//(manager.bndFloor.min.z, manager.bndFloor.max.z);
+            float randomX = Random.Range(-manager.stats.energy * 10, manager.stats.energy * 10);//(manager.bndFloor.min.x, manager.bndFloor.max.x);
+            float randomZ = Random.Range(-manager.stats.energy * 10, manager.stats.energy * 10);//(manager.bndFloor.min.z, manager.bndFloor.max.z);
 
             manager.walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-            //waypoint.transform.position = manager.walkPoint;
+            waypoint.transform.position = manager.walkPoint;
 
             //Check if the walk point is reachable && If the AI can walk to the new point
-            if (/*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/ CanWalkCheck(manager))
+            if ( /*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/ CanWalkCheck(manager))
                 walkPointSet = true;
             else
-                walkPointSet = false;
+                SearchWalkPoint(manager);
         }
     }
 
@@ -123,10 +129,10 @@ public class Explore : State
     //Check if the pet is able to go as far as the walk point;
     private bool CanWalkThatFar(StateManager manager)
     {
-        float distAbleToGo = manager.stats.energy * 5f;
+        float distAbleToGo = manager.stats.energy * 10f;
         float distanceToGo = Vector3.Distance(manager.transform.position, manager.walkPoint);
 
-        if (distanceToGo <= distAbleToGo && distanceToGo > distAbleToGo / 2)
+        if (distanceToGo <= distAbleToGo) //&& distanceToGo > distAbleToGo / 2)
             return true;
         else
             return false;

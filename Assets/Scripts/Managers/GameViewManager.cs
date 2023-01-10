@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameScenesManager : MonoBehaviour
+public class GameViewManager : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject individualCamera;
@@ -44,11 +44,7 @@ public class GameScenesManager : MonoBehaviour
 
                 individualScreen = false;
             }
- 
         }
-
-        Debug.Log("Current time: " + currentTime);
-
     }
 
     private void ViewManager()

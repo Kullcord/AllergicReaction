@@ -29,6 +29,7 @@ public class Playing : State
                 manager.animControl.SetBool("Eat", false);
                 manager.animControl.SetBool("Need", false);
                 manager.animControl.SetBool("Allergy", false);
+                manager.animControl.SetBool("Pet", false);
 
 
                 manager.agent.isStopped = true;

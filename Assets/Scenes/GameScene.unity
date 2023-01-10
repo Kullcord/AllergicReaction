@@ -157,7 +157,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.03, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -877,7 +877,7 @@ MonoBehaviour:
   camHolder: {fileID: 38588168}
   cam: {fileID: 38588167}
   petList: []
-  gsm: {fileID: 1097101469}
+  gvm: {fileID: 1097101469}
   isTimeCheckAllowed: 1
   leftClickNum: 0
   isDragging: 0
@@ -3324,6 +3324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83525df24a93c0c47bcbcd149ae8d7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doOnce: 0
   waypoint: {fileID: 1730946481}
 --- !u!114 &87721857
 MonoBehaviour:
@@ -3383,7 +3384,6 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  startAllergicReaction: 0
   individualCamera: {fileID: 510698960}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -3424,9 +3424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overide: 0
-  allergends:
-  - {fileID: 11400000, guid: b919681249a794646849c8979143f395, type: 2}
-  allergyLevel: 00000000
+  allergicReaction: 0
   allergies: []
   petID: 1
   personality: 0.76
@@ -7078,6 +7076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83525df24a93c0c47bcbcd149ae8d7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doOnce: 0
   waypoint: {fileID: 1730946481}
 --- !u!114 &185793868
 MonoBehaviour:
@@ -7137,7 +7136,6 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  startAllergicReaction: 0
   individualCamera: {fileID: 1812921315}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -7178,9 +7176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overide: 0
-  allergends:
-  - {fileID: 11400000, guid: b919681249a794646849c8979143f395, type: 2}
-  allergyLevel: 00000000
+  allergicReaction: 0
   allergies: []
   petID: 3
   personality: 0.76
@@ -7797,10 +7793,10 @@ RectTransform:
   m_Father: {fileID: 1952739079}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 447.2136, y: -171.89731}
+  m_SizeDelta: {x: 160, y: 236}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &216665593
 PrefabInstance:
@@ -13101,7 +13097,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -25388,6 +25384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83525df24a93c0c47bcbcd149ae8d7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doOnce: 0
   waypoint: {fileID: 1730946481}
 --- !u!114 &710350375
 MonoBehaviour:
@@ -25447,7 +25444,6 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  startAllergicReaction: 0
   individualCamera: {fileID: 291423134}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -25488,9 +25484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overide: 0
-  allergends:
-  - {fileID: 11400000, guid: b919681249a794646849c8979143f395, type: 2}
-  allergyLevel: 00000000
+  allergicReaction: 0
   allergies: []
   petID: 4
   personality: 0.76
@@ -30598,7 +30592,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31126,9 +31120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overide: 0
-  allergends:
-  - {fileID: 11400000, guid: b919681249a794646849c8979143f395, type: 2}
-  allergyLevel: 00000000
+  allergicReaction: 0
   allergies: []
   petID: 0
   personality: 0.76
@@ -31178,6 +31170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83525df24a93c0c47bcbcd149ae8d7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doOnce: 0
   waypoint: {fileID: 1730946481}
 --- !u!114 &940833538
 MonoBehaviour:
@@ -31224,7 +31217,6 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  startAllergicReaction: 0
   individualCamera: {fileID: 1122575341}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -34690,7 +34682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1061167662
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35055,7 +35047,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -35354,7 +35346,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -36741,7 +36733,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1122575345}
   - component: {fileID: 1122575342}
-  - component: {fileID: 1122575344}
   - component: {fileID: 1122575343}
   m_Layer: 9
   m_Name: IndividualCamera
@@ -36826,14 +36817,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1122575344
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122575341}
-  m_Enabled: 1
 --- !u!4 &1122575345
 Transform:
   m_ObjectHideFlags: 0
@@ -38573,7 +38556,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -39402,7 +39385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1213253271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53365,7 +53348,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -54197,8 +54180,8 @@ RectTransform:
   m_Father: {fileID: 747947871}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.03, y: 0}
-  m_AnchorMax: {x: 0.03, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -68706,6 +68689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83525df24a93c0c47bcbcd149ae8d7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doOnce: 0
   waypoint: {fileID: 1730946481}
 --- !u!114 &2130444171
 MonoBehaviour:
@@ -68765,7 +68749,6 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  startAllergicReaction: 0
   individualCamera: {fileID: 425628147}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -68806,9 +68789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overide: 0
-  allergends:
-  - {fileID: 11400000, guid: b919681249a794646849c8979143f395, type: 2}
-  allergyLevel: 00000000
+  allergicReaction: 0
   allergies: []
   petID: 2
   personality: 0.76
