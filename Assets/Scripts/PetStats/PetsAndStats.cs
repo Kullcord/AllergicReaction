@@ -52,13 +52,13 @@ public class PetsAndStats : MonoBehaviour
         }
 
         randomPet.petID = MyPets.petsChosen.Count;
-        randomPet.energy = Random.Range(0f, 1f);
-        randomPet.attentionSpan = Random.Range(0f, 1f);
-        randomPet.curiosity = Random.Range(0f, 1f);
-        randomPet.thirst = Random.Range(0f, 1f);
-        randomPet.hunger = Random.Range(0f, 1f);
-        randomPet.boredom = Random.Range(0f, 1f);
-        randomPet.love = Random.Range(0f, 1f);
+        randomPet.energy = Random.Range(0.5f, 2.1f);
+        randomPet.attentionSpan = Random.Range(0f, 1.1f);
+        randomPet.curiosity = Random.Range(0f, 50.1f);
+        randomPet.thirst = Random.Range(0f, 1.1f);
+        randomPet.hunger = Random.Range(0f, 1.1f);
+        randomPet.boredom = Random.Range(0f, 1.1f);
+        randomPet.love = Random.Range(0f, 1.1f);
     }
     #endregion
 
