@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pet
   - PetIcon
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Ground
   - NotWakable
   - Item
-  - 
-  - 
-  - 
+  - Pet
+  - Trees
+  - Leaves
   - 
   - 
   - 
