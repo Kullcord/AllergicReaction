@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> petsObj;
+    public List<GameObject> petsObj;
     [SerializeField] private List<GameObject> statsBars;
 
     public static SpawnManager instance;

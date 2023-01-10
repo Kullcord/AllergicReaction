@@ -17,10 +17,8 @@ public class StateManager : MonoBehaviour
     public Animator animControl;
 
     [Header("Movement")]
-    public LayerMask groundLayer;
     public Vector3 walkPoint;
     public Vector3 previousWalkpoint;
-    public NavMeshPath path;
 
     [Header("Item Detection")]
     public LayerMask detectionLayer;
@@ -48,8 +46,9 @@ public class StateManager : MonoBehaviour
     public float currentTime;
 
     [HideInInspector] public Bounds bndFloor;
+    [HideInInspector] public Camera mainCamera;
     [HideInInspector] public GameObject individualCamera;
-    [HideInInspector] public RawImage actionIcon;
+     public RawImage actionIcon;
 
     [Header("Action Textures")]
     public Texture exploreIcon;
@@ -70,8 +69,7 @@ public class StateManager : MonoBehaviour
         id = stats.petID;
 
         bndFloor = GameObject.Find("MainZone").GetComponent<MeshRenderer>().bounds;
-        path = new NavMeshPath();
-
+        mainCamera = Camera.main;
         exploreState = GetComponent<Explore>();
         smellState = GetComponent<Smell>();
         digState = GetComponent<Dig>();
@@ -129,10 +127,6 @@ public class StateManager : MonoBehaviour
     public void SwitchToNext(State state)
     {
         currentState = state;
-        if (state == exploreState)
-        {
-            exploreState.doOnce = false;
-        }
     }
 
     //Eating

@@ -41,7 +41,7 @@ public class GameViewManager : MonoBehaviour
             {
                 switchView = false;
                 detectedPet.SwitchToNext(detectedPet.restState);
-
+                detectedPet.exploreState.doOnce = false;
                 individualScreen = false;
             }
         }

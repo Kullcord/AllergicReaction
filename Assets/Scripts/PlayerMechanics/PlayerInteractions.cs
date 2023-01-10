@@ -87,10 +87,10 @@ public class PlayerInteractions : MonoBehaviour
         isTimeCheckAllowed = false;
         while(Time.time < firstLeftClickTime + timeBetweenLeftClick)
         {
-            if(leftClickNum == 2 && !doOnce)
+            if(leftClickNum == 2)
             {
                 doubleClicked = true;
-                doOnce = true;
+                //doOnce = true;
 
                 Detection("Pet");
 
