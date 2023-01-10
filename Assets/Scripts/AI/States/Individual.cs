@@ -25,6 +25,7 @@ public class Individual : State
             //manager.agent.destination = manager.agent.transform.position;
             manager.agent.isStopped = true;
             manager.currentTime = 0.0f;
+            
         }
 
         //Create multiple checks
@@ -32,7 +33,7 @@ public class Individual : State
         //Check two: if the user played with the pet, then decrease boredom and play playing animation
         //Check three: if an allergy remedy was given, then play animation and deactivate bools
         //Check four: if the pet was pet, then play animation again
-        //la sfarsit de fiecare check, trb return manager.restState
+        //la sfarsit de fiecare check, trb return manager.restState + manager.needState.doOnce = false; + agent.isStopped = false + manager.agent.updateRotation = true;
 
 
         return this;

@@ -32,11 +32,17 @@ public class PetIndicatorsManager : MonoBehaviour
 
     private void Start()
     {
-        
         camHolder = FindObjectOfType<CameraHandler>();
 
         //Find all the pets in the scene
-        pets = new List<StateManager>(FindObjectsOfType<StateManager>());
+        int nr = 0;
+        for (int i = 0; i < SpawnManager.instance.petsObj.Count; i++)
+        {
+            nr++;
+            StateManager spwnMng = SpawnManager.instance.petsObj[i].GetComponent<StateManager>();
+            if(nr <= MyPets.petsChosen.Count)
+                pets.Add(spwnMng);
+        }
 
         petIDs = new List<int>();
 

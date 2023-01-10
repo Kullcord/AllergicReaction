@@ -17,6 +17,7 @@ public class Ch_StatsManager : MonoBehaviour
     private float hungerLevel;
     private float thirstLevel;
     private float boredomeLevel;
+    private float loveLevel;
 
     private void Start()
     {
@@ -27,10 +28,12 @@ public class Ch_StatsManager : MonoBehaviour
         hungerLevel = stats.hunger;
         thirstLevel = stats.thirst;
         boredomeLevel = stats.boredome;
+        loveLevel = stats.love;
 
-        hungerMultiplier = hungerMultiplier * stats.energy;
-        thirstMultiplier = thirstMultiplier * stats.energy;
-        boredomeMultiplier = boredomeMultiplier * stats.energy;
+        hungerMultiplier *= stats.energy;
+        thirstMultiplier *= stats.energy;
+        boredomeMultiplier *= stats.energy;
+        loveMultiplier *= stats.energy;
     }
 
     private void Update()
@@ -53,8 +56,11 @@ public class Ch_StatsManager : MonoBehaviour
             ThirstTracker();
         if(!stats.isBored)
             BoredomeTracker();
+        if(!stats.wantsLove)
+            LoveTracker();
+            
         
-        if(stats.isHungry ||stats.isBored || stats.isThirsty || stats.allergicReaction)
+        if(stats.isHungry || stats.isBored || stats.isThirsty || stats.wantsLove || stats.allergicReaction)
             stats.overide = true;
     }
 
@@ -89,5 +95,16 @@ public class Ch_StatsManager : MonoBehaviour
         }
         else
             stats.isBored = true;
+    }
+    
+    private void LoveTracker()
+    {
+        if (loveLevel > 25.0f)
+        {
+            loveLevel = loveLevel - loveMultiplier * Time.deltaTime;
+            stats.love = loveLevel;
+        }
+        else
+            stats.wantsLove = true;
     }
 }

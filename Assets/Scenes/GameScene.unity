@@ -157,7 +157,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.03, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3276,6 +3276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab651861f464949b8bb20fd9c082d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  doOnce: 0
 --- !u!114 &87721853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,11 +3356,8 @@ MonoBehaviour:
   id: 1
   stats: {fileID: 0}
   agent: {fileID: 87721861}
-  petMenu: {fileID: 214882170}
+  petMenu: {fileID: 593823230}
   animControl: {fileID: 937034818}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   previousWalkpoint: {x: 0, y: 0, z: 0}
   detectionLayer:
@@ -3384,6 +3383,7 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   individualCamera: {fileID: 510698960}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -3410,7 +3410,7 @@ MonoBehaviour:
   hungerMultiplier: 0.7
   thirstMultiplier: 0.6
   boredomeMultiplier: 0.5
-  loveMultiplier: 0
+  loveMultiplier: 0.3
 --- !u!114 &87721860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3437,7 +3437,8 @@ MonoBehaviour:
   isThirsty: 0
   boredome: 100
   isBored: 0
-  love: 1
+  love: 100
+  wantsLove: 0
 --- !u!195 &87721861
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7028,6 +7029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab651861f464949b8bb20fd9c082d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  doOnce: 0
 --- !u!114 &185793864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7106,11 +7109,8 @@ MonoBehaviour:
   id: 3
   stats: {fileID: 0}
   agent: {fileID: 185793872}
-  petMenu: {fileID: 214882170}
+  petMenu: {fileID: 454423185}
   animControl: {fileID: 115845822}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   previousWalkpoint: {x: 0, y: 0, z: 0}
   detectionLayer:
@@ -7136,6 +7136,7 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   individualCamera: {fileID: 1812921315}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -7162,7 +7163,7 @@ MonoBehaviour:
   hungerMultiplier: 0.7
   thirstMultiplier: 0.6
   boredomeMultiplier: 0.5
-  loveMultiplier: 0
+  loveMultiplier: 0.3
 --- !u!114 &185793871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7189,7 +7190,8 @@ MonoBehaviour:
   isThirsty: 0
   boredome: 100
   isBored: 0
-  love: 1
+  love: 100
+  wantsLove: 0
 --- !u!195 &185793872
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7793,10 +7795,10 @@ RectTransform:
   m_Father: {fileID: 1952739079}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 447.2136, y: -171.89731}
-  m_SizeDelta: {x: 160, y: 236}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &216665593
 PrefabInstance:
@@ -13097,7 +13099,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15954,7 +15956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 607.2136, y: -171.89731}
+  m_AnchoredPosition: {x: 607.21356, y: -177}
   m_SizeDelta: {x: 160, y: 236}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &454423185
@@ -17533,7 +17535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -376, y: -198}
+  m_AnchoredPosition: {x: 23, y: 20}
   m_SizeDelta: {x: 35.239502, y: 27.4048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515407693
@@ -19156,7 +19158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 767.2136, y: -171.89731}
+  m_AnchoredPosition: {x: 767.21356, y: -177}
   m_SizeDelta: {x: 160, y: 236}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &553721188
@@ -20042,7 +20044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 287.2136, y: -171.89731}
+  m_AnchoredPosition: {x: 287.21356, y: -177}
   m_SizeDelta: {x: 160, y: 236}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &593823230
@@ -25336,6 +25338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab651861f464949b8bb20fd9c082d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  doOnce: 0
 --- !u!114 &710350371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25414,11 +25418,8 @@ MonoBehaviour:
   id: 4
   stats: {fileID: 0}
   agent: {fileID: 710350379}
-  petMenu: {fileID: 214882170}
+  petMenu: {fileID: 553721188}
   animControl: {fileID: 712436960}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   previousWalkpoint: {x: 0, y: 0, z: 0}
   detectionLayer:
@@ -25444,6 +25445,7 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   individualCamera: {fileID: 291423134}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -25470,7 +25472,7 @@ MonoBehaviour:
   hungerMultiplier: 0.7
   thirstMultiplier: 0.6
   boredomeMultiplier: 0.5
-  loveMultiplier: 0
+  loveMultiplier: 0.3
 --- !u!114 &710350378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25497,7 +25499,8 @@ MonoBehaviour:
   isThirsty: 0
   boredome: 100
   isBored: 0
-  love: 1
+  love: 100
+  wantsLove: 0
 --- !u!195 &710350379
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -30592,7 +30595,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31133,7 +31136,8 @@ MonoBehaviour:
   isThirsty: 0
   boredome: 100
   isBored: 0
-  love: 1
+  love: 100
+  wantsLove: 0
 --- !u!114 &940833535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31189,9 +31193,6 @@ MonoBehaviour:
   agent: {fileID: 940833533}
   petMenu: {fileID: 214882170}
   animControl: {fileID: 890555825}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   previousWalkpoint: {x: 0, y: 0, z: 0}
   detectionLayer:
@@ -31217,6 +31218,7 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   individualCamera: {fileID: 1122575341}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -31281,7 +31283,7 @@ MonoBehaviour:
   hungerMultiplier: 0.7
   thirstMultiplier: 0.6
   boredomeMultiplier: 0.5
-  loveMultiplier: 0
+  loveMultiplier: 0.3
 --- !u!114 &940833543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31294,6 +31296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab651861f464949b8bb20fd9c082d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 3
+  doOnce: 0
 --- !u!114 &940833544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34682,7 +34686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1061167662
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34701,10 +34705,10 @@ RectTransform:
   m_Father: {fileID: 400993235}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1062779000
 GameObject:
@@ -35047,7 +35051,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -35346,7 +35350,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -38556,7 +38560,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -39385,7 +39389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1213253271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43928,7 +43932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 447.2136, y: -171.89731}
+  m_AnchoredPosition: {x: 447.21356, y: -177}
   m_SizeDelta: {x: 160, y: 236}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1375604172
@@ -53348,7 +53352,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -54180,8 +54184,8 @@ RectTransform:
   m_Father: {fileID: 747947871}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.03, y: 0}
+  m_AnchorMax: {x: 0.03, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -63016,10 +63020,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.19900002}
-  m_AnchoredPosition: {x: 0, y: -174.38083}
-  m_SizeDelta: {x: 794.4272, y: 87.894615}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 118}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1952739081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -68641,6 +68645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab651861f464949b8bb20fd9c082d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  doOnce: 0
 --- !u!114 &2130444167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68719,11 +68725,8 @@ MonoBehaviour:
   id: 2
   stats: {fileID: 0}
   agent: {fileID: 2130444175}
-  petMenu: {fileID: 214882170}
+  petMenu: {fileID: 1375604172}
   animControl: {fileID: 239239840}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
   previousWalkpoint: {x: 0, y: 0, z: 0}
   detectionLayer:
@@ -68749,6 +68752,7 @@ MonoBehaviour:
   bndFloor:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   individualCamera: {fileID: 425628147}
   actionIcon: {fileID: 0}
   exploreIcon: {fileID: 2800000, guid: b4660f2e9941a434bb74fd7f5f448871, type: 3}
@@ -68775,7 +68779,7 @@ MonoBehaviour:
   hungerMultiplier: 0.7
   thirstMultiplier: 0.6
   boredomeMultiplier: 0.5
-  loveMultiplier: 0
+  loveMultiplier: 0.3
 --- !u!114 &2130444174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68802,7 +68806,8 @@ MonoBehaviour:
   isThirsty: 0
   boredome: 100
   isBored: 0
-  love: 1
+  love: 100
+  wantsLove: 0
 --- !u!195 &2130444175
 NavMeshAgent:
   m_ObjectHideFlags: 0

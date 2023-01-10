@@ -4096,7 +4096,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c1ae1169c4aa76944979e203451bd723, type: 2}
   - {fileID: 11400000, guid: f7c3ad4e92c4ce44ebee5a0dc70801a3, type: 2}
   allSymptoms: 0000000001000000020000000300000004000000
-  maxPets: 3
+  maxPets: 4
 --- !u!4 &826162883
 Transform:
   m_ObjectHideFlags: 0

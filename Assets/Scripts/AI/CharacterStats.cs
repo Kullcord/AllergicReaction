@@ -44,8 +44,9 @@ public class CharacterStats : MonoBehaviour
     public bool isBored;
 
     [Header("Love")]
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 100.0f)]
     public float love;
+    public bool wantsLove;
 
     #endregion
 }

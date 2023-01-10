@@ -33,16 +33,15 @@ public class Explore : State
         //Start moving
         if (!doOnce)
         {
-            Move(manager);
+            StartCoroutine(Move(manager));
             doOnce = true;
         }
         
         Vector3 distanceToWalk = manager.transform.position - manager.walkPoint;
 
         //If walkpoint was reached then decide on what to do next
-        if (distanceToWalk.magnitude <= 1.0f)
+        if (distanceToWalk.magnitude < 1.0f)
         {
-            Debug.Log("niewngi");
             manager.previousWalkpoint = manager.walkPoint;
 
             walkPointSet = false;
@@ -59,29 +58,35 @@ public class Explore : State
         return this;
     }
 
-    private void Move(StateManager manager)
+    private IEnumerator Move(StateManager manager)
     {
+        // Try to calculate a path
+        // If it successfully calculates one, set the command to move there and stop the function.
+        // else if the path doesn't work, keep trying until it does.
+        
         NavMeshPath path = new NavMeshPath();
+        WaitForEndOfFrame frame = new();
 
-        if (manager.agent.CalculatePath(manager.walkPoint, path))
+        Vector3 destination = SearchWalkPoint(manager);
+        int iterations = 0;
+        while (!manager.agent.CalculatePath(destination, path) && iterations < 1000)
         {
-            if (!inAction)
-            {
-                //Debug.Log("Reachable");
-                manager.agent.SetDestination(manager.walkPoint);
-                inAction = true;
-            }
+            iterations++;
+            destination = SearchWalkPoint(manager);
+            yield return frame;
         }
-        else
+
+        if (!inAction)
         {
-            walkPointSet = false;
-            SearchWalkPoint(manager);
+            //Debug.Log("Reachable");
+            manager.agent.SetDestination(destination);
+            inAction = true;
         }
     }
 
     #region Movement Position Calculations & Checks
 
-    private void SearchWalkPoint(StateManager manager)
+    private Vector3 SearchWalkPoint(StateManager manager)
     {
         if (!walkPointSet)
         {
@@ -94,10 +99,17 @@ public class Explore : State
 
             //Check if the walk point is reachable && If the AI can walk to the new point
             if ( /*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/ CanWalkCheck(manager))
+            {
                 walkPointSet = true;
-            else
-                SearchWalkPoint(manager);
+                return manager.walkPoint;
+            }
         }
+        else
+        {
+            return manager.walkPoint;
+        }
+        
+        return manager.walkPoint;
     }
 
     private bool CanWalkCheck(StateManager manager)
