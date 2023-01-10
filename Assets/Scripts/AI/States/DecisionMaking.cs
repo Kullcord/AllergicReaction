@@ -6,9 +6,7 @@ public class DecisionMaking : State
 {
     #region Fields
 
-    [SerializeField] private float detectionRadius = 10f;
-    [SerializeField] private LayerMask detectionLayer;
-    private GameObject objWithSmallestDist;
+    private float detectionRadius = 10f;
 
     private int previousNr = -int.MaxValue;
     private int randomAction;
@@ -54,6 +52,7 @@ public class DecisionMaking : State
                             ResetValues();
 
                             manager.petMenu.actionIcon.texture = manager.petMenu.smellIcon;
+                            manager.actionIcon.texture = manager.smellIcon;
 
                             Debug.Log("Start smelling");
 
@@ -65,6 +64,7 @@ public class DecisionMaking : State
                             ResetValues();
 
                             manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+                            manager.actionIcon.texture = manager.exploreIcon;
 
                             Debug.Log("Start exploring");
 
@@ -76,6 +76,7 @@ public class DecisionMaking : State
                         ResetValues();
 
                         manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+                        manager.actionIcon.texture = manager.exploreIcon;
 
                         Debug.Log("Start exploring");
 
@@ -93,6 +94,7 @@ public class DecisionMaking : State
                     ResetValues();
 
                     manager.petMenu.actionIcon.texture = manager.petMenu.digIcon;
+                    manager.actionIcon.texture = manager.digIcon;
 
                     Debug.Log("Start digging");
 
@@ -109,6 +111,7 @@ public class DecisionMaking : State
                     ResetValues();
 
                     manager.petMenu.actionIcon.texture = manager.petMenu.playIcon;
+                    manager.actionIcon.texture = manager.playIcon;
 
                     Debug.Log("Start playing");
 
@@ -125,6 +128,7 @@ public class DecisionMaking : State
                     ResetValues();
 
                     manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+                    manager.actionIcon.texture = manager.exploreIcon;
 
                     Debug.Log("Start exploring");
 
@@ -145,7 +149,15 @@ public class DecisionMaking : State
 
             ResetValues();
 
-            manager.petMenu.actionIcon.texture = manager.petMenu.needsIcon;
+            if (manager.startAllergicReaction)
+            {
+                manager.petMenu.actionIcon.texture = manager.petMenu.allergyIcon;
+                manager.actionIcon.texture = manager.allergyIcon;
+            } else
+            {
+                manager.petMenu.actionIcon.texture = manager.petMenu.needsIcon;
+                manager.actionIcon.texture = manager.needsIcon;
+            }
 
             Debug.Log("Start needing");
 
@@ -227,7 +239,7 @@ public class DecisionMaking : State
     //Will need to add visibility obstructions(eg trees)
     private void Detection(StateManager manager)
     {
-        Collider[] collider = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
+        Collider[] collider = Physics.OverlapSphere(transform.position, detectionRadius, manager.detectionLayer);
         foreach(Collider col in collider)
         {
             if (!manager.goList.Contains(col.gameObject) && !manager.previeousObject.Contains(col.gameObject))

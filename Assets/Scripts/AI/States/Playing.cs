@@ -28,6 +28,7 @@ public class Playing : State
                 manager.animControl.SetBool("Sleep", false);
                 manager.animControl.SetBool("Eat", false);
                 manager.animControl.SetBool("Need", false);
+                manager.animControl.SetBool("Allergy", false);
 
 
                 manager.agent.isStopped = true;
@@ -50,6 +51,7 @@ public class Playing : State
             manager.currentTime = 0.0f;
 
             manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+            manager.actionIcon.texture = manager.exploreIcon;
 
             Debug.Log("Exit playing");
 

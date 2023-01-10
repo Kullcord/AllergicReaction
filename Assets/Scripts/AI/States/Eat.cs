@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Eat : State
 {
+    private bool callOnce;
+
     public override State Act(StateManager manager, CharacterStats stats)
     {
         if (manager.currentTime < (stats.atention * manager.maxTime) / 2)
@@ -18,10 +20,15 @@ public class Eat : State
             manager.animControl.SetBool("Play", false);
             manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Need", false);
+            manager.animControl.SetBool("Allergy", false);
 
             manager.currentTime += Time.deltaTime;
 
-            manager.Eat(manager.objectToInvestigate);
+            if (!callOnce)
+            {
+                manager.Eat(manager.objectToInvestigate);
+                callOnce = true;
+            }
 
             return this;
         }
@@ -29,9 +36,18 @@ public class Eat : State
         {
             manager.currentTime = 0.0f;
 
-            manager.agent.isStopped = false;
+            if (stats.overide)
+                return manager.needState;
+            else
+            {
+                manager.agent.isStopped = false;
 
-            return manager.exploreState;
+                manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+                manager.actionIcon.texture = manager.exploreIcon;
+
+                return manager.exploreState;
+            }
+
         }
     }
 }

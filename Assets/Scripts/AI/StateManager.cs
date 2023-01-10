@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
@@ -15,7 +16,14 @@ public class StateManager : MonoBehaviour
     public StatsUIManager petMenu;
     public Animator animControl;
 
+    [Header("Movement")]
+    public LayerMask groundLayer;
+    public Vector3 walkPoint;
+    public Vector3 previousWalkpoint;
+    public NavMeshPath path;
+
     [Header("Item Detection")]
+    public LayerMask detectionLayer;
     public GameObject objectToInvestigate;
     public ItemScriptObj containedAllergen;
     public List<GameObject> goList = new List<GameObject>();
@@ -32,13 +40,26 @@ public class StateManager : MonoBehaviour
     [HideInInspector] public Idle idleState;
     [HideInInspector] public Rest restState;
     [HideInInspector] public Eat eatState;
+    [HideInInspector] public Individual individualState;
 
     [Header("Attention Span")]
     [Range(0.0f, 1000.0f)]
     public float maxTime;
     public float currentTime;
 
-    public Bounds bndFloor;
+    [HideInInspector] public Bounds bndFloor;
+    [HideInInspector] public bool startAllergicReaction = false;
+    [HideInInspector] public GameObject individualCamera;
+    [HideInInspector] public RawImage actionIcon;
+
+    [Header("Action Textures")]
+    public Texture exploreIcon;
+    public Texture digIcon;
+    public Texture smellIcon;
+    public Texture playIcon;
+    public Texture needsIcon;
+    public Texture restIcon;
+    public Texture allergyIcon;
 
     #endregion
 
@@ -50,6 +71,7 @@ public class StateManager : MonoBehaviour
         id = stats.petID;
 
         bndFloor = GameObject.Find("MainZone").GetComponent<MeshRenderer>().bounds;
+        path = new NavMeshPath();
 
         exploreState = GetComponent<Explore>();
         smellState = GetComponent<Smell>();
@@ -60,13 +82,10 @@ public class StateManager : MonoBehaviour
         idleState = GetComponent<Idle>();
         restState = GetComponent<Rest>();
         eatState = GetComponent<Eat>();
-/*
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;*/
+        individualState = GetComponent<Individual>();
 
         currentState = exploreState;
         petMenu.actionIcon.texture = petMenu.exploreIcon;
-        //animControl.SetBool("Walk", true);
     }
 
     private void Update()
@@ -91,7 +110,7 @@ public class StateManager : MonoBehaviour
     private void HandleStateMachine()
     {
         //if state is not null, then perform current state
-        if(currentState != null)
+        if (currentState != null)
         {
             State nextState = currentState.Act(this, stats);
 
@@ -99,10 +118,12 @@ public class StateManager : MonoBehaviour
             if (nextState != null)
                 SwitchToNext(nextState);
         }
+        else
+            SwitchToNext(exploreState);
     }
 
     //State change
-    private void SwitchToNext(State state)
+    public void SwitchToNext(State state)
     {
         currentState = state;
     }
@@ -118,8 +139,11 @@ public class StateManager : MonoBehaviour
         if (containedAllergen.isAllergen)
         {
 
-            if (stats.allergends.Contains(containedAllergen))
-                Debug.Log("Do Allergic reaction");
+            if (stats.allergends.Contains(containedAllergen) && !startAllergicReaction)
+            {
+                stats.overide = true;
+                startAllergicReaction = true;
+            }
 
         }
 

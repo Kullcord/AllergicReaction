@@ -27,6 +27,7 @@ public class Dig : State
                 manager.animControl.SetBool("Sleep", false);
                 manager.animControl.SetBool("Eat", false);
                 manager.animControl.SetBool("Need", false);
+                manager.animControl.SetBool("Allergy", false);
 
                 manager.agent.isStopped = true;
                 manager.agent.velocity = Vector3.zero;
@@ -48,7 +49,8 @@ public class Dig : State
 
             doneOnce = false;
 
-            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+            manager.petMenu.actionIcon.texture = manager.exploreIcon;
+            manager.actionIcon.texture = manager.exploreIcon;
 
             Debug.Log("Exit digging");
 

@@ -10,16 +10,19 @@ public class Rest : State
         {
             //Play resting anim
             manager.animControl.SetBool("Sit", true);
+            manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Idle", false);
             manager.animControl.SetBool("Walk", false);
             manager.animControl.SetBool("Smell", false);
             manager.animControl.SetBool("Dig", false);
             manager.animControl.SetBool("Play", false);
-            manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Eat", false);
             manager.animControl.SetBool("Need", false);
+            manager.animControl.SetBool("Allergy", false);
 
             manager.currentTime += Time.deltaTime;
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.restIcon;
 
             return this;
         }

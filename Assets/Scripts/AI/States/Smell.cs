@@ -32,6 +32,7 @@ public class Smell : State
                     manager.animControl.SetBool("Sleep", false);
                     manager.animControl.SetBool("Eat", false);
                     manager.animControl.SetBool("Need", false);
+                    manager.animControl.SetBool("Allergy", false);
 
                     manager.currentTime += Time.deltaTime;
 
@@ -99,23 +100,12 @@ public class Smell : State
 
                 return manager.idleState;
             }
-
-            //return manager.exploreState;//Needs allergy check
-
-            //If(!allergicReaction)
-            //{
-            //return manager.exploreState;
-            //}
-            //else
-            //{
-            // return allergy reaction state
-            //}
         }
     }
 
     private bool EatingProbability(float percentage)
     {
-        float rnd = 10;Random.Range(0, 91);
+        float rnd = Random.Range(0, 91);
 
         if (rnd <= percentage)
             return true;
@@ -151,6 +141,7 @@ public class Smell : State
         manager.animControl.SetBool("Sleep", false);
         manager.animControl.SetBool("Eat", false);
         manager.animControl.SetBool("Need", false);
+        manager.animControl.SetBool("Allergy", false);
 
         manager.currentTime = 0.0f;
     }
