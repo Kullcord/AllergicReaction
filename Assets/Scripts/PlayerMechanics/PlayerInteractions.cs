@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private CameraHandler camHolder;
     [SerializeField] private Camera cam;
     [SerializeField] private List<GameObject> petList = new List<GameObject>();
-    [SerializeField] private GameScenesManager gsm;
+    [FormerlySerializedAs("gsm")] [SerializeField] private GameViewManager gvm;
 
     [Header("Double Click")]
     private float firstLeftClickTime;
@@ -115,12 +116,12 @@ public class PlayerInteractions : MonoBehaviour
                 var detectedPetStateManager = hit.collider.GetComponent<StateManager>();
                 var detectedPetStats = hit.collider.GetComponent<CharacterStats>();
 
-                gsm.individualCamera = detectedPetStateManager.individualCamera;
+                gvm.individualCamera = detectedPetStateManager.individualCamera;
 
-                gsm.detectedPet = detectedPetStateManager;
-                gsm.detectedPetStats = detectedPetStats;
+                gvm.detectedPet = detectedPetStateManager;
+                gvm.detectedPetStats = detectedPetStats;
 
-                gsm.switchView = true;
+                gvm.switchView = true;
 
                 doOnce = false;
             }

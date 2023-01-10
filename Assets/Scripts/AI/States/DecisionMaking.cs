@@ -149,7 +149,7 @@ public class DecisionMaking : State
 
             ResetValues();
 
-            if (manager.startAllergicReaction)
+            if (stats.allergicReaction)
             {
                 manager.petMenu.actionIcon.texture = manager.petMenu.allergyIcon;
                 manager.actionIcon.texture = manager.allergyIcon;

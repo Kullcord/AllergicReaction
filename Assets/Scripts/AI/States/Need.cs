@@ -8,7 +8,7 @@ public class Need : State
     {
         manager.agent.isStopped = true;
 
-        if (!manager.startAllergicReaction)
+        if (!stats.allergicReaction)
         {
             manager.animControl.SetBool("Need", true);
             manager.animControl.SetBool("Smell", false);
@@ -20,6 +20,7 @@ public class Need : State
             manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Eat", false);
             manager.animControl.SetBool("Allergy", false);
+            manager.animControl.SetBool("Pet", false);
         }
         else
         {
@@ -33,6 +34,8 @@ public class Need : State
             manager.animControl.SetBool("Sit", false);
             manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Eat", false);
+            manager.animControl.SetBool("Pet", false);
+
         }
 
         //if 1on1screenActive then return that state

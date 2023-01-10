@@ -6,7 +6,7 @@ public class Individual : State
 {
     public override State Act(StateManager manager, CharacterStats stats)
     {
-        if(!stats.overide || manager.startAllergicReaction)
+        if(!stats.overide)
         {
             manager.animControl.SetBool("Idle", true);
             manager.animControl.SetBool("Eat", false);
@@ -18,6 +18,8 @@ public class Individual : State
             manager.animControl.SetBool("Sleep", false);
             manager.animControl.SetBool("Need", false);
             manager.animControl.SetBool("Allergy", false);
+            manager.animControl.SetBool("Pet", false);
+
 
             /*manager.walkPoint = Vector3.zero;*/
             //manager.agent.destination = manager.agent.transform.position;
@@ -27,7 +29,7 @@ public class Individual : State
 
         //Create multiple checks
         //Check one: if the pet was fed. then play anim and call eat function
-        //Check two: if the use rplayed with the pet, then decrease boredome and play playing animation
+        //Check two: if the user played with the pet, then decrease boredom and play playing animation
         //Check three: if an allergy remedy was given, then play animation and deactivate bools
         //Check four: if the pet was pet, then play animation again
         //la sfarsit de fiecare check, trb return manager.restState

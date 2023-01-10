@@ -48,7 +48,6 @@ public class StateManager : MonoBehaviour
     public float currentTime;
 
     [HideInInspector] public Bounds bndFloor;
-    [HideInInspector] public bool startAllergicReaction = false;
     [HideInInspector] public GameObject individualCamera;
     [HideInInspector] public RawImage actionIcon;
 
@@ -90,8 +89,6 @@ public class StateManager : MonoBehaviour
     private void Start()
     {
         petMenu.actionIcon.texture = petMenu.exploreIcon;
-        
-        
     }
 
     private void Update()
@@ -132,6 +129,10 @@ public class StateManager : MonoBehaviour
     public void SwitchToNext(State state)
     {
         currentState = state;
+        if (state == exploreState)
+        {
+            exploreState.doOnce = false;
+        }
     }
 
     //Eating
@@ -146,10 +147,10 @@ public class StateManager : MonoBehaviour
         {
             for(int i = 0; i < stats.allergies.Length; i++)
             {
-                if (stats.allergies[i].allergenItemScriptObj == containedAllergen && !startAllergicReaction)
+                if (stats.allergies[i].allergenItemScriptObj == containedAllergen && !stats.allergicReaction)
                 {
                     stats.overide = true;
-                    startAllergicReaction = true;
+                    stats.allergicReaction = true;
                 }
             }
         }

@@ -31,7 +31,7 @@ public class SpawnManager : MonoBehaviour
 
             petStats.petID = currentPet.petID;
             petStats.atention = currentPet.attentionSpan;
-           // petStats.energy = currentPet.energy;
+            petStats.energy = currentPet.energy;
             petStats.curiosity = currentPet.curiosity;
             petStats.allergies = currentPet.allergies;
 

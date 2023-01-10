@@ -47,15 +47,14 @@ public class Ch_StatsManager : MonoBehaviour
 
     private void StatsManager()
     {
-        if (!stats.isHungry && !stats.isThirsty && !stats.isBored)
-        {
+        if (!stats.isHungry)
             HungerTracker();
-
+        if(!stats.isThirsty)
             ThirstTracker();
-
+        if(!stats.isBored)
             BoredomeTracker();
-        }
-        else
+        
+        if(stats.isHungry ||stats.isBored || stats.isThirsty || stats.allergicReaction)
             stats.overide = true;
     }
 

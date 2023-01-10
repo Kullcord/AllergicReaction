@@ -7,11 +7,9 @@ public class CharacterStats : MonoBehaviour
     #region Fields
 
     public bool overide = false;
-
+    public bool allergicReaction = false;
+    
     [Header("Allergens")]
-    public List<ItemScriptObj> allergends;
-    public List<Symptoms.Reactions> allergyLevel;
-
     public SymptomReaction[] allergies;
 
     [Header("Pet Stats")]
