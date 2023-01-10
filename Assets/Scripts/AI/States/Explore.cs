@@ -84,7 +84,7 @@ public class Explore : State
             float randomZ = Random.Range(-(manager.stats.energy * 10), (manager.stats.energy * 10));//(manager.bndFloor.min.z, manager.bndFloor.max.z);
 
             manager.walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-            waypoint.transform.position = manager.walkPoint;
+            //waypoint.transform.position = manager.walkPoint;
 
             //Check if the walk point is reachable && If the AI can walk to the new point
             if (/*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/ CanWalkCheck(manager))

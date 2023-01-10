@@ -6,7 +6,7 @@ public class DecisionMaking : State
 {
     #region Fields
 
-    private float detectionRadius = 10f;
+    [SerializeField] private float detectionRadius = 10f;
 
     private int previousNr = -int.MaxValue;
     private int randomAction;

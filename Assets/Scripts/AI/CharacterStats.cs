@@ -12,6 +12,8 @@ public class CharacterStats : MonoBehaviour
     public List<ItemScriptObj> allergends;
     public List<Symptoms.Reactions> allergyLevel;
 
+    public SymptomReaction[] allergies;
+
     [Header("Pet Stats")]
     public int petID;
 
@@ -48,9 +50,4 @@ public class CharacterStats : MonoBehaviour
     public float love;
 
     #endregion
-
-    private void Start()
-    {
-        //here initialize the stats from the selection menu
-    }
 }

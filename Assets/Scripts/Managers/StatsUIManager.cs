@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class StatsUIManager : MonoBehaviour
 {
     #region Fields
-    [SerializeField] private int id;
+    public int id;
 
     [Header("Refferences")]
     [SerializeField] private GameObject petTab;
     [SerializeField] private GameObject statsTab;
-    [SerializeField] private StateManager pet;
-    [SerializeField] private CharacterStats petStats;
-    [SerializeField] private CameraHandler camHolder;
+    public StateManager pet;
+    public CharacterStats petStats;
+    public CameraHandler camHolder;
 
     [Header("Action")]
     public RawImage actionIcon;
