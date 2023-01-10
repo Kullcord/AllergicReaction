@@ -30,8 +30,10 @@ public class PetIndicatorsManager : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
     private float progression = 0.0f;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitUntil(() => SpawnManager.instance.petsReady);
+        
         camHolder = FindObjectOfType<CameraHandler>();
 
         //Find all the pets in the scene

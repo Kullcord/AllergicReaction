@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,17 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private int intervals = 5;
 
-    private void Start()
+    public static SpawnManager instance;
+    public bool petsReady;
+
+    private void Awake()
     {
+        instance = this;
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(() => petPrefab != null);
         for(int i = 0; i <= MyPets.petsChosen.Count - 1; i++)
         {
             var currentPet = MyPets.petsChosen[i];
@@ -55,5 +65,7 @@ public class SpawnManager : MonoBehaviour
 
             petsObj.Add(petClone);
         }
+
+        petsReady = true;
     }
 }
