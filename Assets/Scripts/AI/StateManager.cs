@@ -90,6 +90,8 @@ public class StateManager : MonoBehaviour
     private void Start()
     {
         petMenu.actionIcon.texture = petMenu.exploreIcon;
+        
+        
     }
 
     private void Update()
@@ -142,7 +144,7 @@ public class StateManager : MonoBehaviour
         //If allergy
         if (containedAllergen.isAllergen)
         {
-            for(int i = 0; i <= stats.allergies.Length; i++)
+            for(int i = 0; i < stats.allergies.Length; i++)
             {
                 if (stats.allergies[i].allergenItemScriptObj == containedAllergen && !startAllergicReaction)
                 {

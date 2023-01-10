@@ -30,9 +30,8 @@ public class PetIndicatorsManager : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
     private float progression = 0.0f;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitUntil(() => SpawnManager.instance.petsReady);
         
         camHolder = FindObjectOfType<CameraHandler>();
 
