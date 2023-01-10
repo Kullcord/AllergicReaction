@@ -16,7 +16,6 @@ public class PetsAndStats : MonoBehaviour
     private List<ItemScriptObj> allAllergensUsed;
     [Tooltip("Add all item obj here")]
     [SerializeField]private Symptoms.Reactions[] allSymptoms;
-    private List<Symptoms.Reactions> symptomsUsed;
     
     [Space][Tooltip("How many pets can you take care of")]
     public int maxPets = 3;
@@ -32,12 +31,11 @@ public class PetsAndStats : MonoBehaviour
     }
 
     #region Set Random Stats
-    public void SetStats(int petId)
+    public void SetStats(int petType)
     { 
-        randomPet.petID = petId;
+        randomPet.petType = petType;
 
         allAllergensUsed = new(allAllergenItems);
-        symptomsUsed = allSymptoms.ToList();
         
         int randomnr;
         randomnr = Random.Range(1, 5);//random amount of allergens
@@ -50,15 +48,16 @@ public class PetsAndStats : MonoBehaviour
             randomPet.allergies[i].allergenItemScriptObj = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
             allAllergensUsed.Remove(randomPet.allergies[i].allergenItemScriptObj);
             //choose random reaction
-            randomPet.allergies[i].symptom = symptomsUsed[Random.Range(0, symptomsUsed.Count)];
-            symptomsUsed.Remove(randomPet.allergies[i].symptom);
+            randomPet.allergies[i].symptom = allSymptoms[Random.Range(0, allSymptoms.Length)];
         }
 
-        randomPet.personality = Random.Range(0f, 1f);
-        randomPet.curiosity = Random.Range(0f, 1f);
+        randomPet.petID = MyPets.petsChosen.Count;
+        randomPet.energy = Random.Range(0f, 1f);
         randomPet.attentionSpan = Random.Range(0f, 1f);
+        randomPet.curiosity = Random.Range(0f, 1f);
         randomPet.thirst = Random.Range(0f, 1f);
         randomPet.hunger = Random.Range(0f, 1f);
+        randomPet.boredom = Random.Range(0f, 1f);
         randomPet.love = Random.Range(0f, 1f);
     }
     #endregion
@@ -71,12 +70,14 @@ public class PetsAndStats : MonoBehaviour
             return;
         ChosenPetStats petStats = new ChosenPetStats();
         petStats.petID = randomPet.petID;
+        petStats.petType = randomPet.petType;
         petStats.allergies = randomPet.allergies;
-        petStats.personality = randomPet.personality;
         petStats.curiosity = randomPet.curiosity;
+        petStats.energy = randomPet.energy;
         petStats.attentionSpan = randomPet.attentionSpan;
         petStats.thirst = randomPet.thirst;
         petStats.hunger = randomPet.hunger;
+        petStats.boredom = randomPet.boredom;
         petStats.love = randomPet.love;
         
         MyPets.petsChosen.Add(petStats);
@@ -103,14 +104,16 @@ public class SymptomReaction
 [Serializable]
 public class ChosenPetStats
 {
-    public int petID;//to know what pet image to insert
+    public int petType;//to know what pet image to insert
+    public int petID;
     [Space]
     public SymptomReaction[] allergies;
-    public float personality;
-    public float curiosity;
+    public float energy;
     public float attentionSpan;
+    public float curiosity;
     public float thirst;
     public float hunger;
+    public float boredom;
     public float love;
 }
 
