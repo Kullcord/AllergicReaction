@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class Ch_StatsManager : MonoBehaviour
 {
-    [SerializeField] private int id;
+    public int id;
     [SerializeField] private CharacterStats stats;
 
     [Header("Multipliers")]
-    [SerializeField] private float hungerMultiplier;
-    [SerializeField] private float thirstMultiplier;
-    [SerializeField] private float boredomeMultiplier;
+    public float hungerMultiplier;
+    public float thirstMultiplier;
+    public float boredomeMultiplier;
+    public float loveMultiplier;
 
     private float hungerLevel;
     private float thirstLevel;

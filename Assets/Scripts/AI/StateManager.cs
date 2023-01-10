@@ -85,6 +85,10 @@ public class StateManager : MonoBehaviour
         individualState = GetComponent<Individual>();
 
         currentState = exploreState;
+    }
+
+    private void Start()
+    {
         petMenu.actionIcon.texture = petMenu.exploreIcon;
     }
 
@@ -138,13 +142,14 @@ public class StateManager : MonoBehaviour
         //If allergy
         if (containedAllergen.isAllergen)
         {
-
-            if (stats.allergends.Contains(containedAllergen) && !startAllergicReaction)
+            for(int i = 0; i <= stats.allergies.Length; i++)
             {
-                stats.overide = true;
-                startAllergicReaction = true;
+                if (stats.allergies[i].allergenItemScriptObj == containedAllergen && !startAllergicReaction)
+                {
+                    stats.overide = true;
+                    startAllergicReaction = true;
+                }
             }
-
         }
 
         //also decrease the hunger stat
