@@ -62,8 +62,6 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 else
                     rectTDropped.sizeDelta *= 0.6f;
             }
-            
         }
     }
-
 }

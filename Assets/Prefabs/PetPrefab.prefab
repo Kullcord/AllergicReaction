@@ -107,13 +107,13 @@ MonoBehaviour:
   atention: 0
   energy: 0
   curiosity: 0
-  hunger: 0
+  hunger: 100
   isHungry: 0
-  thirst: 0
+  thirst: 100
   isThirsty: 0
-  boredome: 0
+  boredome: 100
   isBored: 0
-  love: 0
+  love: 1
 --- !u!114 &4483286268678405012
 MonoBehaviour:
   m_ObjectHideFlags: 0
