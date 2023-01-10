@@ -53,6 +53,13 @@ public class PetIndicatorsManager : MonoBehaviour
             GameObject indicator = Instantiate(indicatorPrefab, transform);
             indicators.Add(indicator);
 
+            indicator.GetComponent<Indicator>().id = petID;
+            pet.actionIcon = indicator.GetComponent<Indicator>().actionIcon;
+
+            pet.actionIcon.texture = pet.exploreIcon;
+
+            //indicator.GetComponent<Indicator>().petIcon = petIcon;
+
             //Add a click event to the indicator button
             Button bttn = indicator.GetComponent<Button>();
             bttn.onClick.AddListener(() => TeleportToPet(pet));

@@ -9,9 +9,9 @@ public class CameraHandler : MonoBehaviour
     private static readonly float zoomSpeedTouch = 0.1f;
     private static readonly float zoomSpeedMouse = 10f;
 
-    private static readonly float[] BoundsX = new float[] { -15f, 15f };
-    private static readonly float[] BoundsZ = new float[] { -30f, 30f };
-    private static readonly float[] ZoomBounds = new float[] { 35f, 75f };
+    private static readonly float[] BoundsX = new float[] { -20f, 33f };
+    private static readonly float[] BoundsZ = new float[] { -12.5f, 40f };
+    private static readonly float[] ZoomBounds = new float[] { 25f, 75f };
 
     [SerializeField] private PlayerInteractions player;
 

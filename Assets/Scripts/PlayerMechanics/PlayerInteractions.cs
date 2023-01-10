@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    [SerializeField] private CameraHandler cam;
+    [SerializeField] private CameraHandler camHolder;
+    [SerializeField] private Camera cam;
     [SerializeField] private List<GameObject> petList = new List<GameObject>();
+    [SerializeField] private GameScenesManager gsm;
 
     [Header("Double Click")]
     private float firstLeftClickTime;
@@ -30,6 +32,7 @@ public class PlayerInteractions : MonoBehaviour
     private bool drop;
 
     private Vector3 positionBeforeDrag;
+
 
     private void Awake()
     {
@@ -63,7 +66,7 @@ public class PlayerInteractions : MonoBehaviour
             {
                 isHeld = true;
 
-                if(!doubleClicked && !cam.isMoving)
+                if(!doubleClicked && !camHolder.isMoving)
                     DragPet();
             }
         }
@@ -83,9 +86,10 @@ public class PlayerInteractions : MonoBehaviour
         isTimeCheckAllowed = false;
         while(Time.time < firstLeftClickTime + timeBetweenLeftClick)
         {
-            if(leftClickNum == 2)
+            if(leftClickNum == 2 && !doOnce)
             {
                 doubleClicked = true;
+                doOnce = true;
 
                 Detection("Pet");
 
@@ -96,6 +100,31 @@ public class PlayerInteractions : MonoBehaviour
         leftClickNum = 0;
         isTimeCheckAllowed = true;
         doubleClicked = false;
+    }
+
+    private bool doOnce = false;
+
+    private void Detection(string tag)
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if(hit.collider.tag == tag)
+            {
+                var detectedPetStateManager = hit.collider.GetComponent<StateManager>();
+                var detectedPetStats = hit.collider.GetComponent<CharacterStats>();
+
+                gsm.individualCamera = detectedPetStateManager.individualCamera;
+
+                gsm.detectedPet = detectedPetStateManager;
+                gsm.detectedPetStats = detectedPetStats;
+
+                gsm.switchView = true;
+
+                doOnce = false;
+            }
+        }
     }
 
     #endregion
@@ -181,25 +210,6 @@ public class PlayerInteractions : MonoBehaviour
     private void SetDefault()
     {
         isDragging = false;
-    }
-
-    #endregion
-
-    #region Detection
-
-    private void Detection(string tag)
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider.tag == tag)
-            {
-                Debug.Log("Detected: " + tag);
-
-                Debug.Log("Go to 1-on-1 screen");
-            }
-        }
     }
 
     #endregion

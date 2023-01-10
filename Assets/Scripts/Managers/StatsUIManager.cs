@@ -24,6 +24,8 @@ public class StatsUIManager : MonoBehaviour
     public Texture smellIcon;
     public Texture playIcon;
     public Texture needsIcon;
+    public Texture restIcon;
+    public Texture allergyIcon;
 
     [Header("Bars")]
     [SerializeField] private Slider hungerBar;
@@ -117,7 +119,7 @@ public class StatsUIManager : MonoBehaviour
         {
             objScreenPos.x = -objScreenPos.x;
             objScreenPos.y = -objScreenPos.y;
-            objScreenPos.z = -objScreenPos.z;
+            //objScreenPos.z = -objScreenPos.z;
         }
 
         //Get the directional vector between the arrow and the pet
