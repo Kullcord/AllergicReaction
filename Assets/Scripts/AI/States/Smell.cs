@@ -4,82 +4,146 @@ using UnityEngine;
 
 public class Smell : State
 {
-    [Range (0.0f, 1000.0f)]
-    [SerializeField] private float maxTime;
-    [SerializeField] private float currentTime;
     private bool done = false;
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
         Vector3 distance = transform.position - manager.objectToInvestigate.transform.position;
 
-        if (currentTime < manager.stats.atention * maxTime)
+        //Timer based on the atention span
+        if (manager.currentTime < manager.stats.atention * manager.maxTime)
         {
-
-            if (distance.magnitude < 2.5f)
+            //If the object the AI wants to investigate is still in the scene then the system can continue with the smell state
+            if (manager.objectToInvestigate.activeSelf)
             {
-                /*Stop agent
-                * Play animation
-                * Need to implement eating mechanic
-                * Need to create chance for eating
-                * Idk yet how the chance for eating will be
-                */
-                currentTime += Time.time / 10;
-
-                if (!done)
+                //If the AI is close enough to investigate, start the smelling process
+                if (distance.magnitude < 2.5f)
                 {
-                    Debug.Log("Smelling");
+                    /* Play animation 
+                     * Add Icon
+                     * Play sound
+                     */
+                    manager.animControl.SetBool("Smell", true);
+                    manager.animControl.SetBool("Play", false);
+                    manager.animControl.SetBool("Walk", false);
+                    manager.animControl.SetBool("Dig", false);
+                    manager.animControl.SetBool("Idle", false);
+                    manager.animControl.SetBool("Sit", false);
+                    manager.animControl.SetBool("Sleep", false);
+                    manager.animControl.SetBool("Eat", false);
+                    manager.animControl.SetBool("Need", false);
+                    manager.animControl.SetBool("Allergy", false);
 
+                    manager.currentTime += Time.deltaTime;
 
-                    manager.agent.isStopped = true;
+                    if (!done)
+                    {
+                        Debug.Log("Smelling");
 
-                    //manager.agent.SetDestination(manager.agent.transform.position);
+                        manager.agent.isStopped = true;
+                        manager.agent.velocity = Vector3.zero;
+                        
+                        done = true;
+                    }
 
-                    //if allergic reaction
-                    //then start reaction state
-
-                    done = true;
                 }
 
+                //If the ai is not close enough to perform the smelling action, then move towards the object
+                else
+                {
+                    manager.agent.isStopped = false;
+
+                    done = false;
+
+                    MoveTowards(manager);
+                }
+
+                return this;
             }
             else
-                MoveTowards(manager);
+            {
+                ResetValues(manager);
+                manager.objectToInvestigate = null;
 
 
-            return this;
+                manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                Debug.Log("Cant continue smelling");
+
+                return manager.idleState;
+                //return manager.exploreState;
+            }
         }
+
+        //If the timer runs out, or the object to investigate is no longer in the scene
         else
         {
-            //If(!allergicReaction)
-            //{
-            currentTime = 0.0f;
+            if ((manager.stats.hunger < 50 || EatingProbability(manager.stats.curiosity)) && distance.magnitude < 2.5f)
+            {
+                ResetValues(manager);
 
-            manager.agent.isStopped = false;
+                //manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
 
-            if (!manager.previeousObject.Contains(manager.objectToInvestigate))
-                manager.previeousObject.Add(manager.objectToInvestigate);
+                Debug.Log("Eating");
 
-            manager.Eat(manager.objectToInvestigate);
-            manager.goList.Remove(manager.objectToInvestigate);
-            manager.objectToInvestigate = null;
+                return manager.eatState;
+            }
+            else
+            {
+                ResetValues(manager);
 
-            done = false;
+                manager.objectToInvestigate = null;
 
-            return manager.exploreState;
-            //}
-            //else
-            //{
-            // return allergy reaction state
-            //}
+                manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+
+                Debug.Log("Exit smelling");
+
+                return manager.idleState;
+            }
         }
+    }
+
+    private bool EatingProbability(float percentage)
+    {
+        float rnd = Random.Range(0, 91);
+
+        if (rnd <= percentage)
+            return true;
+        else
+            return false;
+    }
+
+    private void ResetValues(StateManager manager)
+    {
+        manager.currentTime = 0.0f;
+
+        //manager.agent.isStopped = false;
+
+        if (!manager.previeousObject.Contains(manager.objectToInvestigate))
+            manager.previeousObject.Add(manager.objectToInvestigate);
+
+        //manager.objectToInvestigate = null;
+        manager.containedAllergen = null;
+
+        done = false;
     }
 
     private void MoveTowards(StateManager manager)
     {
         manager.agent.SetDestination(manager.objectToInvestigate.transform.position);
 
-        currentTime = 0.0f;
-    }
+        manager.animControl.SetBool("Walk", true);
+        manager.animControl.SetBool("Play", false);
+        manager.animControl.SetBool("Smell", false);
+        manager.animControl.SetBool("Dig", false);
+        manager.animControl.SetBool("Idle", false);
+        manager.animControl.SetBool("Sit", false);
+        manager.animControl.SetBool("Sleep", false);
+        manager.animControl.SetBool("Eat", false);
+        manager.animControl.SetBool("Need", false);
+        manager.animControl.SetBool("Allergy", false);
 
+        manager.currentTime = 0.0f;
+    }
 }
 
