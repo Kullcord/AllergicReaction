@@ -34,6 +34,20 @@ public class Individual : State, IDropHandler
 
             manager.currentTime = 0.0f;
             
+        }else if (stats.overide && !petTendedTo &&
+                  (stats.isBored || stats.isHungry || stats.isThirsty || stats.wantsLove))
+        {
+            manager.animControl.SetBool("Need", true);
+            manager.animControl.SetBool("Idle", false);
+            manager.animControl.SetBool("Eat", false);
+            manager.animControl.SetBool("Sit", false);
+            manager.animControl.SetBool("Walk", false);
+            manager.animControl.SetBool("Smell", false);
+            manager.animControl.SetBool("Dig", false);
+            manager.animControl.SetBool("Play", false);
+            manager.animControl.SetBool("Sleep", false);
+            manager.animControl.SetBool("Allergy", false);
+            manager.animControl.SetBool("Pet", false);
         }
 
         //Create multiple checks
@@ -120,7 +134,59 @@ public class Individual : State, IDropHandler
 
     IEnumerator IndividualScreen(CharacterStats stats, StateManager manager)
     {
-        if (itemDropped.itemObj.isRemedy)
+        if (itemDropped.itemObj.isFood || itemDropped.itemObj.isDrink || itemDropped.itemObj.forPlay)
+        {
+            petTendedTo = true;
+            TendToPet(stats,itemDropped.itemObj);
+            Inventory.instance.RemoveItem(itemDropped.gameObject);
+            if(/*!stats.overide &&*/ petTendedTo)
+            {
+                if (itemDropped.itemObj.isFood || itemDropped.itemObj.isDrink)
+                {
+                    if (!itemDropped.itemObj.isRemedy || !stats.allergicReaction)
+                    {
+                        manager.animControl.SetBool("Eat", true);
+                        manager.animControl.SetBool("Idle", false);
+                        manager.animControl.SetBool("Sit", false);
+                        manager.animControl.SetBool("Walk", false);
+                        manager.animControl.SetBool("Smell", false);
+                        manager.animControl.SetBool("Dig", false);
+                        manager.animControl.SetBool("Play", false);
+                        manager.animControl.SetBool("Sleep", false);
+                        manager.animControl.SetBool("Need", false);
+                        manager.animControl.SetBool("Allergy", false);
+                        manager.animControl.SetBool("Pet", false);
+                    }
+                }
+                else
+                {
+                    manager.animControl.SetBool("Play", true);
+                    manager.animControl.SetBool("Idle", false);
+                    manager.animControl.SetBool("Eat", false);
+                    manager.animControl.SetBool("Sit", false);
+                    manager.animControl.SetBool("Walk", false);
+                    manager.animControl.SetBool("Smell", false);
+                    manager.animControl.SetBool("Dig", false);
+                    manager.animControl.SetBool("Sleep", false);
+                    manager.animControl.SetBool("Need", false);
+                    manager.animControl.SetBool("Allergy", false);
+                    manager.animControl.SetBool("Pet", false);
+                }
+
+                if (!itemDropped.itemObj.isRemedy || !stats.allergicReaction)
+                {
+                    yield return new WaitForSeconds(1); //wait until animation changes
+                    float currAnimLength = manager.animControl.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+                    yield return new WaitForSeconds(currAnimLength * 2);
+                }
+
+                petTendedTo = false;
+                chStats.eating = false;
+                chStats.drinking = false;
+                chStats.playing = false;
+            }
+        }
+         if (itemDropped.itemObj.isRemedy && stats.allergicReaction)
         {
             petTendedTo = true;
             stats.allergicReaction = false;
@@ -182,54 +248,6 @@ public class Individual : State, IDropHandler
             }
             
             petTendedTo = false;
-        }
-        if (itemDropped.itemObj.isFood || itemDropped.itemObj.isDrink || itemDropped.itemObj.forPlay)
-        {
-            petTendedTo = true;
-            TendToPet(stats,itemDropped.itemObj);
-            Inventory.instance.RemoveItem(itemDropped.gameObject);
-            if(/*!stats.overide &&*/ petTendedTo)
-            {
-                if (itemDropped.itemObj.isFood || itemDropped.itemObj.isDrink)
-                {
-                    if (!itemDropped.itemObj.isRemedy)
-                    {
-                        manager.animControl.SetBool("Eat", true);
-                        manager.animControl.SetBool("Idle", false);
-                        manager.animControl.SetBool("Sit", false);
-                        manager.animControl.SetBool("Walk", false);
-                        manager.animControl.SetBool("Smell", false);
-                        manager.animControl.SetBool("Dig", false);
-                        manager.animControl.SetBool("Play", false);
-                        manager.animControl.SetBool("Sleep", false);
-                        manager.animControl.SetBool("Need", false);
-                        manager.animControl.SetBool("Allergy", false);
-                        manager.animControl.SetBool("Pet", false);
-                    }
-                }
-                else
-                {
-                    manager.animControl.SetBool("Play", true);
-                    manager.animControl.SetBool("Idle", false);
-                    manager.animControl.SetBool("Eat", false);
-                    manager.animControl.SetBool("Sit", false);
-                    manager.animControl.SetBool("Walk", false);
-                    manager.animControl.SetBool("Smell", false);
-                    manager.animControl.SetBool("Dig", false);
-                    manager.animControl.SetBool("Sleep", false);
-                    manager.animControl.SetBool("Need", false);
-                    manager.animControl.SetBool("Allergy", false);
-                    manager.animControl.SetBool("Pet", false);
-                }
-                
-                
-                yield return new WaitForSeconds(1);//wait until animation changes
-                float currAnimLength = manager.animControl.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-                yield return new WaitForSeconds(currAnimLength * 2);
-                petTendedTo = false;
-                chStats.eating = false;
-                chStats.drinking = false;
-            }
         }
     }
 

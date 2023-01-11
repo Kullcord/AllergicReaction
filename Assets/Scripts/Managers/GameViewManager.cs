@@ -40,7 +40,7 @@ public class GameViewManager : MonoBehaviour
             else
             {
                 switchView = false;
-                if(!detectedPet.GetComponent<Individual>().petTreated)//if the pet wasn't given a remedy, make it rest
+                if(!detectedPet.GetComponent<Individual>().petTreated && !detectedPet.stats.allergicReaction)//if the pet wasn't given a remedy and it doesn't have an allergic reaction, make it rest
                     detectedPet.SwitchToNext(detectedPet.restState);
                 detectedPet.exploreState.doOnce = false;
                 individualScreen = false;
@@ -51,7 +51,8 @@ public class GameViewManager : MonoBehaviour
     {
         switchView = false;
         currentTime = 0;
-        detectedPet.GetComponent<StateManager>().currentState = detectedPet.GetComponent<StateManager>().restState;
+        if(!detectedPet.GetComponent<Individual>().petTreated && !detectedPet.GetComponent<CharacterStats>().allergicReaction)
+            detectedPet.GetComponent<StateManager>().currentState = detectedPet.GetComponent<StateManager>().restState;
     }
     private void ViewManager()
     {
