@@ -17,10 +17,10 @@ MonoBehaviour:
   itemType: 2
   canBuy: 0
   ingredients: 0
-  isRemedy: 0
-  reactionType: 0000000000000000000000000000000000000000
+  isRemedy: 1
+  reactionType: 0000000001000000020000000300000004000000
   successRate:
-  - 0
+  - 90
   - 0
   - 0
   - 0

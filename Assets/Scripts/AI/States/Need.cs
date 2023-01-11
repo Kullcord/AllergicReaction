@@ -43,10 +43,10 @@ public class Need : State
 
         //if 1on1screenActive then return that state
         
-            manager.agent.isStopped = true;
+            /*manager.agent.isStopped = true;
             manager.agent.velocity = Vector3.zero;
             manager.agent.updateRotation = false;
-            transform.LookAt(manager.mainCamera.transform.position);
+            transform.LookAt(manager.mainCamera.transform.position);*/
             
             return this;
     }

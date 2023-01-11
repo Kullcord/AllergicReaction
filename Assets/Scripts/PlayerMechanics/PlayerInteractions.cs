@@ -122,7 +122,9 @@ public class PlayerInteractions : MonoBehaviour
                 gvm.detectedPetStats = detectedPetStats;
 
                 gvm.switchView = true;
-
+                
+                gvm.detectedPet.GetComponent<Individual>().petTreated = false;//to reset the variable whenever player enters individual screen
+                
                 doOnce = false;
             }
         }

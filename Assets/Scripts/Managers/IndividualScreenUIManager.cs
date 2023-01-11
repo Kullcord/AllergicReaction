@@ -17,6 +17,7 @@ public class IndividualScreenUIManager : MonoBehaviour
 
     public float atentionSpan;
     [SerializeField] private float currentTime;
+    public Image currentAllergy;
 
     private void Update()
     {
@@ -33,7 +34,7 @@ public class IndividualScreenUIManager : MonoBehaviour
         boredomeBar.maxValue = maxBoredomeVal;
         loveBar.maxValue = maxLoveVal;
     }
-
+    
     public void SetStats(float hunger, float thirst, float boredome, float love, float atention)
     {
         hungerBar.value = hunger;
@@ -42,6 +43,111 @@ public class IndividualScreenUIManager : MonoBehaviour
         loveBar.value = love;
 
         atentionSpan = atention;
+    }
+
+    public void SetAllergenIcon(CharacterStats stats, StateManager manager)
+    {
+        if (stats.allergicReaction)
+        {
+            currentAllergy.gameObject.SetActive(true);
+                switch (stats.currentReaction.symptom)
+                {
+                    case Symptoms.Reactions.Itching:
+                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        {
+                            case ItemScriptObj.ItemType.Milk:
+                                currentAllergy.sprite = manager.petMenu.Milk[0];
+                                break;
+                            case ItemScriptObj.ItemType.Wheat:
+                                currentAllergy.sprite = manager.petMenu.Wheat[0];
+                                break;
+                            case ItemScriptObj.ItemType.Peanut:
+                                currentAllergy.sprite = manager.petMenu.Peanut[0];
+                                break;
+                            case ItemScriptObj.ItemType.Cashew:
+                                currentAllergy.sprite = manager.petMenu.Cashew[0];
+                                break;
+                        }
+
+                        break;
+                    case Symptoms.Reactions.Wheezing:
+                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        {
+                            case ItemScriptObj.ItemType.Milk:
+                                currentAllergy.sprite = manager.petMenu.Milk[1];
+                                break;
+                            case ItemScriptObj.ItemType.Wheat:
+                                currentAllergy.sprite = manager.petMenu.Wheat[1];
+                                break;
+                            case ItemScriptObj.ItemType.Peanut:
+                                currentAllergy.sprite = manager.petMenu.Peanut[1];
+                                break;
+                            case ItemScriptObj.ItemType.Cashew:
+                                currentAllergy.sprite = manager.petMenu.Cashew[1];
+                                break;
+                        }
+
+                        break;
+                    case Symptoms.Reactions.Vomiting:
+                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        {
+                            case ItemScriptObj.ItemType.Milk:
+                                currentAllergy.sprite = manager.petMenu.Milk[2];
+                                break;
+                            case ItemScriptObj.ItemType.Wheat:
+                                currentAllergy.sprite = manager.petMenu.Wheat[2];
+                                break;
+                            case ItemScriptObj.ItemType.Peanut:
+                                currentAllergy.sprite = manager.petMenu.Peanut[2];
+                                break;
+                            case ItemScriptObj.ItemType.Cashew:
+                                currentAllergy.sprite = manager.petMenu.Cashew[2];
+                                break;
+                        }
+
+                        break;
+                    case Symptoms.Reactions.Swelling:
+                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        {
+                            case ItemScriptObj.ItemType.Milk:
+                                currentAllergy.sprite = manager.petMenu.Milk[3];
+                                break;
+                            case ItemScriptObj.ItemType.Wheat:
+                                currentAllergy.sprite = manager.petMenu.Wheat[3];
+                                break;
+                            case ItemScriptObj.ItemType.Peanut:
+                                currentAllergy.sprite = manager.petMenu.Peanut[3];
+                                break;
+                            case ItemScriptObj.ItemType.Cashew:
+                                currentAllergy.sprite = manager.petMenu.Cashew[3];
+                                break;
+                        }
+
+                        break;
+                    case Symptoms.Reactions.Anaphylaxis:
+                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        {
+                            case ItemScriptObj.ItemType.Milk:
+                                currentAllergy.sprite = manager.petMenu.Milk[4];
+                                break;
+                            case ItemScriptObj.ItemType.Wheat:
+                                currentAllergy.sprite = manager.petMenu.Wheat[4];
+                                break;
+                            case ItemScriptObj.ItemType.Peanut:
+                                currentAllergy.sprite = manager.petMenu.Peanut[4];
+                                break;
+                            case ItemScriptObj.ItemType.Cashew:
+                                currentAllergy.sprite = manager.petMenu.Cashew[4];
+                                break;
+                        }
+                        
+                        break;
+                }
+        }
+        else
+        {
+            currentAllergy.gameObject.SetActive(false);
+        }
     }
 
 

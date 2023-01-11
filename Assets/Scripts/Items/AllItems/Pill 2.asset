@@ -20,11 +20,11 @@ MonoBehaviour:
   isRemedy: 1
   reactionType: 0000000001000000020000000300000004000000
   successRate:
+  - 70
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 50
+  - 80
+  - 30
   isAllergen: 0
   allergenSprite: {fileID: 0}
   isFood: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9ad51682635f848a83b5b757b6c2e1, type: 3}
   m_Name: Inhaler
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  itemSprite: {fileID: 21300000, guid: c70f6edf773f3014991a383a3aaacb67, type: 3}
   itemGameObject: {fileID: 0}
   itemType: 5
   canBuy: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   - 50
   - 0
   - 0
-  - 60
+  - 90
   isAllergen: 0
   allergenSprite: {fileID: 0}
   isFood: 0

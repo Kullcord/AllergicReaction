@@ -14,10 +14,15 @@ public class Ch_StatsManager : MonoBehaviour
     public float boredomeMultiplier;
     public float loveMultiplier;
 
-    private float hungerLevel;
-    private float thirstLevel;
-    private float boredomeLevel;
-    private float loveLevel;
+    [HideInInspector]public float hungerLevel;
+    [HideInInspector]public float thirstLevel;
+    [HideInInspector]public float boredomeLevel;
+    [HideInInspector]public float loveLevel;
+    
+    [HideInInspector]public bool eating;
+    [HideInInspector]public bool drinking;
+    [HideInInspector]public bool playing;
+    [HideInInspector]public bool isLoved;
 
     private void Start()
     {
@@ -66,45 +71,49 @@ public class Ch_StatsManager : MonoBehaviour
 
     private void HungerTracker()
     {
-        if (hungerLevel > 25.0f)
+        if (hungerLevel > 25.0f && !eating)
         {
-            hungerLevel = hungerLevel - hungerMultiplier * stats.energy * Time.deltaTime;
+            hungerLevel = hungerLevel - hungerMultiplier * Time.deltaTime;
             stats.hunger = hungerLevel;
+            
         }
-        else
+        else if(hungerLevel <= 25.0f)
             stats.isHungry = true;
     }
 
     private void ThirstTracker()
     {
-        if (thirstLevel > 20.0f)
+        if (thirstLevel > 20.0f && !drinking)
         {
             thirstLevel = thirstLevel - thirstMultiplier * Time.deltaTime;
             stats.thirst = thirstLevel;
+            stats.isThirsty = false;
         }
-        else
+        else if(thirstLevel <= 25.0f)
             stats.isThirsty = true;
     }
 
     private void BoredomeTracker()
     {
-        if (boredomeLevel > 20.0f)
+        if (boredomeLevel > 20.0f && !playing)
         {
             boredomeLevel = boredomeLevel - boredomeMultiplier * Time.deltaTime;
             stats.boredome = boredomeLevel;
+            stats.isBored = false;
         }
-        else
+        else if(boredomeLevel <= 25.0f)
             stats.isBored = true;
     }
     
     private void LoveTracker()
     {
-        if (loveLevel > 25.0f)
+        if (loveLevel > 25.0f && !isLoved)
         {
             loveLevel = loveLevel - loveMultiplier * Time.deltaTime;
             stats.love = loveLevel;
+            stats.wantsLove = false;
         }
-        else
+        else if(loveLevel <= 25.0f)
             stats.wantsLove = true;
     }
 }
