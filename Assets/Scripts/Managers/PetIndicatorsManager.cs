@@ -93,7 +93,13 @@ public class PetIndicatorsManager : MonoBehaviour
 
             //If the pet is on screen, turn off its indicator
             if (IsOnScreen(pet.transform.position))
-                indicators[i].SetActive(false);
+            {
+                float newY = pet.transform.position.y + 2.2f;
+                Vector3 newPos = new Vector3(pet.transform.position.x, newY, pet.transform.position.z);
+
+                indicators[i].transform.position = GetScreenPosition(newPos);
+            }
+            /*indicators[i].SetActive(false);*/
 
             //If the pet is off screen, turn on its indicator and update its position
             else
@@ -158,7 +164,7 @@ public class PetIndicatorsManager : MonoBehaviour
     public void TeleportToPet(StateManager pet)
     {
         var newX = pet.gameObject.transform.position.x - camHolder.offsetX;
-        var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ;
+        var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ / 2;
         var newPos = new Vector3(newX, camHolder.transform.position.y, newZ);
 
         //camHolder.cam.transform.position = newPos;
