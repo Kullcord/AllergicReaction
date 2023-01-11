@@ -8,19 +8,20 @@ public class PetStatsText : MonoBehaviour
     public int currentSelectedPet; //Current selected out of the pets added
 
     //For showing traits information
-    public TextMeshProUGUI[] petInfoText;
     public Slider[] statSliders;
     
-    public TextMeshProUGUI[] petsChosenText; //For Showing Chosen Pets on the boxes
     public GameObject[] uiObj;//until 2 it's panel info about pets/ 3-go to map button
     public Image[] chosenPetsImg; //For visualizing how many pets you can add
-  
+
+    public GameObject[] allergensUI;
+    public Color[] allergensUICol;
+    [SerializeField] private Sprite availableSlot;
+    [SerializeField] private Sprite petSlot;
     private void Start()
     {
         for (int i = 0; i < stats.maxPets; i++)
         {
-            petsChosenText[i].text = "No pet chosen";
-            chosenPetsImg[i].color = Color.white; //show how many available slots your have
+            chosenPetsImg[i].sprite = availableSlot; //show how many available slots your have
         }
     }
     
@@ -32,7 +33,7 @@ public class PetStatsText : MonoBehaviour
         for (int i = 0; i < MyPets.petsChosen.Count; i++)
         {
             chosenPetsImg[i].GetComponent<Button>().enabled = true;
-            petsChosenText[i].text = MyPets.petsChosen[i].petID + " chosen";
+            chosenPetsImg[i].sprite = petSlot;
         }
 
         //Show Choose Map Button if you have chosen at least 1 pet 
@@ -59,18 +60,31 @@ public class PetStatsText : MonoBehaviour
         if (MyPets.petsChosen[currentSelectedPet] != null)
         {
             MyPets.petsChosen.Remove(MyPets.petsChosen[currentSelectedPet]);
-            petsChosenText[currentSelectedPet].text = "No pet chosen";
-            petsChosenText[MyPets.petsChosen.Count].text = "No pet chosen";
+            chosenPetsImg[currentSelectedPet].sprite = availableSlot;
+            chosenPetsImg[MyPets.petsChosen.Count].sprite = availableSlot;
             chosenPetsImg[currentSelectedPet].GetComponent<Button>().enabled = false;
             chosenPetsImg[MyPets.petsChosen.Count].GetComponent<Button>().enabled = false;
 
             VisuallyUpdateChosenPets();
             
             //Setting up UI
-            uiObj[0].SetActive(false);//the whole panel
             uiObj[1].SetActive(true);//Add button
             uiObj[2].SetActive(false);//Remove button
         }
+    }
+    
+    /// <summary>
+    /// Deletes all data about all pets and starts new
+    /// </summary>
+    /// <returns></returns>
+    public void ResetStats()
+    {
+        for (int i = 0; i < MyPets.petsChosen.Count; i++)
+        {
+            chosenPetsImg[i].sprite = availableSlot;
+            chosenPetsImg[i].GetComponent<Button>().enabled = false;
+        } 
+        MyPets.petsChosen.Clear();
     }
     /// <summary>
     /// Sets up the text to show traits information about the pet
@@ -80,40 +94,47 @@ public class PetStatsText : MonoBehaviour
     {
         if (whichPet == 10) //show info about a randomized pet
         {
-            
-            petInfoText[0].text = "Pet Type: " + stats.randomPet.petType;
-            string allergensText = "";
-            string symptomsText = "";
-            //in the text show all types of allergens and symptoms
-            for (int index = 0; index < stats.randomPet.allergies.Length; index++)
+            for (int i = 0; i < allergensUI.Length; i++)
             {
-                allergensText += " - " + stats.randomPet.allergies[index].allergenItemScriptObj.itemType;
-                symptomsText += " - " + stats.randomPet.allergies[index].symptom;
+                allergensUI[i].SetActive(false);
             }
-
-            petInfoText[1].text = "Allergens: " + allergensText;
-            petInfoText[2].text = "Symptoms: " + symptomsText;
+            //allergens
+            for (int i = 0; i < stats.randomPet.allergies.Length; i++)
+            {
+                allergensUI[i].SetActive(true);
+                allergensUI[i].GetComponent<Image>().sprite =
+                    stats.randomPet.allergies[i].allergenItemScriptObj.allergenSprite;
+                switch (stats.randomPet.allergies[i].symptom)
+                {
+                    case Symptoms.Reactions.Itching:
+                        statSliders[i + 3].value = 1;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[0];
+                        break;
+                    case Symptoms.Reactions.Wheezing:
+                        statSliders[i+3].value = 2;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[1];
+                        break;
+                    case Symptoms.Reactions.Vomiting:
+                        statSliders[i+3].value = 3;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[2];
+                        break;
+                    case Symptoms.Reactions.Swelling:
+                        statSliders[i + 3].value = 4;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[3];
+                        break;
+                    case Symptoms.Reactions.Anaphylaxis:
+                        statSliders[i + 3].value = 5;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[4];
+                        break;
+                }
+            }
             
-            petInfoText[3].text = "Energy Level: ";
+            //energy
             statSliders[0].value = stats.randomPet.energy;
-            
-            petInfoText[4].text = "Attention Span: ";
-            statSliders[1].value = stats.randomPet.attentionSpan;
-            
-            petInfoText[5].text = "Thirst: ";
-            statSliders[2].value = stats.randomPet.thirst;
-            
-            petInfoText[6].text = "Hunger: ";
-            statSliders[3].value = stats.randomPet.hunger;
-            
-            petInfoText[7].text = "Love: ";
-            statSliders[4].value = stats.randomPet.love;
-            
-            petInfoText[8].text = "Boredom: ";
-            statSliders[5].value = stats.randomPet.boredom;
-            
-            petInfoText[9].text = "Curiosity: ";
-            statSliders[6].value = stats.randomPet.curiosity;
+            //curiosity
+            statSliders[1].value = stats.randomPet.curiosity;
+            //attention span
+            statSliders[2].value = stats.randomPet.attentionSpan;
 
         }
         else //Show info about an added pet you chose to read about
@@ -126,7 +147,6 @@ public class PetStatsText : MonoBehaviour
 
             currentSelectedPet = whichPet;
 
-            petInfoText[0].text = "Pet Type: " + MyPets.petsChosen[whichPet].petType;
             string allergensText = "";
             string symptomsText = "";
             for (int index = 0; index < MyPets.petsChosen[whichPet].allergies.Length; index++)
@@ -134,20 +154,49 @@ public class PetStatsText : MonoBehaviour
                 allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItemScriptObj.itemType;
                 symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom;
             }
-
-            petInfoText[1].text = "Allergens: " + allergensText;
-            petInfoText[2].text = "Symptoms: " + symptomsText;
+            for (int i = 0; i < allergensUI.Length; i++)
+            {
+                allergensUI[i].SetActive(false);
+            }
+            //allergens
+            for (int i = 0; i < MyPets.petsChosen[whichPet].allergies.Length; i++)
+            {
+                allergensUI[i].SetActive(true);
+                allergensUI[i].GetComponent<Image>().sprite =
+                    MyPets.petsChosen[whichPet].allergies[i].allergenItemScriptObj.allergenSprite;
+                switch ( MyPets.petsChosen[whichPet].allergies[i].symptom)
+                {
+                    case Symptoms.Reactions.Itching:
+                        statSliders[i + 3].value = 1;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[0];
+                        break;
+                    case Symptoms.Reactions.Wheezing:
+                        statSliders[i+3].value = 2;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[1];
+                        break;
+                    case Symptoms.Reactions.Vomiting:
+                        statSliders[i+3].value = 3;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[2];
+                        break;
+                    case Symptoms.Reactions.Swelling:
+                        statSliders[i + 3].value = 4;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[3];
+                        break;
+                    case Symptoms.Reactions.Anaphylaxis:
+                        statSliders[i + 3].value = 5;
+                        statSliders[i + 3].transform.GetChild(1).GetChild(0).GetComponent<Image>().color = allergensUICol[4];
+                        break;
+                }
+            }
+            
             
             statSliders[0].value = MyPets.petsChosen[whichPet].energy;
-            statSliders[1].value = MyPets.petsChosen[whichPet].attentionSpan;
-            statSliders[2].value = MyPets.petsChosen[whichPet].thirst;
-            statSliders[3].value = MyPets.petsChosen[whichPet].hunger;
-            statSliders[4].value = MyPets.petsChosen[whichPet].love;
-            statSliders[5].value = MyPets.petsChosen[whichPet].boredom;
-            statSliders[6].value = MyPets.petsChosen[whichPet].curiosity;
+            statSliders[1].value = MyPets.petsChosen[whichPet].curiosity;
+            statSliders[2].value = MyPets.petsChosen[whichPet].attentionSpan;
+            
+            
             
             //Setting up UI
-            uiObj[0].SetActive(true);
             uiObj[1].SetActive(false);
             uiObj[2].SetActive(true);
         }

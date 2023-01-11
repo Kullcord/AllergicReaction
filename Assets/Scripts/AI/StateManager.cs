@@ -145,13 +145,115 @@ public class StateManager : MonoBehaviour
                 {
                     stats.overide = true;
                     stats.allergicReaction = true;
+                    stats.currentReaction = stats.allergies[i];
+                    petMenu.currentAllergy.gameObject.SetActive(true);
+                    
+                    //show in the stat panel what type of allergy he has
+
+                    #region Setting Allergy Icon
+
+                    switch (stats.currentReaction.symptom)
+                    {
+                        case Symptoms.Reactions.Itching:
+                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            {
+                                case ItemScriptObj.ItemType.Milk:
+                                    petMenu.currentAllergy.sprite = petMenu.Milk[0];
+                                    break;
+                                case ItemScriptObj.ItemType.Wheat:
+                                    petMenu.currentAllergy.sprite = petMenu.Wheat[0];
+                                    break;
+                                case ItemScriptObj.ItemType.Peanut:
+                                    petMenu.currentAllergy.sprite = petMenu.Peanut[0];
+                                    break;
+                                case ItemScriptObj.ItemType.Cashew:
+                                    petMenu.currentAllergy.sprite = petMenu.Cashew[0];
+                                    break;
+                            }
+                            break;
+                        case Symptoms.Reactions.Wheezing:
+                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            {
+                                case ItemScriptObj.ItemType.Milk:
+                                    petMenu.currentAllergy.sprite = petMenu.Milk[1];
+                                    break;
+                                case ItemScriptObj.ItemType.Wheat:
+                                    petMenu.currentAllergy.sprite = petMenu.Wheat[1];
+                                    break;
+                                case ItemScriptObj.ItemType.Peanut:
+                                    petMenu.currentAllergy.sprite = petMenu.Peanut[1];
+                                    break;
+                                case ItemScriptObj.ItemType.Cashew:
+                                    petMenu.currentAllergy.sprite = petMenu.Cashew[1];
+                                    break;
+                            }
+                            break;
+                        case Symptoms.Reactions.Vomiting:
+                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            {
+                                case ItemScriptObj.ItemType.Milk:
+                                    petMenu.currentAllergy.sprite = petMenu.Milk[2];
+                                    break;
+                                case ItemScriptObj.ItemType.Wheat:
+                                    petMenu.currentAllergy.sprite = petMenu.Wheat[2];
+                                    break;
+                                case ItemScriptObj.ItemType.Peanut:
+                                    petMenu.currentAllergy.sprite = petMenu.Peanut[2];
+                                    break;
+                                case ItemScriptObj.ItemType.Cashew:
+                                    petMenu.currentAllergy.sprite = petMenu.Cashew[2];
+                                    break;
+                            }
+                            break;
+                        case Symptoms.Reactions.Swelling:
+                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            {
+                                case ItemScriptObj.ItemType.Milk:
+                                    petMenu.currentAllergy.sprite = petMenu.Milk[3];
+                                    break;
+                                case ItemScriptObj.ItemType.Wheat:
+                                    petMenu.currentAllergy.sprite = petMenu.Wheat[3];
+                                    break;
+                                case ItemScriptObj.ItemType.Peanut:
+                                    petMenu.currentAllergy.sprite = petMenu.Peanut[3];
+                                    break;
+                                case ItemScriptObj.ItemType.Cashew:
+                                    petMenu.currentAllergy.sprite = petMenu.Cashew[3];
+                                    break;
+                            }
+                            break;
+                        case Symptoms.Reactions.Anaphylaxis:
+                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            {
+                                case ItemScriptObj.ItemType.Milk:
+                                    petMenu.currentAllergy.sprite = petMenu.Milk[4];
+                                    break;
+                                case ItemScriptObj.ItemType.Wheat:
+                                    petMenu.currentAllergy.sprite = petMenu.Wheat[4];
+                                    break;
+                                case ItemScriptObj.ItemType.Peanut:
+                                    petMenu.currentAllergy.sprite = petMenu.Peanut[4];
+                                    break;
+                                case ItemScriptObj.ItemType.Cashew:
+                                    petMenu.currentAllergy.sprite = petMenu.Cashew[4];
+                                    break;
+                            }
+                            break;
+                        
+                    }
+                    #endregion
+                    break;
+                }
+                else if (stats.allergies[i].allergenItemScriptObj != containedAllergen)
+                {
+                    petMenu.currentAllergy.gameObject.SetActive(false);
                 }
             }
         }
 
         //also decrease the hunger stat
         Debug.Log("Decrease hunger");
-
+        GetComponent<Individual>().TendToPet(stats,containedAllergen);
     }
 
 }
