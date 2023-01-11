@@ -17,7 +17,7 @@ public class Smell : State
             if (manager.objectToInvestigate.activeSelf)
             {
                 //If the AI is close enough to investigate, start the smelling process
-                if (distance.magnitude < 2.5f)//2.5f
+                if (distance.magnitude < 1.0f)//2.5f
                 {
                     /* Play animation 
                      * Add Icon
@@ -36,6 +36,10 @@ public class Smell : State
                     manager.animControl.SetBool("Pet", false);
 
                     manager.currentTime += Time.deltaTime;
+
+                    manager.agent.isStopped = true;
+                    manager.agent.velocity = Vector3.zero;
+                    manager.agent.SetDestination(manager.agent.transform.position);
 
                     if (!done)
                     {

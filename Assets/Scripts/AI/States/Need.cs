@@ -49,6 +49,7 @@ public class Need : State
 
         manager.agent.isStopped = true;
         manager.agent.velocity = Vector3.zero;
+        manager.agent.SetDestination(manager.agent.transform.position);
 
         //if 1on1screenActive then return that state
         /*if (!doOnce)

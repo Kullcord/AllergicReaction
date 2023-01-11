@@ -28,10 +28,10 @@ public class Individual : State, IDropHandler
             manager.animControl.SetBool("Allergy", false);
             manager.animControl.SetBool("Pet", false);
 
-
-            /*manager.walkPoint = Vector3.zero;*/
-            //manager.agent.destination = manager.agent.transform.position;
             manager.agent.isStopped = true;
+            manager.agent.velocity = Vector3.zero;
+            manager.agent.SetDestination(manager.agent.transform.position);
+
             manager.currentTime = 0.0f;
             
         }

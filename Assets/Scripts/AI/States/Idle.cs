@@ -41,6 +41,9 @@ public class Idle : State
             manager.animControl.SetBool("Allergy", false);
             manager.animControl.SetBool("Pet", false);
 
+            manager.agent.isStopped = true;
+            manager.agent.velocity = Vector3.zero;
+            manager.agent.SetDestination(manager.agent.transform.position);
 
             manager.currentTime += Time.deltaTime;
         } 
