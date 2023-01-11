@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   itemGameObject: {fileID: 0}
-  itemType: 0
+  itemType: 15
   canBuy: 0
   ingredients: 0
   isRemedy: 0
@@ -26,3 +26,8 @@ MonoBehaviour:
   - 0
   - 0
   isAllergen: 0
+  allergenSprite: {fileID: 0}
+  isFood: 0
+  relievesHunger: 0
+  isDrink: 0
+  relievesThirst: 0

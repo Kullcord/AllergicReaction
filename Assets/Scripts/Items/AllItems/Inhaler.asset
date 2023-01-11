@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Inhaler
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
-  itemType: 4
+  itemGameObject: {fileID: 0}
+  itemType: 5
   canBuy: 0
   ingredients: 0
   isRemedy: 1
@@ -25,3 +26,8 @@ MonoBehaviour:
   - 0
   - 60
   isAllergen: 0
+  allergenSprite: {fileID: 0}
+  isFood: 0
+  relievesHunger: 0
+  isDrink: 0
+  relievesThirst: 0

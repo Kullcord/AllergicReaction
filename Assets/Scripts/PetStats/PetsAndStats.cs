@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -83,7 +84,6 @@ public class PetsAndStats : MonoBehaviour
         MyPets.petsChosen.Add(petStats);
     }
     #endregion
-    
 }
 
 /// <summary>

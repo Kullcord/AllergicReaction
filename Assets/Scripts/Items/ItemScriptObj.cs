@@ -51,6 +51,7 @@ public class ItemScriptObj : ScriptableObject
     //if it's an allergen
     [Space]
     public bool isAllergen;
+    public Sprite allergenSprite;
 
     [Space] 
     [HideInInspector] public bool isFood;
