@@ -149,16 +149,6 @@ public class DecisionMaking : State
 
             ResetValues();
 
-            if (stats.allergicReaction)
-            {
-                manager.petMenu.actionIcon.texture = manager.petMenu.allergyIcon;
-                manager.actionIcon.texture = manager.allergyIcon;
-            } else
-            {
-                manager.petMenu.actionIcon.texture = manager.petMenu.needsIcon;
-                manager.actionIcon.texture = manager.needsIcon;
-            }
-
             Debug.Log("Start needing");
 
             return manager.needState;
@@ -173,9 +163,9 @@ public class DecisionMaking : State
     */
     private void StateProbabilityCheck(StateManager manager)
     {
-        int rnd = Random.Range(0, 101);
+        float rnd = Random.Range(0.0f, 101);
 
-        float percentage = manager.stats.curiosity * manager.stats.energy;
+        float percentage = manager.stats.curiosity * 2;
 
         //Debug.Log("percentage is: " + percentage);
 
