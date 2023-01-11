@@ -6,17 +6,23 @@ public class Idle : State
 {
     private bool doneOnce = false;
 
+    private State previousState;
+
     public override State Act(StateManager manager, CharacterStats stats)
     {
         //If the probability check is passed, then return rest state,
         //else continue idle state
-        if (ProbabilityCheck(stats))
+        if (ProbabilityCheck(stats) && previousState != manager.restState)
         {
             //return rest state
             manager.currentTime = 0.0f;
 
             doneOnce = false;
 
+            manager.petMenu.actionIcon.texture = manager.petMenu.restIcon;
+            manager.actionIcon.texture = manager.restIcon;
+
+            previousState = manager.restState;
             return manager.restState;
         }
 
@@ -37,8 +43,6 @@ public class Idle : State
 
 
             manager.currentTime += Time.deltaTime;
-
-            return this;
         } 
         else
         {
@@ -51,15 +55,18 @@ public class Idle : State
             manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
             manager.actionIcon.texture = manager.exploreIcon;
 
+            previousState = manager.idleState;
             return manager.exploreState;
         }
+
+        return this;
     }
 
     private bool ProbabilityCheck(CharacterStats stats)
     {
         if (!doneOnce)
         {
-            float rnd = Random.Range(0, 41);
+            float rnd = Random.Range(0, 31);
 
             float percentage = stats.energy * 10f;
 
