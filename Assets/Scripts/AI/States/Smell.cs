@@ -106,7 +106,7 @@ public class Smell : State
 
     private bool EatingProbability(float percentage)
     {
-        float rnd = Random.Range(0, 91);
+        float rnd = 1;//Random.Range(0, 91);
 
         if (rnd <= percentage)
             return true;

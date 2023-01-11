@@ -24,13 +24,14 @@ public class Rest : State
 
             manager.currentTime += Time.deltaTime;
 
-            manager.petMenu.actionIcon.texture = manager.petMenu.restIcon;
-
             return this;
         }
         else
         {
             manager.currentTime = 0.0f;
+
+            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+            manager.actionIcon.texture = manager.exploreIcon;
 
             return manager.exploreState;
         }

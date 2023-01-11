@@ -8,7 +8,7 @@ public class Explore : State
     #region Fields
 
     private bool walkPointSet;
-    private bool inAction = false;
+    private bool destinationSet = false;
     public bool doOnce;
 
     [SerializeField] private GameObject waypoint;
@@ -40,15 +40,16 @@ public class Explore : State
         Vector3 distanceToWalk = manager.transform.position - manager.walkPoint;
 
         //If walkpoint was reached then decide on what to do next
-        if (distanceToWalk.magnitude < 1.0f)
+        if (distanceToWalk.magnitude < 1.1f)
         {
             manager.previousWalkpoint = manager.walkPoint;
 
             walkPointSet = false;
             manager.walkPoint = Vector3.zero;
 
-            inAction = false;
+            destinationSet = false;
             doOnce = false;
+
             //return manager.idleState;
             return manager.decisionState;
             
@@ -62,25 +63,38 @@ public class Explore : State
     {
         // Try to calculate a path
         // If it successfully calculates one, set the command to move there and stop the function.
-        // else if the path doesn't work, keep trying until it does.
+        // else if the path doesn't work, keep trying until iteration is 10
+        //If there were no paths found, then retunr idle state (set destination to self)
         
         NavMeshPath path = new NavMeshPath();
         WaitForEndOfFrame frame = new();
 
         Vector3 destination = SearchWalkPoint(manager);
         int iterations = 0;
-        while (!manager.agent.CalculatePath(destination, path) && iterations < 1000)
+
+        //Check if destination is reachable, if not retry for 9 times
+        while (!manager.agent.CalculatePath(destination, path) & iterations < 10)
         {
             iterations++;
+            Debug.Log("iterations: " + iterations);
             destination = SearchWalkPoint(manager);
             yield return frame;
         }
 
-        if (!inAction)
+        //If there was no valid point, then set the destination to pets position
+        if(iterations >= 10)
         {
-            //Debug.Log("Reachable");
+            Debug.Log("cant find path");
+            destination = manager.agent.transform.position;
+            manager.walkPoint = destination;
+        }
+
+        //Set destination if the destination wasn't set already
+        if (!destinationSet)
+        {
             manager.agent.SetDestination(destination);
-            inAction = true;
+            waypoint.transform.position = destination;
+            destinationSet = true;
         }
     }
 
@@ -88,6 +102,8 @@ public class Explore : State
 
     private Vector3 SearchWalkPoint(StateManager manager)
     {
+        //Generate a point inside the pet's range
+        //Check if the point is different then the last one, and if the point is reachable
         if (!walkPointSet)
         {
             //Calculate random point in range
@@ -95,10 +111,10 @@ public class Explore : State
             float randomZ = Random.Range(-manager.stats.energy * 10, manager.stats.energy * 10);//(manager.bndFloor.min.z, manager.bndFloor.max.z);
 
             manager.walkPoint = new Vector3(randomX, transform.position.y, randomZ);
-            waypoint.transform.position = manager.walkPoint;
 
             //Check if the walk point is reachable && If the AI can walk to the new point
-            if ( /*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/ CanWalkCheck(manager))
+            /*Physics.Raycast(manager.walkPoint, -transform.up, manager.groundLayer) &&*/
+            if (CanWalkCheck(manager))
             {
                 walkPointSet = true;
                 return manager.walkPoint;
