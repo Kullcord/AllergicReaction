@@ -250,10 +250,38 @@ public class StateManager : MonoBehaviour
                 }
             }
         }
-
-        //also decrease the hunger stat
-        Debug.Log("Decrease hunger");
-        GetComponent<Individual>().TendToPet(stats,containedAllergen);
+        
+        //also increase the hunger stat
+        Debug.Log("Increase hunger");
+        #region IncreaseHunger
+        Ch_StatsManager chStats = GetComponent<Ch_StatsManager>();
+        if (stats.currentReaction.allergenItemScriptObj.isFood)
+        {
+            stats.hunger += stats.currentReaction.allergenItemScriptObj.relievesHunger;
+            if (stats.hunger > 100)
+                stats.hunger = 100;
+            chStats.hungerLevel = stats.hunger;
+            if (stats.hunger > 25)
+            {
+                stats.isHungry = false;
+                if(!stats.isThirsty && !stats.isBored && !stats.wantsLove)
+                    stats.overide = false;
+            }
+        }else if (stats.currentReaction.allergenItemScriptObj.isDrink)
+        {
+            stats.thirst += stats.currentReaction.allergenItemScriptObj.relievesThirst;
+            if (stats.thirst > 100)
+                stats.thirst = 100;
+            chStats.thirstLevel = stats.hunger;
+            if (stats.thirst > 25)
+            {
+                stats.isThirsty = false;
+                if(!stats.isHungry && !stats.isBored && !stats.wantsLove)
+                    stats.overide = false;
+            }
+        }
+                    
+        #endregion
     }
 
 }

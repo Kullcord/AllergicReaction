@@ -29,5 +29,7 @@ MonoBehaviour:
   allergenSprite: {fileID: 21300000, guid: 9a8d5a188caca5545acf7929f5991994, type: 3}
   isFood: 0
   relievesHunger: 0
-  isDrink: 0
-  relievesThirst: 0
+  isDrink: 1
+  relievesThirst: 50
+  forPlay: 0
+  relievesBoredom: 0
