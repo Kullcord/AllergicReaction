@@ -21,6 +21,9 @@ public class Rest : State
             manager.animControl.SetBool("Allergy", false);
             manager.animControl.SetBool("Pet", false);
 
+            manager.agent.isStopped = true;
+            manager.agent.velocity = Vector3.zero;
+            manager.agent.SetDestination(manager.agent.transform.position);
 
             manager.currentTime += Time.deltaTime;
 
@@ -30,10 +33,10 @@ public class Rest : State
         {
             manager.currentTime = 0.0f;
 
-            manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
-            manager.actionIcon.texture = manager.exploreIcon;
+            /*manager.petMenu.actionIcon.texture = manager.petMenu.exploreIcon;
+            manager.actionIcon.texture = manager.exploreIcon;*/
 
-            return manager.exploreState;
+            return manager.decisionState;
         }
     }
 }

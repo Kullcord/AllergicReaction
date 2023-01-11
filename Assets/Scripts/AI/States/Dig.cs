@@ -33,6 +33,7 @@ public class Dig : State
 
                 manager.agent.isStopped = true;
                 manager.agent.velocity = Vector3.zero;
+                manager.agent.SetDestination(manager.agent.transform.position);
 
                 Debug.Log("Digging");
 
