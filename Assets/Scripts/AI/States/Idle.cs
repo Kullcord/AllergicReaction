@@ -26,7 +26,7 @@ public class Idle : State
             return manager.restState;
         }
 
-        if (manager.currentTime < (manager.stats.atention * manager.maxTime) / 2)
+        if (manager.currentTime < manager.stats.atention * manager.maxTime)
         {
             //Play idle animation
             manager.animControl.SetBool("Idle", true);

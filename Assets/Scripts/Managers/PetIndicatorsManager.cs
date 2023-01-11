@@ -73,7 +73,7 @@ public class PetIndicatorsManager : MonoBehaviour
             Button bttn = indicator.GetComponent<Button>();
             bttn.onClick.AddListener(() => TeleportToPet(pet));
             // Hide the indicator initially
-            indicator.SetActive(false);
+            indicator.SetActive(true);
         }
     }
 

@@ -9,8 +9,8 @@ public class Rest : State
         if(manager.currentTime < stats.atention * manager.maxTime)
         {
             //Play resting anim
-            manager.animControl.SetBool("Sit", true);
-            manager.animControl.SetBool("Sleep", false);
+            manager.animControl.SetBool("Sleep", true);
+            manager.animControl.SetBool("Sit", false);
             manager.animControl.SetBool("Idle", false);
             manager.animControl.SetBool("Walk", false);
             manager.animControl.SetBool("Smell", false);

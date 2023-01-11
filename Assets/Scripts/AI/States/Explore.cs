@@ -17,45 +17,55 @@ public class Explore : State
 
     public override State Act(StateManager manager, CharacterStats stats)
     {
-        manager.animControl.SetBool("Walk", true);
-        manager.animControl.SetBool("Play", false);
-        manager.animControl.SetBool("Smell", false);
-        manager.animControl.SetBool("Dig", false);
-        manager.animControl.SetBool("Idle", false);
-        manager.animControl.SetBool("Sit", false);
-        manager.animControl.SetBool("Sleep", false);
-        manager.animControl.SetBool("Eat", false);
-        manager.animControl.SetBool("Need", false);
-        manager.animControl.SetBool("Allergy", false);
-
         manager.agent.isStopped = false;
 
-        //Start moving
-        if (!doOnce)
-        {
-            StartCoroutine(Move(manager));
-            doOnce = true;
-        }
-        
         Vector3 distanceToWalk = manager.transform.position - manager.walkPoint;
 
+        if (manager.currentTime <= stats.atention * manager.maxTime)
+            manager.currentTime += Time.deltaTime;
+
         //If walkpoint was reached then decide on what to do next
-        if (distanceToWalk.magnitude < 1.1f)
+        if (distanceToWalk.magnitude < 1.1f || manager.currentTime > stats.atention * manager.maxTime)
         {
+            manager.currentTime = 0.0f;
             manager.previousWalkpoint = manager.walkPoint;
 
             walkPointSet = false;
             manager.walkPoint = Vector3.zero;
+
+            manager.agent.SetDestination(manager.agent.transform.position);
+            manager.agent.isStopped = true;
+            manager.agent.velocity = Vector3.zero;
 
             destinationSet = false;
             doOnce = false;
 
             //return manager.idleState;
             return manager.decisionState;
-            
+
+        } 
+        else
+        {
+            //Start moving
+            if (!doOnce)
+            {
+                manager.animControl.SetBool("Walk", true);
+                manager.animControl.SetBool("Play", false);
+                manager.animControl.SetBool("Smell", false);
+                manager.animControl.SetBool("Dig", false);
+                manager.animControl.SetBool("Idle", false);
+                manager.animControl.SetBool("Sit", false);
+                manager.animControl.SetBool("Sleep", false);
+                manager.animControl.SetBool("Eat", false);
+                manager.animControl.SetBool("Need", false);
+                manager.animControl.SetBool("Allergy", false);
+
+                StartCoroutine(Move(manager));
+                doOnce = true;
+            }
         }
 
-
+      
         return this;
     }
 
@@ -93,7 +103,7 @@ public class Explore : State
         if (!destinationSet)
         {
             manager.agent.SetDestination(destination);
-            waypoint.transform.position = destination;
+            //waypoint.transform.position = destination;
             destinationSet = true;
         }
     }

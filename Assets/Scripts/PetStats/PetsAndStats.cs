@@ -54,7 +54,7 @@ public class PetsAndStats : MonoBehaviour
 
         randomPet.petID = MyPets.petsChosen.Count;
         randomPet.energy = Random.Range(0.5f, 2.1f);
-        randomPet.attentionSpan = Random.Range(0f, 1.1f);
+        randomPet.attentionSpan = Random.Range(0.5f, 1.6f);
         randomPet.curiosity = Random.Range(0f, 50.1f);
         randomPet.thirst = Random.Range(0f, 1.1f);
         randomPet.hunger = Random.Range(0f, 1.1f);
