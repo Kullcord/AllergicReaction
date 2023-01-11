@@ -11,6 +11,7 @@ public class CharacterStats : MonoBehaviour
     
     [Header("Allergens")]
     public SymptomReaction[] allergies;
+    public SymptomReaction currentReaction;
 
     [Header("Pet Stats")]
     public int petID;

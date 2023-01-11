@@ -17,7 +17,7 @@ public class Smell : State
             if (manager.objectToInvestigate.activeSelf)
             {
                 //If the AI is close enough to investigate, start the smelling process
-                if (distance.magnitude < 2.5f)
+                if (distance.magnitude < 2.5f)//2.5f
                 {
                     /* Play animation 
                      * Add Icon

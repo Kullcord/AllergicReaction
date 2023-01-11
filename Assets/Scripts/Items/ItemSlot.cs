@@ -19,11 +19,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             {
                 isOccupied = true;
                 currentItem = eventData.pointerDrag.gameObject;
-                eventData.pointerDrag.transform.SetParent(gameObject.transform); //set the item's parent to this gameobject
-                eventData.pointerDrag.GetComponent<GridItem>()._itemSlot = this;
-                RectTransform rectT = eventData.pointerDrag.GetComponent<RectTransform>();
+                currentItem.transform.SetParent(gameObject.transform); //set the item's parent to this gameobject
+                currentItem.GetComponent<GridItem>()._itemSlot = this;
+                RectTransform rectT = currentItem.GetComponent<RectTransform>();
                 rectT.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-                eventData.pointerDrag.GetComponent<GridItem>().itemImg.SetNativeSize();
+                currentItem.GetComponent<GridItem>().itemImg.SetNativeSize();
                 if (isInQuickBar)
                     rectT.sizeDelta *= 0.5f;
                 else

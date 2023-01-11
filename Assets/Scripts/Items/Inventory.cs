@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
@@ -15,9 +18,21 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject itemSlot;
     [SerializeField] private GameObject itemInSlot;
 
+    [SerializeField] private ItemScriptObj[] itemsToAdd;
+
+    public bool draggingItem = false;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < itemsToAdd.Length; i++)
+        {
+            AddItem(itemsToAdd[i]);
+        }
     }
 
     /// <summary>
@@ -60,7 +75,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(GameObject _item)
     {
         inv.Remove(_item.GetComponent<GridItem>().itemObj);
-        
+        Destroy(_item);
     }
     
     //Buttons
@@ -68,6 +83,6 @@ public class Inventory : MonoBehaviour
     public void OpenCloseInv()
     {
         invManage = !invManage;
-        gameObject.SetActive(invManage);
+        gameObject.transform.GetChild(0).gameObject.SetActive(invManage);
     }
 }

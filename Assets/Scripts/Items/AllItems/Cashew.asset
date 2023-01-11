@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Cashew
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
-  itemType: 10
+  itemGameObject: {fileID: 0}
+  itemType: 11
   canBuy: 0
   ingredients: 0
   isRemedy: 0
@@ -25,3 +26,8 @@ MonoBehaviour:
   - 0
   - 0
   isAllergen: 1
+  allergenSprite: {fileID: 21300000, guid: cbb628082b9114c4b9c1547bbc020f68, type: 3}
+  isFood: 0
+  relievesHunger: 0
+  isDrink: 0
+  relievesThirst: 0

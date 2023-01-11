@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: ef1c19cf33bb3a648992e1a70d822128, type: 3}
   itemGameObject: {fileID: 0}
-  itemType: 0
+  itemType: 2
   canBuy: 0
   ingredients: 0
-  isRemedy: 0
-  reactionType: 0000000000000000000000000000000000000000
+  isRemedy: 1
+  reactionType: 0000000001000000020000000300000004000000
   successRate:
-  - 0
+  - 90
   - 0
   - 0
   - 0
   - 0
   isAllergen: 0
+  allergenSprite: {fileID: 0}
   isFood: 0
   relievesHunger: 0
   isDrink: 0

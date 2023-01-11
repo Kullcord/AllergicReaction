@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wheat
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
-  itemType: 11
+  itemGameObject: {fileID: 0}
+  itemType: 12
   canBuy: 0
   ingredients: 0
   isRemedy: 0
@@ -25,3 +26,8 @@ MonoBehaviour:
   - 0
   - 0
   isAllergen: 1
+  allergenSprite: {fileID: 21300000, guid: 5ccb50a2fe424e944b7325c963074c7d, type: 3}
+  isFood: 0
+  relievesHunger: 0
+  isDrink: 0
+  relievesThirst: 0

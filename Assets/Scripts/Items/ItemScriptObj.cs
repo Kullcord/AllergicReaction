@@ -41,28 +41,34 @@ public class ItemScriptObj : ScriptableObject
     public ItemType itemType;
 
     [HideInInspector] public bool canBuy;
-    [HideInInspector] public Ingredient ingredients;
+     public Ingredient ingredients;
     
     //if it's a remedy
-    [HideInInspector] public bool isRemedy;//if ticked yes then show next
-    [HideInInspector] public Symptoms.Reactions[] reactionType = new Symptoms.Reactions[5];//how much is it gonna help with each symptom
-    [HideInInspector] public float[] successRate = new float[5];//how much is it gonna help with each symptom
+     public bool isRemedy;//if ticked yes then show next
+     public Symptoms.Reactions[] reactionType = new Symptoms.Reactions[5];//how much is it gonna help with each symptom
+     public float[] successRate = new float[5];//how much is it gonna help with each symptom
     
     //if it's an allergen
     [Space]
     public bool isAllergen;
+    public Sprite allergenSprite;
 
     [Space] 
-    [HideInInspector] public bool isFood;
-    [HideInInspector] public float relievesHunger;
+     public bool isFood;
+     public float relievesHunger;
     
     [Space] 
-    [HideInInspector] public bool isDrink;
-    [HideInInspector] public float relievesThirst;
+     public bool isDrink;
+     public float relievesThirst;
+     
+     [Space] 
+     public bool forPlay;
+     public float relievesBoredom;
+     
     #region Editor
 #if UNITY_EDITOR
     
-    /// <summary>
+    /*/// <summary>
     /// Making the script easier to understand in the editor. Nothing else that changes the actual script
     /// </summary>
     [CustomEditor(typeof(ItemScriptObj))]
@@ -103,7 +109,6 @@ public class ItemScriptObj : ScriptableObject
                     EditorGUILayout.BeginHorizontal();
                     script.relievesHunger = EditorGUILayout.Slider("Relieves Hunger",script.relievesHunger, 0, 100);
                     EditorGUILayout.EndHorizontal();
-                
             }
             
             script.isDrink = EditorGUILayout.Toggle("Is Drink", script.isDrink);
@@ -116,7 +121,7 @@ public class ItemScriptObj : ScriptableObject
                 
             }
         }
-    }
+    }*/
 #endif
     #endregion
 }

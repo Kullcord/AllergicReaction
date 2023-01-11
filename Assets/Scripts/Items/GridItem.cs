@@ -14,13 +14,13 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     [HideInInspector]public Image itemImg;
     private CanvasGroup cv;
     public ItemSlot _itemSlot;
-    private Canvas canv;
+    private GameObject canv;
     
     void Start()
     {
         cv = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
-        canv = Inventory.instance.transform.parent.GetComponent<Canvas>();
+        canv = Inventory.instance.transform.parent.gameObject;
         
         //set in the itemSlot what item it contains
         _itemSlot = transform.parent.gameObject.GetComponent<ItemSlot>();
@@ -54,6 +54,8 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         _itemSlot.isOccupied = false;
         cv.alpha = .6f;
         cv.blocksRaycasts = false;
+        Inventory.instance.draggingItem = true;
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -65,12 +67,14 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         
         cv.alpha = 1f;
         cv.blocksRaycasts = true;
+        Inventory.instance.draggingItem = false;
 
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
+        Inventory.instance.draggingItem = true;
     }
 
     public void OnInitializePotentialDrag(PointerEventData eventData)

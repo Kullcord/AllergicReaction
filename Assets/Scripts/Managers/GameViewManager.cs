@@ -8,7 +8,7 @@ public class GameViewManager : MonoBehaviour
     public GameObject individualCamera;
 
     public bool switchView = false;//when false then main camera is active/ else individual cam is active
-
+    
     [SerializeField] private GameObject mainZoneUI;
     [SerializeField] private GameObject individualZoneUI;
     [SerializeField] private IndividualScreenUIManager individualZoneStats;
@@ -19,7 +19,7 @@ public class GameViewManager : MonoBehaviour
     private bool doOnce;
     private bool individualScreen;
 
-    private float currentTime = 0.0f;
+    [HideInInspector]public float currentTime = 0.0f;
 
     private void Start()
     {
@@ -35,18 +35,24 @@ public class GameViewManager : MonoBehaviour
 
         if (individualScreen)
         {
-            if (currentTime <= (detectedPet.stats.atention * 10))
+            if (currentTime <= (detectedPet.stats.atention * 50 + 10))//min amount is 10 sec and max is 1 min
                 currentTime += Time.deltaTime * 1;
             else
             {
                 switchView = false;
-                detectedPet.SwitchToNext(detectedPet.restState);
+                if(!detectedPet.GetComponent<Individual>().petTreated)//if the pet wasn't given a remedy, make it rest
+                    detectedPet.SwitchToNext(detectedPet.restState);
                 detectedPet.exploreState.doOnce = false;
                 individualScreen = false;
             }
         }
     }
-
+    public void CloseScreen()
+    {
+        switchView = false;
+        currentTime = 0;
+        detectedPet.GetComponent<StateManager>().currentState = detectedPet.GetComponent<StateManager>().restState;
+    }
     private void ViewManager()
     {
         if (switchView)
@@ -61,7 +67,7 @@ public class GameViewManager : MonoBehaviour
 
                 individualZoneStats.SetStats(detectedPetStats.hunger, detectedPetStats.thirst,
                     detectedPetStats.boredome, detectedPetStats.love, detectedPetStats.atention);
-
+                individualZoneStats.SetAllergenIcon(detectedPetStats, detectedPet);
 
                 mainCamera.SetActive(false);
                 individualCamera.SetActive(true);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -44,6 +45,7 @@ public class PetIndicatorsManager : MonoBehaviour
                 pets.Add(spwnMng);
         }
 
+        //pets = FindObjectsOfType<StateManager>().ToList();//for testing, otherwise comment out
         petIDs = new List<int>();
 
         //Instantiate an indicator for each NPC

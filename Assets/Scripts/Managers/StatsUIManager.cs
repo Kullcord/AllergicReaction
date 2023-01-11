@@ -38,6 +38,13 @@ public class StatsUIManager : MonoBehaviour
     private float maxBoredomeValue;
     private float maxLoveValue;
 
+    [Header("Allergens")] 
+    public Image currentAllergy;
+    public List<Sprite> Milk;
+    public List<Sprite> Cashew;
+    public List<Sprite> Peanut;
+    public List<Sprite> Wheat;
+
     [Header("Navigation")]
     [SerializeField] private GameObject navIcon;
     [SerializeField] private float offset;
@@ -153,8 +160,6 @@ public class StatsUIManager : MonoBehaviour
         while (progression < 0.99)
         {
             progression += 10 * Time.deltaTime;
-
-
             camHolder.cam.transform.position = Vector3.Lerp(camHolder.cam.transform.position, posToGo, curve.Evaluate(progression));
 
             yield return new WaitForEndOfFrame();
