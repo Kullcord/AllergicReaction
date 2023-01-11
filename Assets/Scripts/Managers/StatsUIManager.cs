@@ -139,7 +139,7 @@ public class StatsUIManager : MonoBehaviour
     public void TeleportToPet()
     {
         var newX = pet.gameObject.transform.position.x - camHolder.offsetX; 
-        var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ;
+        var newZ = pet.gameObject.transform.position.z + camHolder.offsetZ / 2;
         var newPos = new Vector3(newX, camHolder.transform.position.y, newZ);
 
         StopAllCoroutines();

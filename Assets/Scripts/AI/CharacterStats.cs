@@ -14,16 +14,9 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Pet Stats")]
     public int petID;
-
-    [Range(0.0f, 1.0f)]
     public float personality;
-
-    [Range(0.0f, 1.0f)]
     public float atention;
-
-    [Range(0.5f, 2f)]
     public float energy;
-    //might need an energy meter 
 
     [Range(0.0f, 50.0f)]
     public float curiosity;
