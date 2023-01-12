@@ -1,13 +1,104 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "LHS7N18C04023205",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "LHS7N18C04023205",
+        "name": "com.DefaultCompany.AllergyGame",
+        "processId": 19357,
         "exited": false
     },
-    "m_SelectedPriority": 0,
-    "m_KnownPackagesForSerialization": [],
+    "m_SelectedPriority": 1,
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 16819,
+            "exited": true
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.huawei.android.launcher",
+            "processId": 2811,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 27153,
+            "exited": true
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.huawei.filemanager",
+            "processId": 21093,
+            "exited": true
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.android.systemui:tuner",
+            "processId": 25699,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.android.vending",
+            "processId": 8987,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 27849,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 30153,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 32476,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 4414,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 5730,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 6748,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 15787,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 17236,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 19357,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -16,7 +107,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -32,18 +123,29 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",
-                "m_Selected": false
+                "m_Selected": true
             }
         ]
     },
     "m_MemoryViewerState": {
-        "MemoryWindowHeight": 0.0,
-        "MemoryWindowWidth": 0.0,
-        "MemoryTypeEnabled": [],
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
         "MemoryGroup": 2,
         "Behavior": 0
     },

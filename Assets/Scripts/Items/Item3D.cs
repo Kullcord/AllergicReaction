@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Item3D : MonoBehaviour
 {
-    public ItemScriptObj itemObj;
+    public ItemSO itemObj;
     void Start()
     {
         

@@ -5,11 +5,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Inventory : MonoBehaviour
 {
     public int maxInvItems = 15;
-    public List<ItemScriptObj> inv = new List<ItemScriptObj>();
+    public List<ItemSO> inv = new List<ItemSO>();
 
     public List<GameObject> itemSlots = new List<GameObject>(); //add all item grid images
 
@@ -18,7 +19,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject itemSlot;
     [SerializeField] private GameObject itemInSlot;
 
-    [SerializeField] private ItemScriptObj[] itemsToAdd;
+    [SerializeField] private ItemSO[] itemsToAdd;
 
     public bool draggingItem = false;
 
@@ -39,7 +40,7 @@ public class Inventory : MonoBehaviour
     /// Adds an item to the inventory and to the grid
     /// </summary>
     /// <param name="itm"></param>
-    public void AddItem(ItemScriptObj itm)
+    public void AddItem(ItemSO itm)
     {
         if (inv.Count == maxInvItems)
         {
@@ -80,9 +81,15 @@ public class Inventory : MonoBehaviour
     
     //Buttons
     bool invManage ;
-    public void OpenCloseInv()
+    public void OpenCloseInv(GameObject objToToggle)
     {
         invManage = !invManage;
-        gameObject.transform.GetChild(0).gameObject.SetActive(invManage);
+        objToToggle.SetActive(invManage);
+    }
+    
+    public void AddRandomItemToInv()
+    {
+        ItemSO randomItem = itemsToAdd[Random.Range(0,itemsToAdd.Length)];
+        AddItem(randomItem);
     }
 }

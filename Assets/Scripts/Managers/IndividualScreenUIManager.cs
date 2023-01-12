@@ -53,90 +53,90 @@ public class IndividualScreenUIManager : MonoBehaviour
                 switch (stats.currentReaction.symptom)
                 {
                     case Symptoms.Reactions.Itching:
-                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        switch (stats.currentReaction.allergenItemSo.itemType)
                         {
-                            case ItemScriptObj.ItemType.Milk:
+                            case ItemSO.ItemType.Milk:
                                 currentAllergy.sprite = manager.petMenu.Milk[0];
                                 break;
-                            case ItemScriptObj.ItemType.Wheat:
+                            case ItemSO.ItemType.Wheat:
                                 currentAllergy.sprite = manager.petMenu.Wheat[0];
                                 break;
-                            case ItemScriptObj.ItemType.Peanut:
+                            case ItemSO.ItemType.Peanut:
                                 currentAllergy.sprite = manager.petMenu.Peanut[0];
                                 break;
-                            case ItemScriptObj.ItemType.Cashew:
+                            case ItemSO.ItemType.Cashew:
                                 currentAllergy.sprite = manager.petMenu.Cashew[0];
                                 break;
                         }
 
                         break;
                     case Symptoms.Reactions.Wheezing:
-                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        switch (stats.currentReaction.allergenItemSo.itemType)
                         {
-                            case ItemScriptObj.ItemType.Milk:
+                            case ItemSO.ItemType.Milk:
                                 currentAllergy.sprite = manager.petMenu.Milk[1];
                                 break;
-                            case ItemScriptObj.ItemType.Wheat:
+                            case ItemSO.ItemType.Wheat:
                                 currentAllergy.sprite = manager.petMenu.Wheat[1];
                                 break;
-                            case ItemScriptObj.ItemType.Peanut:
+                            case ItemSO.ItemType.Peanut:
                                 currentAllergy.sprite = manager.petMenu.Peanut[1];
                                 break;
-                            case ItemScriptObj.ItemType.Cashew:
+                            case ItemSO.ItemType.Cashew:
                                 currentAllergy.sprite = manager.petMenu.Cashew[1];
                                 break;
                         }
 
                         break;
                     case Symptoms.Reactions.Vomiting:
-                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        switch (stats.currentReaction.allergenItemSo.itemType)
                         {
-                            case ItemScriptObj.ItemType.Milk:
+                            case ItemSO.ItemType.Milk:
                                 currentAllergy.sprite = manager.petMenu.Milk[2];
                                 break;
-                            case ItemScriptObj.ItemType.Wheat:
+                            case ItemSO.ItemType.Wheat:
                                 currentAllergy.sprite = manager.petMenu.Wheat[2];
                                 break;
-                            case ItemScriptObj.ItemType.Peanut:
+                            case ItemSO.ItemType.Peanut:
                                 currentAllergy.sprite = manager.petMenu.Peanut[2];
                                 break;
-                            case ItemScriptObj.ItemType.Cashew:
+                            case ItemSO.ItemType.Cashew:
                                 currentAllergy.sprite = manager.petMenu.Cashew[2];
                                 break;
                         }
 
                         break;
                     case Symptoms.Reactions.Swelling:
-                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        switch (stats.currentReaction.allergenItemSo.itemType)
                         {
-                            case ItemScriptObj.ItemType.Milk:
+                            case ItemSO.ItemType.Milk:
                                 currentAllergy.sprite = manager.petMenu.Milk[3];
                                 break;
-                            case ItemScriptObj.ItemType.Wheat:
+                            case ItemSO.ItemType.Wheat:
                                 currentAllergy.sprite = manager.petMenu.Wheat[3];
                                 break;
-                            case ItemScriptObj.ItemType.Peanut:
+                            case ItemSO.ItemType.Peanut:
                                 currentAllergy.sprite = manager.petMenu.Peanut[3];
                                 break;
-                            case ItemScriptObj.ItemType.Cashew:
+                            case ItemSO.ItemType.Cashew:
                                 currentAllergy.sprite = manager.petMenu.Cashew[3];
                                 break;
                         }
 
                         break;
                     case Symptoms.Reactions.Anaphylaxis:
-                        switch (stats.currentReaction.allergenItemScriptObj.itemType)
+                        switch (stats.currentReaction.allergenItemSo.itemType)
                         {
-                            case ItemScriptObj.ItemType.Milk:
+                            case ItemSO.ItemType.Milk:
                                 currentAllergy.sprite = manager.petMenu.Milk[4];
                                 break;
-                            case ItemScriptObj.ItemType.Wheat:
+                            case ItemSO.ItemType.Wheat:
                                 currentAllergy.sprite = manager.petMenu.Wheat[4];
                                 break;
-                            case ItemScriptObj.ItemType.Peanut:
+                            case ItemSO.ItemType.Peanut:
                                 currentAllergy.sprite = manager.petMenu.Peanut[4];
                                 break;
-                            case ItemScriptObj.ItemType.Cashew:
+                            case ItemSO.ItemType.Cashew:
                                 currentAllergy.sprite = manager.petMenu.Cashew[4];
                                 break;
                         }

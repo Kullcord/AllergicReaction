@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ItemPhysicalOBJ : MonoBehaviour
 {
-    public ItemScriptObj itemObj;
+    public ItemSO itemObj;
 }

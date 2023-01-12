@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IInitializePotentialDragHandler
 {
-    public ItemScriptObj itemObj;
+    public ItemSO itemObj;
 
     public bool inStore;
     public bool inQuickBar;
@@ -15,6 +16,10 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private CanvasGroup cv;
     public ItemSlot _itemSlot;
     private GameObject canv;
+
+    private bool dragging;
+    private float currentTime = 0;
+    private float maxTime = 5;
     
     void Start()
     {
@@ -36,6 +41,19 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         
     }
 
+    private void Update()
+    {
+        if (dragging)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime >= maxTime)
+            {
+                EndDrag();
+                dragging = false;
+            }
+        }
+    }
+
     /// <summary>
     /// Used in the store
     /// </summary>
@@ -46,33 +64,35 @@ public class GridItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("begin drag");
         transform.SetParent(canv.transform);
         transform.SetAsLastSibling();
         
-        //transform.parent.transform.parent.SetAsLastSibling();
         _itemSlot.isOccupied = false;
         cv.alpha = .6f;
         cv.blocksRaycasts = false;
         Inventory.instance.draggingItem = true;
-
+        dragging = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("end drag");
-        
+        EndDrag();
+    }
+
+    private void EndDrag()
+    {
         transform.SetParent(_itemSlot.transform);
         transform.localPosition = Vector3.zero;
         
         cv.alpha = 1f;
         cv.blocksRaycasts = true;
         Inventory.instance.draggingItem = false;
-
+        dragging = false;
+        currentTime = 0;
     }
-
     public void OnDrag(PointerEventData eventData)
     {
+        print("dragging");
         transform.position = Input.mousePosition;
         Inventory.instance.draggingItem = true;
     }

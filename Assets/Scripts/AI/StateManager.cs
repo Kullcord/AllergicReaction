@@ -23,7 +23,7 @@ public class StateManager : MonoBehaviour
     [Header("Item Detection")]
     public LayerMask detectionLayer;
     public GameObject objectToInvestigate;
-    public ItemScriptObj containedAllergen;
+    public ItemSO containedAllergen;
     public List<GameObject> goList = new List<GameObject>();
     public List<GameObject> previeousObject = new List<GameObject>();
 
@@ -141,7 +141,7 @@ public class StateManager : MonoBehaviour
         {
             for(int i = 0; i < stats.allergies.Length; i++)
             {
-                if (stats.allergies[i].allergenItemScriptObj == containedAllergen && !stats.allergicReaction)
+                if (stats.allergies[i].allergenItemSo == containedAllergen && !stats.allergicReaction)
                 {
                     stats.overide = true;
                     stats.allergicReaction = true;
@@ -155,86 +155,86 @@ public class StateManager : MonoBehaviour
                     switch (stats.currentReaction.symptom)
                     {
                         case Symptoms.Reactions.Itching:
-                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            switch (stats.allergies[i].allergenItemSo.itemType)
                             {
-                                case ItemScriptObj.ItemType.Milk:
+                                case ItemSO.ItemType.Milk:
                                     petMenu.currentAllergy.sprite = petMenu.Milk[0];
                                     break;
-                                case ItemScriptObj.ItemType.Wheat:
+                                case ItemSO.ItemType.Wheat:
                                     petMenu.currentAllergy.sprite = petMenu.Wheat[0];
                                     break;
-                                case ItemScriptObj.ItemType.Peanut:
+                                case ItemSO.ItemType.Peanut:
                                     petMenu.currentAllergy.sprite = petMenu.Peanut[0];
                                     break;
-                                case ItemScriptObj.ItemType.Cashew:
+                                case ItemSO.ItemType.Cashew:
                                     petMenu.currentAllergy.sprite = petMenu.Cashew[0];
                                     break;
                             }
                             break;
                         case Symptoms.Reactions.Wheezing:
-                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            switch (stats.allergies[i].allergenItemSo.itemType)
                             {
-                                case ItemScriptObj.ItemType.Milk:
+                                case ItemSO.ItemType.Milk:
                                     petMenu.currentAllergy.sprite = petMenu.Milk[1];
                                     break;
-                                case ItemScriptObj.ItemType.Wheat:
+                                case ItemSO.ItemType.Wheat:
                                     petMenu.currentAllergy.sprite = petMenu.Wheat[1];
                                     break;
-                                case ItemScriptObj.ItemType.Peanut:
+                                case ItemSO.ItemType.Peanut:
                                     petMenu.currentAllergy.sprite = petMenu.Peanut[1];
                                     break;
-                                case ItemScriptObj.ItemType.Cashew:
+                                case ItemSO.ItemType.Cashew:
                                     petMenu.currentAllergy.sprite = petMenu.Cashew[1];
                                     break;
                             }
                             break;
                         case Symptoms.Reactions.Vomiting:
-                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            switch (stats.allergies[i].allergenItemSo.itemType)
                             {
-                                case ItemScriptObj.ItemType.Milk:
+                                case ItemSO.ItemType.Milk:
                                     petMenu.currentAllergy.sprite = petMenu.Milk[2];
                                     break;
-                                case ItemScriptObj.ItemType.Wheat:
+                                case ItemSO.ItemType.Wheat:
                                     petMenu.currentAllergy.sprite = petMenu.Wheat[2];
                                     break;
-                                case ItemScriptObj.ItemType.Peanut:
+                                case ItemSO.ItemType.Peanut:
                                     petMenu.currentAllergy.sprite = petMenu.Peanut[2];
                                     break;
-                                case ItemScriptObj.ItemType.Cashew:
+                                case ItemSO.ItemType.Cashew:
                                     petMenu.currentAllergy.sprite = petMenu.Cashew[2];
                                     break;
                             }
                             break;
                         case Symptoms.Reactions.Swelling:
-                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            switch (stats.allergies[i].allergenItemSo.itemType)
                             {
-                                case ItemScriptObj.ItemType.Milk:
+                                case ItemSO.ItemType.Milk:
                                     petMenu.currentAllergy.sprite = petMenu.Milk[3];
                                     break;
-                                case ItemScriptObj.ItemType.Wheat:
+                                case ItemSO.ItemType.Wheat:
                                     petMenu.currentAllergy.sprite = petMenu.Wheat[3];
                                     break;
-                                case ItemScriptObj.ItemType.Peanut:
+                                case ItemSO.ItemType.Peanut:
                                     petMenu.currentAllergy.sprite = petMenu.Peanut[3];
                                     break;
-                                case ItemScriptObj.ItemType.Cashew:
+                                case ItemSO.ItemType.Cashew:
                                     petMenu.currentAllergy.sprite = petMenu.Cashew[3];
                                     break;
                             }
                             break;
                         case Symptoms.Reactions.Anaphylaxis:
-                            switch (stats.allergies[i].allergenItemScriptObj.itemType)
+                            switch (stats.allergies[i].allergenItemSo.itemType)
                             {
-                                case ItemScriptObj.ItemType.Milk:
+                                case ItemSO.ItemType.Milk:
                                     petMenu.currentAllergy.sprite = petMenu.Milk[4];
                                     break;
-                                case ItemScriptObj.ItemType.Wheat:
+                                case ItemSO.ItemType.Wheat:
                                     petMenu.currentAllergy.sprite = petMenu.Wheat[4];
                                     break;
-                                case ItemScriptObj.ItemType.Peanut:
+                                case ItemSO.ItemType.Peanut:
                                     petMenu.currentAllergy.sprite = petMenu.Peanut[4];
                                     break;
-                                case ItemScriptObj.ItemType.Cashew:
+                                case ItemSO.ItemType.Cashew:
                                     petMenu.currentAllergy.sprite = petMenu.Cashew[4];
                                     break;
                             }
@@ -244,7 +244,7 @@ public class StateManager : MonoBehaviour
                     #endregion
                     break;
                 }
-                else if (stats.allergies[i].allergenItemScriptObj != containedAllergen)
+                else if (stats.allergies[i].allergenItemSo != containedAllergen)
                 {
                     petMenu.currentAllergy.gameObject.SetActive(false);
                 }
@@ -255,9 +255,9 @@ public class StateManager : MonoBehaviour
         Debug.Log("Increase hunger");
         #region IncreaseHunger
         Ch_StatsManager chStats = GetComponent<Ch_StatsManager>();
-        if (stats.currentReaction.allergenItemScriptObj.isFood)
+        if (stats.currentReaction.allergenItemSo.isFood)
         {
-            stats.hunger += stats.currentReaction.allergenItemScriptObj.relievesHunger;
+            stats.hunger += stats.currentReaction.allergenItemSo.relievesHunger;
             if (stats.hunger > 100)
                 stats.hunger = 100;
             chStats.hungerLevel = stats.hunger;
@@ -267,9 +267,9 @@ public class StateManager : MonoBehaviour
                 if(!stats.isThirsty && !stats.isBored && !stats.wantsLove)
                     stats.overide = false;
             }
-        }else if (stats.currentReaction.allergenItemScriptObj.isDrink)
+        }else if (stats.currentReaction.allergenItemSo.isDrink)
         {
-            stats.thirst += stats.currentReaction.allergenItemScriptObj.relievesThirst;
+            stats.thirst += stats.currentReaction.allergenItemSo.relievesThirst;
             if (stats.thirst > 100)
                 stats.thirst = 100;
             chStats.thirstLevel = stats.hunger;

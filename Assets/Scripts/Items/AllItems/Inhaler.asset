@@ -21,13 +21,15 @@ MonoBehaviour:
   reactionType: 0000000001000000020000000300000004000000
   successRate:
   - 0
-  - 50
   - 0
   - 0
-  - 90
+  - 100
+  - 0
   isAllergen: 0
   allergenSprite: {fileID: 0}
   isFood: 0
   relievesHunger: 0
   isDrink: 0
   relievesThirst: 0
+  forPlay: 0
+  relievesBoredom: 0

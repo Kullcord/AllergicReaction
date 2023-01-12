@@ -103,7 +103,7 @@ public class PetStatsText : MonoBehaviour
             {
                 allergensUI[i].SetActive(true);
                 allergensUI[i].GetComponent<Image>().sprite =
-                    stats.randomPet.allergies[i].allergenItemScriptObj.allergenSprite;
+                    stats.randomPet.allergies[i].allergenItemSo.allergenSprite;
                 switch (stats.randomPet.allergies[i].symptom)
                 {
                     case Symptoms.Reactions.Itching:
@@ -151,7 +151,7 @@ public class PetStatsText : MonoBehaviour
             string symptomsText = "";
             for (int index = 0; index < MyPets.petsChosen[whichPet].allergies.Length; index++)
             {
-                allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItemScriptObj.itemType;
+                allergensText += " - " + MyPets.petsChosen[whichPet].allergies[index].allergenItemSo.itemType;
                 symptomsText += " - " + MyPets.petsChosen[whichPet].allergies[index].symptom;
             }
             for (int i = 0; i < allergensUI.Length; i++)
@@ -163,7 +163,7 @@ public class PetStatsText : MonoBehaviour
             {
                 allergensUI[i].SetActive(true);
                 allergensUI[i].GetComponent<Image>().sprite =
-                    MyPets.petsChosen[whichPet].allergies[i].allergenItemScriptObj.allergenSprite;
+                    MyPets.petsChosen[whichPet].allergies[i].allergenItemSo.allergenSprite;
                 switch ( MyPets.petsChosen[whichPet].allergies[i].symptom)
                 {
                     case Symptoms.Reactions.Itching:

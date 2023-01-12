@@ -12,9 +12,8 @@ public class PetsAndStats : MonoBehaviour
     public ChosenPetStats randomPet = new ChosenPetStats();
     
     [Tooltip("Add all item obj here")]
-    [SerializeField]private ItemScriptObj[] allItems;
-    private List<ItemScriptObj> allAllergenItems = new List<ItemScriptObj>();
-    private List<ItemScriptObj> allAllergensUsed;
+    public List<ItemSO> allAllergenItems = new List<ItemSO>();
+    private List<ItemSO> allAllergensUsed;
     [Tooltip("Add all item obj here")]
     [SerializeField]private Symptoms.Reactions[] allSymptoms;
     
@@ -22,13 +21,12 @@ public class PetsAndStats : MonoBehaviour
     public int maxPets = 3;
     private void Start()
     {
-        for (int i = 0; i < allItems.Length; i++)
+        Debug.Log("AMount of Allergerns : " + allAllergenItems.Count);
+        for (int i = 0; i < allAllergenItems.Count; i++)
         {
-            if (allItems[i].isAllergen)
-            {
-                allAllergenItems.Add(allItems[i]);
-            }
+            Debug.Log(allAllergenItems[i].itemType + " " + allAllergenItems[i].isAllergen);
         }
+        
     }
 
     #region Set Random Stats
@@ -46,8 +44,8 @@ public class PetsAndStats : MonoBehaviour
         {
             randomPet.allergies[i] = new SymptomReaction();
             //choose random allergen
-            randomPet.allergies[i].allergenItemScriptObj = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
-            allAllergensUsed.Remove(randomPet.allergies[i].allergenItemScriptObj);
+            randomPet.allergies[i].allergenItemSo = allAllergensUsed[Random.Range(0, allAllergensUsed.Count)];
+            allAllergensUsed.Remove(randomPet.allergies[i].allergenItemSo);
             //choose random reaction
             randomPet.allergies[i].symptom = allSymptoms[Random.Range(0, allSymptoms.Length)];
         }
@@ -60,6 +58,16 @@ public class PetsAndStats : MonoBehaviour
         randomPet.hunger = Random.Range(0f, 1.1f);
         randomPet.boredom = Random.Range(0f, 1.1f);
         randomPet.love = Random.Range(0f, 1.1f);
+        
+        Debug.Log("Amount of allergies: "+ randomnr);
+        Debug.Log("Pet Id: "+ randomPet.petID);
+        Debug.Log("Amount of Energy: "+ randomPet.energy);
+        Debug.Log("Amount of Attention: "+ randomPet.attentionSpan);
+        Debug.Log("Amount of Curiosity: "+ randomPet.curiosity);
+        Debug.Log("Amount of Thirst: "+ randomPet.thirst);
+        Debug.Log("Amount of Hunger: "+ randomPet.hunger);
+        Debug.Log("Amount of Boredom: "+ randomPet.boredom);
+        Debug.Log("Amount of Love: "+ randomPet.love);
     }
     #endregion
 
@@ -92,8 +100,8 @@ public class PetsAndStats : MonoBehaviour
 [Serializable]
 public class SymptomReaction
 {
-    [FormerlySerializedAs("allergenItem")] [Tooltip("The allergen causing the reaction")]
-    public ItemScriptObj allergenItemScriptObj;
+    [FormerlySerializedAs("allergenItemScriptObj")] [FormerlySerializedAs("allergenItem")] [Tooltip("The allergen causing the reaction")]
+    public ItemSO allergenItemSo;
     [Tooltip("What allergic reaction he can have")]
     public Symptoms.Reactions symptom;
 }
