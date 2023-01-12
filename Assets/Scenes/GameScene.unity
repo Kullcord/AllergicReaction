@@ -64646,6 +64646,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 195a863513f2e0546981a6697af63e22, type: 2}
   - {fileID: 11400000, guid: 302bb369eb1b0b54fbec042483d83029, type: 2}
   - {fileID: 11400000, guid: 8adba86e876d24345b2fa78ebaaf283a, type: 2}
+  randomItems:
+  - {fileID: 11400000, guid: 1106987a0db8ddc48b80a0fb326703c8, type: 2}
+  - {fileID: 11400000, guid: 831d9ec1e9cf9df478d5783113ae96a3, type: 2}
+  - {fileID: 11400000, guid: c1ae1169c4aa76944979e203451bd723, type: 2}
   draggingItem: 0
 --- !u!1 &1884966408
 GameObject:

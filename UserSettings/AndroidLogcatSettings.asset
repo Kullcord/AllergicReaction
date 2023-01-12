@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "LHS7N18C04023205",
         "name": "com.DefaultCompany.AllergyGame",
-        "processId": 19357,
+        "processId": 4266,
         "exited": false
     },
     "m_SelectedPriority": 1,
@@ -96,6 +96,12 @@
             "deviceId": "LHS7N18C04023205",
             "name": "com.DefaultCompany.AllergyGame",
             "processId": 19357,
+            "exited": false
+        },
+        {
+            "deviceId": "LHS7N18C04023205",
+            "name": "com.DefaultCompany.AllergyGame",
+            "processId": 4266,
             "exited": false
         }
     ],

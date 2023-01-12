@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject itemInSlot;
 
     [SerializeField] private ItemSO[] itemsToAdd;
+    [SerializeField] private ItemSO[] randomItems;
 
     public bool draggingItem = false;
 
@@ -89,7 +90,7 @@ public class Inventory : MonoBehaviour
     
     public void AddRandomItemToInv()
     {
-        ItemSO randomItem = itemsToAdd[Random.Range(0,itemsToAdd.Length)];
+        ItemSO randomItem = randomItems[Random.Range(0,randomItems.Length)];
         AddItem(randomItem);
     }
 }

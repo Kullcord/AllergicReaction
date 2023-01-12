@@ -273,7 +273,7 @@ public class Individual : State, IDropHandler
             {
                 iterations++;
                 
-                stats.love += 2 * chStats.loveMultiplier * Time.deltaTime ;
+                stats.love += 10 * chStats.loveMultiplier * Time.deltaTime ;
                 print("stats.love");
                 if (stats.love > 100)
                     stats.love = 100;
