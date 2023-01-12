@@ -7,6 +7,7 @@ TagManager:
   - Pet
   - PetIcon
   - Ground
+  - Background
   layers:
   - Default
   - TransparentFX

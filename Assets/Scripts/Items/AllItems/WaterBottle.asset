@@ -20,10 +20,10 @@ MonoBehaviour:
   isRemedy: 1
   reactionType: 0000000001000000020000000300000004000000
   successRate:
-  - 50
   - 0
-  - 50
-  - 0
+  - 100
+  - 100
+  - 100
   - 0
   isAllergen: 0
   allergenSprite: {fileID: 0}
@@ -31,3 +31,5 @@ MonoBehaviour:
   relievesHunger: 0
   isDrink: 1
   relievesThirst: 100
+  forPlay: 0
+  relievesBoredom: 0

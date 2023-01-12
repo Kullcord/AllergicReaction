@@ -138,8 +138,9 @@ public class Individual : State, IDropHandler
         {
             petTendedTo = true;
             TendToPet(stats,itemDropped.itemObj);
-            Inventory.instance.RemoveItem(itemDropped.gameObject);
-            if(/*!stats.overide &&*/ petTendedTo)
+            if(!itemDropped.itemObj.forPlay)
+                Inventory.instance.RemoveItem(itemDropped.gameObject);
+            if(petTendedTo)
             {
                 if (itemDropped.itemObj.isFood || itemDropped.itemObj.isDrink)
                 {
@@ -291,7 +292,7 @@ public class Individual : State, IDropHandler
         }
     }
 
-    public void TendToPet(CharacterStats stats, ItemScriptObj item)
+    public void TendToPet(CharacterStats stats, ItemSO item)
     {
         if (item.isFood)
         {
@@ -338,7 +339,7 @@ public class Individual : State, IDropHandler
         }
     }
     
-    public bool CanTreatPet(ItemScriptObj item, CharacterStats stats)
+    public bool CanTreatPet(ItemSO item, CharacterStats stats)
     {
         if (!stats.allergicReaction)
             return false;
