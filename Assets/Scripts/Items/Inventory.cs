@@ -22,8 +22,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private ItemSO[] itemsToAdd;
     [SerializeField] private ItemSO[] randomItems;
 
-    public bool draggingItem = false;
-
+    [HideInInspector]public bool draggingItem = false;
+    [SerializeField] private GameObject randomItem;
     private void Awake()
     {
         instance = this;
@@ -34,7 +34,12 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < itemsToAdd.Length; i++)
         {
             AddItem(itemsToAdd[i]);
+            
         }
+        Color col = Color.white;
+        col.a = 0.5f;
+        randomItem.GetComponent<Button>().interactable = false;
+        randomItem.GetComponent<Image>().color = col;
     }
 
     /// <summary>
@@ -43,12 +48,6 @@ public class Inventory : MonoBehaviour
     /// <param name="itm"></param>
     public void AddItem(ItemSO itm)
     {
-        if (inv.Count == maxInvItems)
-        {
-            print("Inventory full");
-            return;
-        }
-
         inv.Add(itm);
 
         //find the first slot available
@@ -72,10 +71,24 @@ public class Inventory : MonoBehaviour
         availableSlot.isOccupied = true;
         GameObject itemClone = Instantiate(itemInSlot, availableSlot.transform);
         itemClone.GetComponent<GridItem>().itemObj = itm;
+        
+        if (inv.Count == maxInvItems)
+        {
+            print("Inventory full");
+            Color col = Color.white;
+            col.a = 0.5f;
+            randomItem.GetComponent<Button>().interactable = false;
+            randomItem.GetComponent<Image>().color = col;
+            return;
+        }
     }
 
     public void RemoveItem(GameObject _item)
     {
+        Color col = Color.white;
+        col.a = 1f;
+        randomItem.GetComponent<Button>().interactable = true;
+        randomItem.GetComponent<Image>().color = col;
         inv.Remove(_item.GetComponent<GridItem>().itemObj);
         Destroy(_item);
     }
