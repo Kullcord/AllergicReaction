@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TOON
+  m_Name: TOON 1
   m_Shader: {fileID: -6465566751694194690, guid: 80003aff60d156e4592891aca3c9591c,
     type: 3}
   m_ValidKeywords: []
@@ -104,6 +104,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Hue: -154.3
     - _Lighting_Cutoff: 0.01
     - _Metallic: 0
     - _OcclusionStrength: 1
